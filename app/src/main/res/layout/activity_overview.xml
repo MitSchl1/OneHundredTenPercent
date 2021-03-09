@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".OverviewActivity">
+
+    <Button
+        android:id="@+id/signout"
+        android:layout_width="370dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/colorAccent"
+        android:text="Logout"
+        android:textColor="#ffffff"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/userdata"
+        android:layout_width="370dp"
+        android:layout_height="100dp"
+        android:backgroundTint="@color/cardview_dark_background"
+        android:gravity="center"
+        android:text="Nutzerdaten"
+        android:textColor="#ffffff"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="@id/signout"
+        app:layout_constraintTop_toBottomOf="@id/signout"
+
+        />
+
+    <Button
+        android:id="@+id/other1"
+        android:layout_width="370dp"
+        android:layout_height="100dp"
+        android:backgroundTint="@color/colorAccent"
+        android:gravity="center"
+        android:text="Other Function"
+        android:textColor="#ffffff"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="@id/userdata"
+        app:layout_constraintTop_toBottomOf="@id/userdata" />
+
+    <Button
+        android:id="@+id/other2"
+        android:layout_width="370dp"
+        android:layout_height="100dp"
+        android:backgroundTint="@color/cardview_dark_background"
+        android:gravity="center"
+        android:text="Other Function 2"
+        android:textColor="#ffffff"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="@id/userdata"
+        app:layout_constraintTop_toBottomOf="@id/other1" />
+    <Button
+        android:id="@+id/other3"
+        android:layout_width="370dp"
+        android:layout_height="100dp"
+        android:backgroundTint="@color/colorAccent"
+        android:gravity="center"
+        android:text="Other Function 3"
+        android:textColor="#ffffff"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="@id/userdata"
+        app:layout_constraintTop_toBottomOf="@id/other2" />
+    <Button
+        android:id="@+id/other4"
+        android:layout_width="370dp"
+        android:layout_height="100dp"
+        android:backgroundTint="@color/cardview_dark_background"
+        android:gravity="center"
+        android:text="Other Function 4"
+        android:textColor="#ffffff"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="@id/userdata"
+        app:layout_constraintTop_toBottomOf="@id/other3" />
+    <Button
+        android:id="@+id/other5"
+        android:layout_width="370dp"
+        android:layout_height="100dp"
+        android:backgroundTint="@color/colorAccent"
+        android:gravity="center"
+        android:text="Other Function 5"
+        android:textColor="#ffffff"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="@id/userdata"
+        app:layout_constraintTop_toBottomOf="@id/other4" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
