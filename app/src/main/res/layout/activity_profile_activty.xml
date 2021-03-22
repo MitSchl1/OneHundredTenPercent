@@ -59,5 +59,30 @@
         app:layout_constraintTop_toTopOf="@id/nameTitle"
         app:layout_constraintLeft_toRightOf="@id/nameTitle"
         />
+    <Button
+        android:id="@+id/editProfile"
+        android:layout_width="380dp"
+        android:layout_height="70dp"
+        android:text="Edit"
+        android:textStyle="bold"
+        android:textSize="24dp"
+        android:textColor="#ffffff"
+        android:backgroundTint="@color/colorAccent"
+        app:layout_constraintTop_toBottomOf="@id/nameTitle"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="50dp"
+        />
+    <TextView
+        android:id="@+id/changePassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Passwort ändern"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@+id/editProfile"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginTop="25dp"
+        android:layout_marginLeft="50dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

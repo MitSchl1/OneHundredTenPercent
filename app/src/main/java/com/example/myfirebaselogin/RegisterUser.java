@@ -29,7 +29,7 @@ import java.util.Objects;
 
 public class RegisterUser extends AppCompatActivity implements View.OnClickListener {
     private TextView banner, registerUser;
-    private EditText editTextName, editTextMail, editTextPassword;
+    private EditText editTextName, editTextMail, editTextPassword, editTextWeight;
     private ProgressBar progressBar;
     private FirebaseAuth mAuth;
     private Task<Void> myRef;
@@ -50,7 +50,7 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
         editTextName = (EditText) findViewById(R.id.name);
         editTextMail = (EditText) findViewById(R.id.mail);
         editTextPassword = (EditText) findViewById(R.id.password);
-
+        editTextWeight = (EditText) findViewById(R.id.weight);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
     }
@@ -72,6 +72,9 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
         final String userMail = editTextMail.getText().toString().trim();
         final String userName = editTextName.getText().toString().trim();
         String userPassword = editTextPassword.getText().toString().trim();
+        final String stringWeight = editTextWeight.getText().toString().trim();
+        final double userWeight = Double.parseDouble(stringWeight);
+
 
         if (userName.isEmpty()) {
             editTextName.setError("Bitte Name eingeben");
@@ -98,6 +101,16 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
             editTextPassword.requestFocus();
             return;
         }
+        if(stringWeight.isEmpty()){
+            editTextWeight.setError("Bitte Gewicht eingeben");
+            editTextWeight.requestFocus();
+            return;
+        }
+        if(userWeight < 20 || userWeight > 300) {
+            editTextWeight.setError("Bitte gültiges GEwicht eingeben");
+            editTextWeight.requestFocus();
+            return;
+        }
 
         progressBar.setVisibility(View.VISIBLE);
         mAuth.createUserWithEmailAndPassword(userMail, userPassword)
@@ -105,7 +118,7 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            User user = new User(userName, userMail);
+                            User user = new User(userName, userMail, userWeight);
 
                             FirebaseDatabase.getInstance().getReference("Users")
                                     .child(FirebaseAuth.getInstance().getCurrentUser().getUid())

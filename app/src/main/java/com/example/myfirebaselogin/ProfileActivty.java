@@ -18,11 +18,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class ProfileActivty extends AppCompatActivity {
+public class ProfileActivty extends AppCompatActivity implements View.OnClickListener{
+    private TextView changePassword;
     private Button logout;
     private FirebaseUser user;
     private DatabaseReference dbReference;
     private String userId;
+    private Button editProfile;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,8 +36,14 @@ public class ProfileActivty extends AppCompatActivity {
             public void onClick(View v) {
                 FirebaseAuth.getInstance().signOut();
                 startActivity(new Intent(ProfileActivty.this, MainActivity.class));
+
             }
         });
+
+        changePassword = (TextView) findViewById(R.id.changePassword);
+        changePassword.setOnClickListener(this);
+        editProfile = (Button) findViewById(R.id.editProfile);
+        editProfile.setOnClickListener(this);
 
         user = FirebaseAuth.getInstance().getCurrentUser();
         dbReference = FirebaseDatabase.getInstance().getReference("Users");
@@ -64,5 +72,18 @@ public class ProfileActivty extends AppCompatActivity {
              }
          });
 
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.editProfile:
+                startActivity(new Intent(this, EditProfileActivity.class));
+                break;
+
+            case R.id.changePassword:
+                startActivity(new Intent(this,ForgotPassword.class));
+                break;
+        }
     }
 }
