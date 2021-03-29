@@ -35,12 +35,12 @@
         />
 
     <Button
-        android:id="@+id/other1"
+        android:id="@+id/explainexercise"
         android:layout_width="370dp"
         android:layout_height="100dp"
         android:backgroundTint="@color/colorAccent"
         android:gravity="center"
-        android:text="Other Function"
+        android:text="How To "
         android:textColor="#ffffff"
         android:textSize="24sp"
         android:textStyle="bold"
@@ -58,7 +58,7 @@
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="@id/userdata"
-        app:layout_constraintTop_toBottomOf="@id/other1" />
+        app:layout_constraintTop_toBottomOf="@id/explainexercise" />
     <Button
         android:id="@+id/other3"
         android:layout_width="370dp"
