@@ -20,6 +20,8 @@ public class OverviewActivity extends AppCompatActivity implements View.OnClickL
         userdata.setOnClickListener(this);
         Button explainExercise = (Button) findViewById(R.id.explainexercise);
         explainExercise.setOnClickListener(this);
+        Button createTrainingsplan = (Button) findViewById(R.id.createTrainingsplan);
+        createTrainingsplan.setOnClickListener(this);
         Button logout = (Button) findViewById(R.id.signout);
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -37,6 +39,9 @@ public class OverviewActivity extends AppCompatActivity implements View.OnClickL
                 break;
             case R.id.explainexercise:
                 startActivity(new Intent (this, ExplainExerciseBenchPressStepOneActivity.class));
+                break;
+            case R.id.createTrainingsplan:
+                startActivity(new Intent (this, CreateTrainingsplanActivity.class));
                 break;
         }
     }

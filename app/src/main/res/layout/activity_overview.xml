@@ -48,12 +48,12 @@
         app:layout_constraintTop_toBottomOf="@id/userdata" />
 
     <Button
-        android:id="@+id/other2"
+        android:id="@+id/createTrainingsplan"
         android:layout_width="370dp"
         android:layout_height="100dp"
         android:backgroundTint="@color/cardview_dark_background"
         android:gravity="center"
-        android:text="Other Function 2"
+        android:text="Trainingsplan erstellen"
         android:textColor="#ffffff"
         android:textSize="24sp"
         android:textStyle="bold"
@@ -70,7 +70,7 @@
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="@id/userdata"
-        app:layout_constraintTop_toBottomOf="@id/other2" />
+        app:layout_constraintTop_toBottomOf="@id/createTrainingsplan" />
     <Button
         android:id="@+id/other4"
         android:layout_width="370dp"
