@@ -1,5 +1,6 @@
 package com.example.myfirebaselogin;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatSpinner;
 
@@ -9,9 +10,18 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,8 +31,12 @@ public class CreateTrainingsplanActivity extends AppCompatActivity implements Vi
     Button buttonSubmit;
     LinearLayout layoutList;
 
-    List<String> exerciseList = new ArrayList<>();
-    ArrayList<Exercise> exerciseList2 = new ArrayList<>();
+    private DatabaseReference dbReference;
+    private String userId;
+    private FirebaseUser user;
+
+    List<String> exerciseNames = new ArrayList<>();
+    ArrayList<Exercise> exerciseList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,9 +50,13 @@ public class CreateTrainingsplanActivity extends AppCompatActivity implements Vi
         buttonAdd.setOnClickListener(this);
         buttonSubmit.setOnClickListener(this);
 
-        exerciseList.add("Ficken");
-        exerciseList.add("Wie");
-        exerciseList.add("einfach");
+        exerciseNames.add("Ficken");
+        exerciseNames.add("Wie");
+        exerciseNames.add("einfach");
+
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        dbReference = FirebaseDatabase.getInstance().getReference("Users");
+        userId = user.getUid();
     }
 
     @Override
@@ -48,20 +66,58 @@ public class CreateTrainingsplanActivity extends AppCompatActivity implements Vi
                 addView();
                 break;
             case R.id.submitbutton:
-                if(checkIfValidAndRead()) {
-                    Intent intent = new Intent(CreateTrainingsplanActivity.this, ExerciseActivity.class);
+               /*if(checkIfValidAndRead()) {
+                    /*Intent intent = new Intent(CreateTrainingsplanActivity.this, ExerciseActivity.class);
                     Bundle bundle = new Bundle();
-                    bundle.putSerializable("list", exerciseList2);
+                    bundle.putSerializable("list", exerciseList);
                     intent.putExtras(bundle);
                     startActivity(intent);
-                }
+
+
+               }*/
+                createTrainingsplan();
                 break;
         }
 
     }
 
+    private void createTrainingsplan() {
+        dbReference.child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                User userProfile = snapshot.getValue(User.class);
+                assert userProfile != null;
+                ArrayList<Exercise> xx = new ArrayList<>();
+                Exercise e = new Exercise("nice",2);
+                xx.add(e);
+                Trainingsplan trainingsplan = new Trainingsplan(xx,"firsttry");
+                userProfile.addTrainingsplanToList(trainingsplan);
+                //String name = userProfile.getTrainingsplanList().get(1).getName();
+
+                FirebaseDatabase.getInstance().getReference("Users")
+                        .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                        .setValue(userProfile).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(CreateTrainingsplanActivity.this, "Nutzer erfolgreich registriert", Toast.LENGTH_LONG).show();
+                            startActivity(new Intent(CreateTrainingsplanActivity.this, ProfileActivty.class));
+
+                        } else {
+                            Toast.makeText(CreateTrainingsplanActivity.this, "Registrierung fehlgeschlagen! Probiers nochmal", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
+
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
     private boolean checkIfValidAndRead() {
-        exerciseList2.clear();
+        exerciseList.clear();
         boolean result = true;
 
         for(int i=0;i<layoutList.getChildCount();i++){
@@ -82,17 +138,17 @@ public class CreateTrainingsplanActivity extends AppCompatActivity implements Vi
             }
 
             if(spinnerExercise.getSelectedItemPosition()!=0){
-                exercise.setName(exerciseList.get(spinnerExercise.getSelectedItemPosition()));
+                exercise.setName(exerciseNames.get(spinnerExercise.getSelectedItemPosition()));
             }else {
                 result = false;
                 break;
             }
 
-            exerciseList2.add(exercise);
+            exerciseList.add(exercise);
 
         }
 
-        if(exerciseList2.size()==0){
+        if(exerciseList.size()==0){
             result = false;
             Toast.makeText(this, "Add Cricketers First!", Toast.LENGTH_SHORT).show();
         }else if(!result){
@@ -110,7 +166,7 @@ public class CreateTrainingsplanActivity extends AppCompatActivity implements Vi
         AppCompatSpinner spinnerExercise = (AppCompatSpinner)exerciseView.findViewById(R.id.exercise_name);
 
 
-        ArrayAdapter arrayAdapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item,exerciseList);
+        ArrayAdapter arrayAdapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item, exerciseNames);
         spinnerExercise.setAdapter(arrayAdapter);
 
         layoutList.addView(exerciseView);

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class User {
     public String name, mail;
     public double weight;
-
+    public ArrayList<Trainingsplan> trainingsplanList = new ArrayList<Trainingsplan>();
 
     public User(){
 
@@ -14,5 +14,42 @@ public class User {
         this.name = name;
         this.mail = mail;
         this.weight = weight;
+        //this.trainingsplanList = new ArrayList<Trainingsplan>();
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getMail() {
+        return mail;
+    }
+
+    public void setMail(String mail) {
+        this.mail = mail;
+    }
+
+    public double getWeight() {
+        return weight;
+    }
+
+    public void setWeight(double weight) {
+        this.weight = weight;
+    }
+
+    public  ArrayList<Trainingsplan> getTrainingsplanList() {
+        return trainingsplanList;
+    }
+
+    public void setTrainingsplanList( ArrayList<Trainingsplan>trainingsplanList) {
+        this.trainingsplanList = trainingsplanList;
+    }
+
+    public void addTrainingsplanToList( Trainingsplan trainingsplan){
+        this.trainingsplanList.add(trainingsplan);
     }
 }
