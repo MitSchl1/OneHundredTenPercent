@@ -27,17 +27,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CreateTrainingsplanActivity extends AppCompatActivity implements View.OnClickListener {
-    Button buttonAdd;
-    Button buttonSubmit;
-    LinearLayout layoutList;
+    private Button buttonAdd;
+    private Button buttonSubmit;
+    private LinearLayout layoutList;
 
     private DatabaseReference dbReference;
     private String userId;
     private FirebaseUser user;
 
-    List<String> exerciseNames = new ArrayList<>();
-    ArrayList<Exercise> exerciseList = new ArrayList<>();
-
+    private List<String> exerciseNames = new ArrayList<>();
+    private ArrayList<Exercise> exerciseList = new ArrayList<>();
+    private EditText editTextTrainingsplantitle;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,7 +46,7 @@ public class CreateTrainingsplanActivity extends AppCompatActivity implements Vi
         buttonAdd = (Button) findViewById(R.id.addbutton);
         buttonSubmit = (Button) findViewById(R.id.submitbutton);
         layoutList = findViewById(R.id.layout_list);
-
+        editTextTrainingsplantitle = (EditText) findViewById(R.id.trainingsplantitle);
         buttonAdd.setOnClickListener(this);
         buttonSubmit.setOnClickListener(this);
 
@@ -87,12 +87,42 @@ public class CreateTrainingsplanActivity extends AppCompatActivity implements Vi
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 User userProfile = snapshot.getValue(User.class);
                 assert userProfile != null;
-                ArrayList<Exercise> xx = new ArrayList<>();
-                Exercise e = new Exercise("nice",2);
-                xx.add(e);
-                Trainingsplan trainingsplan = new Trainingsplan(xx,"firsttry");
+                //ArrayList<Exercise> xx = new ArrayList<>();
+                //Exercise e = new Exercise("nice",2);
+                //xx.add(e);
+                final String trainingsplantitle = editTextTrainingsplantitle.getText().toString().trim();
+                for(int i=0;i<layoutList.getChildCount();i++){
+
+                    View exerciseView = layoutList.getChildAt(i);
+
+                    EditText editTextRepetition = (EditText)exerciseView.findViewById(R.id.edit_name);
+                    AppCompatSpinner spinnerExercise = (AppCompatSpinner)exerciseView.findViewById(R.id.exercise_name);
+
+                    Exercise exercise = new Exercise();
+
+                    if(!editTextRepetition.getText().toString().equals("")){
+                        exercise.setRepetitions(Integer.parseInt(editTextRepetition.getText().toString()));
+                    }else{
+                        editTextRepetition.setError("Bitte Minuten angeben");
+                        editTextRepetition.requestFocus();
+                        return;
+                    }
+
+                    exercise.setName(exerciseNames.get(spinnerExercise.getSelectedItemPosition()));
+                    exerciseList.add(exercise);
+                }
+                if(exerciseList.size()==0){
+                    buttonAdd.setError("Bitte zuerst eine Uebung hinzufuegen");
+                    buttonAdd.requestFocus();
+                    return;
+                }
+                if(trainingsplantitle.isEmpty()){
+                    editTextTrainingsplantitle.setError("Bitte gib einen Titel ein");
+                    editTextTrainingsplantitle.requestFocus();
+                    return;
+                }
+                Trainingsplan trainingsplan = new Trainingsplan(exerciseList,trainingsplantitle);
                 userProfile.addTrainingsplanToList(trainingsplan);
-                //String name = userProfile.getTrainingsplanList().get(1).getName();
 
                 FirebaseDatabase.getInstance().getReference("Users")
                         .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
