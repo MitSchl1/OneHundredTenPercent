@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -64,7 +65,7 @@ public class CreateTrainingsplanActivity extends AppCompatActivity implements Vi
         switch(v.getId()){
             case R.id.addbutton:
                 addView();
-                break;
+                break;  
             case R.id.submitbutton:
                /*if(checkIfValidAndRead()) {
                     /*Intent intent = new Intent(CreateTrainingsplanActivity.this, ExerciseActivity.class);
@@ -81,6 +82,8 @@ public class CreateTrainingsplanActivity extends AppCompatActivity implements Vi
 
     }
 
+
+
     private void createTrainingsplan() {
         dbReference.child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -95,7 +98,7 @@ public class CreateTrainingsplanActivity extends AppCompatActivity implements Vi
 
                     View exerciseView = layoutList.getChildAt(i);
 
-                    EditText editTextRepetition = (EditText)exerciseView.findViewById(R.id.edit_name);
+                    EditText editTextRepetition = (EditText)exerciseView.findViewById(R.id.edit_minute);
                     AppCompatSpinner spinnerExercise = (AppCompatSpinner)exerciseView.findViewById(R.id.exercise_name);
 
                     Exercise exercise = new Exercise();
@@ -154,7 +157,7 @@ public class CreateTrainingsplanActivity extends AppCompatActivity implements Vi
 
             View exerciseView = layoutList.getChildAt(i);
 
-            EditText editTextRepetition = (EditText)exerciseView.findViewById(R.id.edit_name);
+            EditText editTextRepetition = (EditText)exerciseView.findViewById(R.id.edit_minute);
             AppCompatSpinner spinnerExercise = (AppCompatSpinner)exerciseView.findViewById(R.id.exercise_name);
 
             Exercise exercise = new Exercise();
@@ -192,13 +195,21 @@ public class CreateTrainingsplanActivity extends AppCompatActivity implements Vi
     private void addView() {
         final View exerciseView = getLayoutInflater().inflate(R.layout.row_add_exercise,null,false);
 
-        EditText editText = (EditText)exerciseView.findViewById(R.id.edit_name);
+        EditText editText = (EditText)exerciseView.findViewById(R.id.edit_minute);
         AppCompatSpinner spinnerExercise = (AppCompatSpinner)exerciseView.findViewById(R.id.exercise_name);
-
+        TextView closeX = (TextView) exerciseView.findViewById(R.id.button_remove);
 
         ArrayAdapter arrayAdapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item, exerciseNames);
         spinnerExercise.setAdapter(arrayAdapter);
-
+        closeX.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                removeView(exerciseView);
+            }
+        });
         layoutList.addView(exerciseView);
+    }
+    private void removeView(View view) {
+        layoutList.removeView(view);
     }
 }
