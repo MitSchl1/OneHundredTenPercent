@@ -3,9 +3,9 @@ package com.example.myfirebaselogin;
 import java.util.ArrayList;
 
 public class User {
-    public String name, mail;
-    public double weight;
-    public ArrayList<Trainingsplan> trainingsplanList = new ArrayList<Trainingsplan>();
+    private String name, mail;
+    private double weight;
+    private ArrayList<Trainingsplan> trainingsplanList = new ArrayList<Trainingsplan>();
 
     public User(){
 

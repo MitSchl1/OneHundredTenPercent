@@ -3,8 +3,8 @@ package com.example.myfirebaselogin;
 import java.util.ArrayList;
 
 public class Trainingsplan {
-    public ArrayList<Exercise> exerciseList = new ArrayList<>();
-    public String name;
+    private ArrayList<Exercise> exerciseList = new ArrayList<>();
+    private String name;
 
     public Trainingsplan() {
     }

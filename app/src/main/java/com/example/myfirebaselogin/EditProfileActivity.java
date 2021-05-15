@@ -87,9 +87,9 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
                 double userWeight = 0;
                 if(userProfile != null){
 
-                    String name = userProfile.name;
-                    String mail = userProfile.mail;
-                    double weight = userProfile.weight;
+                    String name = userProfile.getName();
+                    String mail = userProfile.getMail();
+                    double weight = userProfile.getWeight();
 
                     if(userMail.isEmpty()){
                         userMail = mail;

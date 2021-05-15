@@ -66,8 +66,6 @@
             />
     </ScrollView>
 
-
-
     <Button
         android:id="@+id/addbutton"
         android:layout_width="100dp"

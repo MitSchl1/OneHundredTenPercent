@@ -37,6 +37,7 @@ public class CreateTrainingsplanActivity extends AppCompatActivity implements Vi
     private FirebaseUser user;
 
     private List<String> exerciseNames = new ArrayList<>();
+    private List<String> exerciseDays = new ArrayList<>();
     private ArrayList<Exercise> exerciseList = new ArrayList<>();
     private EditText editTextTrainingsplantitle;
     @Override
@@ -54,7 +55,13 @@ public class CreateTrainingsplanActivity extends AppCompatActivity implements Vi
         exerciseNames.add("Ficken");
         exerciseNames.add("Wie");
         exerciseNames.add("einfach");
-
+        exerciseDays.add("Montag");
+        exerciseDays.add("Dienstag");
+        exerciseDays.add("Mittwoch");
+        exerciseDays.add("Donnerstag");
+        exerciseDays.add("Freitag");
+        exerciseDays.add("Samstag");
+        exerciseDays.add("Sonntag");
         user = FirebaseAuth.getInstance().getCurrentUser();
         dbReference = FirebaseDatabase.getInstance().getReference("Users");
         userId = user.getUid();
@@ -67,15 +74,6 @@ public class CreateTrainingsplanActivity extends AppCompatActivity implements Vi
                 addView();
                 break;  
             case R.id.submitbutton:
-               /*if(checkIfValidAndRead()) {
-                    /*Intent intent = new Intent(CreateTrainingsplanActivity.this, ExerciseActivity.class);
-                    Bundle bundle = new Bundle();
-                    bundle.putSerializable("list", exerciseList);
-                    intent.putExtras(bundle);
-                    startActivity(intent);
-
-
-               }*/
                 createTrainingsplan();
                 break;
         }
@@ -90,28 +88,37 @@ public class CreateTrainingsplanActivity extends AppCompatActivity implements Vi
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 User userProfile = snapshot.getValue(User.class);
                 assert userProfile != null;
-                //ArrayList<Exercise> xx = new ArrayList<>();
-                //Exercise e = new Exercise("nice",2);
-                //xx.add(e);
+
                 final String trainingsplantitle = editTextTrainingsplantitle.getText().toString().trim();
                 for(int i=0;i<layoutList.getChildCount();i++){
 
                     View exerciseView = layoutList.getChildAt(i);
 
-                    EditText editTextRepetition = (EditText)exerciseView.findViewById(R.id.edit_minute);
+                    EditText editTextMinutes = (EditText)exerciseView.findViewById(R.id.edit_minute);
                     AppCompatSpinner spinnerExercise = (AppCompatSpinner)exerciseView.findViewById(R.id.exercise_name);
+                    AppCompatSpinner spinnerDays = (AppCompatSpinner) exerciseView.findViewById(R.id.day_name);
 
                     Exercise exercise = new Exercise();
 
-                    if(!editTextRepetition.getText().toString().equals("")){
-                        exercise.setRepetitions(Integer.parseInt(editTextRepetition.getText().toString()));
+                    if(!editTextMinutes.getText().toString().equals("")){
+                        exercise.setMinutes(Integer.parseInt(editTextMinutes.getText().toString()));
                     }else{
-                        editTextRepetition.setError("Bitte Minuten angeben");
-                        editTextRepetition.requestFocus();
+                        editTextMinutes.setError("Bitte Minuten angeben");
+                        editTextMinutes.requestFocus();
                         return;
                     }
 
                     exercise.setName(exerciseNames.get(spinnerExercise.getSelectedItemPosition()));
+                    exercise.setDay(exerciseDays.get(spinnerDays.getSelectedItemPosition()));
+                    if(exercise.getName().equals("Ficken")){
+                        exercise.setPoints(12);
+                    }
+                    if(exercise.getName().equals("Ficken")){
+                        exercise.setPoints(12);
+                    }
+                    if(exercise.getName().equals("Ficken")){
+                        exercise.setPoints(12);
+                    }
                     exerciseList.add(exercise);
                 }
                 if(exerciseList.size()==0){
@@ -149,58 +156,20 @@ public class CreateTrainingsplanActivity extends AppCompatActivity implements Vi
             }
         });
     }
-    private boolean checkIfValidAndRead() {
-        exerciseList.clear();
-        boolean result = true;
-
-        for(int i=0;i<layoutList.getChildCount();i++){
-
-            View exerciseView = layoutList.getChildAt(i);
-
-            EditText editTextRepetition = (EditText)exerciseView.findViewById(R.id.edit_minute);
-            AppCompatSpinner spinnerExercise = (AppCompatSpinner)exerciseView.findViewById(R.id.exercise_name);
-
-            Exercise exercise = new Exercise();
-
-            if(!editTextRepetition.getText().toString().equals("")){
-                exercise.setRepetitions(Integer.parseInt(editTextRepetition.getText().toString()));
-                //exercise.setRepetitions(5);
-            }else {
-                result = false;
-                break;
-            }
-
-            if(spinnerExercise.getSelectedItemPosition()!=0){
-                exercise.setName(exerciseNames.get(spinnerExercise.getSelectedItemPosition()));
-            }else {
-                result = false;
-                break;
-            }
-
-            exerciseList.add(exercise);
-
-        }
-
-        if(exerciseList.size()==0){
-            result = false;
-            Toast.makeText(this, "Add Cricketers First!", Toast.LENGTH_SHORT).show();
-        }else if(!result){
-            Toast.makeText(this, "Enter All Details Correctly!", Toast.LENGTH_SHORT).show();
-        }
-
-
-        return result;
-    }
 
     private void addView() {
         final View exerciseView = getLayoutInflater().inflate(R.layout.row_add_exercise,null,false);
 
         EditText editText = (EditText)exerciseView.findViewById(R.id.edit_minute);
         AppCompatSpinner spinnerExercise = (AppCompatSpinner)exerciseView.findViewById(R.id.exercise_name);
+        AppCompatSpinner spinnerDay = (AppCompatSpinner)exerciseView.findViewById(R.id.day_name);
         TextView closeX = (TextView) exerciseView.findViewById(R.id.button_remove);
 
-        ArrayAdapter arrayAdapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item, exerciseNames);
-        spinnerExercise.setAdapter(arrayAdapter);
+        ArrayAdapter arrayAdapterExerciseName = new ArrayAdapter(this,android.R.layout.simple_spinner_item, exerciseNames);
+        ArrayAdapter arrayAdapterDayName = new ArrayAdapter(this,android.R.layout.simple_spinner_item, exerciseDays);
+
+        spinnerExercise.setAdapter(arrayAdapterExerciseName);
+        spinnerDay.setAdapter(arrayAdapterDayName);
         closeX.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

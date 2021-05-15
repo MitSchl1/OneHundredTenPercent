@@ -58,8 +58,8 @@ public class ProfileActivty extends AppCompatActivity implements View.OnClickLis
                  User userProfile = snapshot.getValue(User.class);
 
                  if(userProfile != null){
-                     String name = userProfile.name;
-                     String mail = userProfile.mail;
+                     String name = userProfile.getName();
+                     String mail = userProfile.getMail();
 
                      nameTextView.setText(name);
                      emailTextView.setText(mail);
