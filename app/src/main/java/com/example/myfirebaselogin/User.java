@@ -48,7 +48,6 @@ public class User {
     public void setTrainingsplanList( ArrayList<Trainingsplan>trainingsplanList) {
         this.trainingsplanList = trainingsplanList;
     }
-
     public void addTrainingsplanToList( Trainingsplan trainingsplan){
         this.trainingsplanList.add(trainingsplan);
     }

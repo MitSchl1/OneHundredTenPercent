@@ -31,8 +31,8 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.Exerci
     public void onBindViewHolder(@NonNull ExerciseView holder, int position) {
 
         Exercise exercise = exerciseList.get(position);
-        String x = (String) String.valueOf(exercise.getMinutes());
-        holder.textMinutes.setText(x);
+        String x = (String) String.valueOf(exercise.getExtraWeight());
+        holder.textExtraWeight.setText(x);
         holder.textName.setText(exercise.getName());
     }
 
@@ -43,12 +43,12 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.Exerci
 
     public class ExerciseView extends RecyclerView.ViewHolder{
 
-        TextView textName,textMinutes;
+        TextView textName, textExtraWeight;
         public ExerciseView(@NonNull View itemView) {
             super(itemView);
 
             textName = (TextView)itemView.findViewById(R.id.text_name);
-            textMinutes = (TextView)itemView.findViewById(R.id.text_minutes);
+            textExtraWeight = (TextView)itemView.findViewById(R.id.text_extraweight);
 
         }
     }

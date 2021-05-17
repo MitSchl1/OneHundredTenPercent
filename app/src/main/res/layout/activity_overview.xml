@@ -60,12 +60,12 @@
         app:layout_constraintLeft_toLeftOf="@id/userdata"
         app:layout_constraintTop_toBottomOf="@id/explainexercise" />
     <Button
-        android:id="@+id/other3"
+        android:id="@+id/showTrainingsplan"
         android:layout_width="370dp"
         android:layout_height="100dp"
         android:backgroundTint="@color/colorAccent"
         android:gravity="center"
-        android:text="Other Function 3"
+        android:text="Trainingspläne anzeigen"
         android:textColor="#ffffff"
         android:textSize="24sp"
         android:textStyle="bold"
@@ -82,7 +82,7 @@
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="@id/userdata"
-        app:layout_constraintTop_toBottomOf="@id/other3" />
+        app:layout_constraintTop_toBottomOf="@id/showTrainingsplan" />
     <Button
         android:id="@+id/other5"
         android:layout_width="370dp"

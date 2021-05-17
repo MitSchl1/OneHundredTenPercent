@@ -1,11 +1,10 @@
 package com.example.myfirebaselogin;
 
 import java.io.Serializable;
-import java.util.Date;
 
 public class Exercise implements Serializable {
     private String name;
-    private int minutes;
+    private double extraWeight;
     private int points;
     private String day;
 
@@ -13,9 +12,9 @@ public class Exercise implements Serializable {
 
     }
 
-    public Exercise(String name, int minutes, int points, String day) {
+    public Exercise(String name, double extraWeight, int points, String day) {
         this.name = name;
-        this.minutes = minutes;
+        this.extraWeight = extraWeight;
         this.points = points;
         this.day = day;
     }
@@ -24,16 +23,16 @@ public class Exercise implements Serializable {
         return name;
     }
 
-    public int getMinutes() {
-        return minutes;
+    public double getExtraWeight() {
+        return extraWeight;
     }
 
     public void setName(String name) {
         this.name = name;
     }
 
-    public void setMinutes(int minutes) {
-        this.minutes = minutes;
+    public void setExtraWeight(double extraWeight) {
+        this.extraWeight = extraWeight;
     }
 
     public int getPoints() {

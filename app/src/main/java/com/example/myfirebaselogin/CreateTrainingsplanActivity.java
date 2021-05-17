@@ -32,6 +32,11 @@ public class CreateTrainingsplanActivity extends AppCompatActivity implements Vi
     private Button buttonSubmit;
     private LinearLayout layoutList;
 
+    private int pushUps = 6;
+    private int pullUps = 10;
+    private int squats = 8;
+
+
     private DatabaseReference dbReference;
     private String userId;
     private FirebaseUser user;
@@ -52,9 +57,12 @@ public class CreateTrainingsplanActivity extends AppCompatActivity implements Vi
         buttonAdd.setOnClickListener(this);
         buttonSubmit.setOnClickListener(this);
 
-        exerciseNames.add("Ficken");
-        exerciseNames.add("Wie");
-        exerciseNames.add("einfach");
+        exerciseNames.add("Übung");
+        exerciseNames.add("Liegestütze");
+        exerciseNames.add("Kniebeugen");
+        exerciseNames.add("Klimmzüge");
+
+        exerciseDays.add("Tag");
         exerciseDays.add("Montag");
         exerciseDays.add("Dienstag");
         exerciseDays.add("Mittwoch");
@@ -88,39 +96,57 @@ public class CreateTrainingsplanActivity extends AppCompatActivity implements Vi
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 User userProfile = snapshot.getValue(User.class);
                 assert userProfile != null;
+                double userWeight = userProfile.getWeight();
+                int exercisePoints;
+                int pointSum = 0;
+
 
                 final String trainingsplantitle = editTextTrainingsplantitle.getText().toString().trim();
                 for(int i=0;i<layoutList.getChildCount();i++){
 
                     View exerciseView = layoutList.getChildAt(i);
 
-                    EditText editTextMinutes = (EditText)exerciseView.findViewById(R.id.edit_minute);
+                    EditText editTextExtraWeight = (EditText)exerciseView.findViewById(R.id.edit_extraweight);
                     AppCompatSpinner spinnerExercise = (AppCompatSpinner)exerciseView.findViewById(R.id.exercise_name);
                     AppCompatSpinner spinnerDays = (AppCompatSpinner) exerciseView.findViewById(R.id.day_name);
 
                     Exercise exercise = new Exercise();
 
-                    if(!editTextMinutes.getText().toString().equals("")){
-                        exercise.setMinutes(Integer.parseInt(editTextMinutes.getText().toString()));
+                    if(!editTextExtraWeight.getText().toString().equals("")){
+                        exercise.setExtraWeight(Double.parseDouble(editTextExtraWeight.getText().toString()));
                     }else{
-                        editTextMinutes.setError("Bitte Minuten angeben");
-                        editTextMinutes.requestFocus();
+                        exercise.setExtraWeight(0);
+
+                    }
+                    if(spinnerExercise.getSelectedItemPosition()==0){
+                        editTextExtraWeight.setError("Bitte Übung auswählen");
+                        editTextExtraWeight.requestFocus();
+                        return;
+                    }
+                    if(spinnerDays.getSelectedItemPosition()==0){
+                        editTextExtraWeight.setError("Bitte Tag auswählen");
+                        editTextExtraWeight.requestFocus();
                         return;
                     }
 
+
                     exercise.setName(exerciseNames.get(spinnerExercise.getSelectedItemPosition()));
                     exercise.setDay(exerciseDays.get(spinnerDays.getSelectedItemPosition()));
-                    if(exercise.getName().equals("Ficken")){
-                        exercise.setPoints(12);
+                    if(exercise.getName().equals("Liegestütze")){
+                        exercisePoints = (int) (pushUps*(1/userWeight*(userWeight+exercise.getExtraWeight())));
+                        exercise.setPoints(exercisePoints);
                     }
-                    if(exercise.getName().equals("Ficken")){
-                        exercise.setPoints(12);
+                    if(exercise.getName().equals("Kniebeugen")){
+                        exercisePoints = (int) (squats*(1/userWeight*(userWeight+exercise.getExtraWeight())));
+                        exercise.setPoints(exercisePoints);
                     }
-                    if(exercise.getName().equals("Ficken")){
-                        exercise.setPoints(12);
+                    if(exercise.getName().equals("Klimmzüge")){
+                        exercisePoints = (int) (pullUps*(1/userWeight*(userWeight+exercise.getExtraWeight())));
+                        exercise.setPoints(exercisePoints);
                     }
                     exerciseList.add(exercise);
                 }
+
                 if(exerciseList.size()==0){
                     buttonAdd.setError("Bitte zuerst eine Uebung hinzufuegen");
                     buttonAdd.requestFocus();
@@ -131,7 +157,11 @@ public class CreateTrainingsplanActivity extends AppCompatActivity implements Vi
                     editTextTrainingsplantitle.requestFocus();
                     return;
                 }
-                Trainingsplan trainingsplan = new Trainingsplan(exerciseList,trainingsplantitle);
+
+                for(Exercise e : exerciseList){
+                    pointSum += e.getPoints();
+                }
+                Trainingsplan trainingsplan = new Trainingsplan(exerciseList,trainingsplantitle,pointSum);
                 userProfile.addTrainingsplanToList(trainingsplan);
 
                 FirebaseDatabase.getInstance().getReference("Users")
@@ -160,7 +190,7 @@ public class CreateTrainingsplanActivity extends AppCompatActivity implements Vi
     private void addView() {
         final View exerciseView = getLayoutInflater().inflate(R.layout.row_add_exercise,null,false);
 
-        EditText editText = (EditText)exerciseView.findViewById(R.id.edit_minute);
+        EditText editText = (EditText)exerciseView.findViewById(R.id.edit_extraweight);
         AppCompatSpinner spinnerExercise = (AppCompatSpinner)exerciseView.findViewById(R.id.exercise_name);
         AppCompatSpinner spinnerDay = (AppCompatSpinner)exerciseView.findViewById(R.id.day_name);
         TextView closeX = (TextView) exerciseView.findViewById(R.id.button_remove);
