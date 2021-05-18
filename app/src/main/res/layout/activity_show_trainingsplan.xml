@@ -37,22 +37,23 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/bannerDescription"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="@id/scroll_trainingsplanlist"
+
         >
 
         <androidx.appcompat.widget.AppCompatSpinner
             android:id="@+id/spinner_trainingsplanlist"
-            android:layout_width="380dp"
-            android:layout_height="60dp"></androidx.appcompat.widget.AppCompatSpinner>
+            android:layout_width="290dp"
+            android:layout_height="70dp"></androidx.appcompat.widget.AppCompatSpinner>
     </FrameLayout>
     <Button
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="70dp"
         android:id="@+id/showbutton"
-        app:layout_constraintTop_toBottomOf="@id/trainingsplantitle"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        android:backgroundTint="#0ED6B9"
+        android:textColor="#ffffff"
+        app:layout_constraintTop_toTopOf="@id/trainingsplantitle"
+        app:layout_constraintLeft_toRightOf="@+id/trainingsplantitle"
         android:text="Anzeigen"
         />
     <ScrollView
@@ -72,5 +73,30 @@
             android:layout_marginTop="10dp"
             />
     </ScrollView>
+    <Button
+        android:layout_width="380dp"
+        android:layout_height="70dp"
+        android:id="@+id/safebutton_showtrainingsplan"
+        app:layout_constraintTop_toBottomOf="@id/scroll_trainingsplanlist"
+        app:layout_constraintLeft_toLeftOf="@id/scroll_trainingsplanlist"
+        android:backgroundTint="#0ED6B9"
+        android:textColor="#ffffff"
+        android:text="Speichern"
+        android:visibility="gone"
+        android:textStyle="bold"
+        android:textSize="26sp"/>
+    <Button
+        android:layout_width="380dp"
+        android:layout_height="70dp"
+        android:id="@+id/editbutton_showtrainingsplan"
+        app:layout_constraintTop_toBottomOf="@id/scroll_trainingsplanlist"
+        app:layout_constraintLeft_toLeftOf="@id/scroll_trainingsplanlist"
+        android:backgroundTint="#0ED6B9"
+        android:textColor="#ffffff"
+        android:text="Bearbeiten"
+        android:textStyle="bold"
+        android:textSize="26sp"
+        android:visibility="visible"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
