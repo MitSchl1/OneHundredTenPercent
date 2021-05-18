@@ -7,15 +7,61 @@
     android:paddingBottom="5dp">
 
     <TextView
-        android:id="@+id/name_trainingsplan"
-        android:layout_width="380dp"
+        android:id="@+id/day_trainingsplan"
+        android:layout_width="120dp"
         android:layout_height="25dp"
         android:tint="#000000"
         android:textSize="20sp"
         android:textStyle="bold"
-        android:layout_marginRight="10dp"
-        android:layout_marginLeft="10dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_gravity="center_vertical"
+        android:gravity="left"
+        ></TextView>
+    <TextView
+        android:id="@+id/firstcut_trainingsplan"
+        android:layout_width="10dp"
+        android:layout_height="25dp"
+        android:tint="#000000"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:text=" | "
         android:layout_gravity="center_vertical"
         android:gravity="center"
+        ></TextView>
+    <TextView
+        android:id="@+id/exercise_name_trainingsplan"
+        android:layout_width="120dp"
+        android:layout_height="25dp"
+        android:tint="#000000"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginRight="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_gravity="center_vertical"
+        android:gravity="center"
+        ></TextView>
+    <TextView
+        android:id="@+id/secondcut_trainingsplan"
+        android:layout_width="10dp"
+        android:layout_height="25dp"
+        android:tint="#000000"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:text=" | "
+        android:layout_gravity="center_vertical"
+        android:gravity="center"
+        ></TextView>
+    <TextView
+        android:id="@+id/extraweight_trainingsplan"
+        android:layout_width="80dp"
+        android:layout_height="25dp"
+        android:tint="#000000"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginRight="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_gravity="center_vertical"
+        android:gravity="right"
         ></TextView>
 </LinearLayout>

@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatSpinner;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -74,7 +73,11 @@ public class ShowTrainingsplanActivity extends AppCompatActivity implements View
     }
 
     public void selectedTrainingsplan() {
-        layoutList.removeView(layoutList.getChildAt(0));
+        int layoutListLength = layoutList.getChildCount();
+        for(int i=0;i <= layoutListLength;i++){
+            layoutList.removeView(layoutList.getChildAt(0));
+        }
+
         dbReference.child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -82,22 +85,28 @@ public class ShowTrainingsplanActivity extends AppCompatActivity implements View
                 assert userProfile != null;
 
 
+                for (Trainingsplan t : userProfile.getTrainingsplanList()) {
 
-                    for(Trainingsplan t : userProfile.getTrainingsplanList()){
-                        final View trainingsplanView = getLayoutInflater().inflate(R.layout.row_trainingsplan, null, false);
-                        TextView trainingsplanTitle = trainingsplanView.findViewById(R.id.name_trainingsplan);
+                    if (t.getName().equals(spinnerTraingsplanName.getSelectedItem().toString())) {
+                        for (Exercise e : t.getExerciseList()) {
+                            final View trainingsplanView = getLayoutInflater().inflate(R.layout.row_trainingsplan, null, false);
 
-                        trainingsplanTitle.setText(t.getName());
-                        layoutList.addView(trainingsplanView);
+                            TextView trainingsplanDay = trainingsplanView.findViewById(R.id.day_trainingsplan);
+                            TextView trainingsplanExercise = trainingsplanView.findViewById(R.id.exercise_name_trainingsplan);
+                            TextView trainingsplanExtraWeight = trainingsplanView.findViewById(R.id.extraweight_trainingsplan);
+
+                            String extraWeightString = String.valueOf(e.getExtraWeight()) + " kg";
+                            trainingsplanDay.setText(e.getDay());
+                            trainingsplanExercise.setText(e.getName());
+                            trainingsplanExtraWeight.setText(extraWeightString);
+
+                            layoutList.addView(trainingsplanView);
+                        }
 
                     }
 
-                    /*
-                    if (t.getName().equals(spinnerTraingsplanName.getSelectedItem().toString())) {
-                        trainingsplanTitle.setText(t.getName());
-                        layoutList.addView(trainingsplanView);
+                }
 
-                    }*/
 
             }
 
