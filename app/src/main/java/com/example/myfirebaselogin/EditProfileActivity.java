@@ -44,17 +44,17 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
-        banner =(TextView) findViewById(R.id.banner);
+        banner =(TextView) findViewById(R.id.banner_editprofile);
         banner.setOnClickListener(this);
 
-        editProfileButton = (Button) findViewById(R.id.editButton);
+        editProfileButton = (Button) findViewById(R.id.editButton_editprofile);
         editProfileButton.setOnClickListener(this);
 
-        editTextName = (EditText) findViewById(R.id.name);
-        editTextMail = (EditText) findViewById(R.id.mail);
-        editTextWeight = (EditText) findViewById(R.id.weight);
+        editTextName = (EditText) findViewById(R.id.editusername_editprofile);
+        editTextMail = (EditText) findViewById(R.id.edituseremail_editprofile);
+        editTextWeight = (EditText) findViewById(R.id.edituserweight_editprofile);
 
-        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        progressBar = (ProgressBar) findViewById(R.id.progressBar_editprofile);
 
         user = FirebaseAuth.getInstance().getCurrentUser();
         dbReference = FirebaseDatabase.getInstance().getReference("Users");
@@ -64,10 +64,10 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
     @Override
     public void onClick(View v) {
         switch(v.getId()){
-            case R.id.banner:
+            case R.id.banner_editprofile:
                 startActivity( new Intent(this, MainActivity.class));
                 break;
-            case R.id.editButton:
+            case R.id.editButton_editprofile:
                 editUserProfile();
                 break;
 

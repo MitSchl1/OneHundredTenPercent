@@ -30,7 +30,7 @@ public class ProfileActivty extends AppCompatActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_activty);
 
-        logout = (Button) findViewById(R.id.signout);
+        logout = (Button) findViewById(R.id.signoutbutton_profile);
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -40,17 +40,17 @@ public class ProfileActivty extends AppCompatActivity implements View.OnClickLis
             }
         });
 
-        changePassword = (TextView) findViewById(R.id.changePassword);
+        changePassword = (TextView) findViewById(R.id.changePassword_profile);
         changePassword.setOnClickListener(this);
-        editProfile = (Button) findViewById(R.id.editProfile);
+        editProfile = (Button) findViewById(R.id.editProfilebutton_profile);
         editProfile.setOnClickListener(this);
 
         user = FirebaseAuth.getInstance().getCurrentUser();
         dbReference = FirebaseDatabase.getInstance().getReference("Users");
         userId = user.getUid();
 
-        final TextView  nameTextView = (TextView) findViewById(R.id.name);
-        final TextView  emailTextView = (TextView) findViewById(R.id.emailAdress);
+        final TextView  nameTextView = (TextView) findViewById(R.id.username_profile);
+        final TextView  emailTextView = (TextView) findViewById(R.id.useremailAdress_profile);
 
          dbReference.child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
              @Override
@@ -77,11 +77,11 @@ public class ProfileActivty extends AppCompatActivity implements View.OnClickLis
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.editProfile:
+            case R.id.editProfilebutton_profile:
                 startActivity(new Intent(this, EditProfileActivity.class));
                 break;
 
-            case R.id.changePassword:
+            case R.id.changePassword_profile:
                 startActivity(new Intent(this,ForgotPassword.class));
                 break;
         }

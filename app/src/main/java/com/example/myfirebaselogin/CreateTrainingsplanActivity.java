@@ -50,10 +50,10 @@ public class CreateTrainingsplanActivity extends AppCompatActivity implements Vi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_trainingsplan);
 
-        buttonAdd = (Button) findViewById(R.id.addbutton);
-        buttonSubmit = (Button) findViewById(R.id.submitbutton);
-        layoutList = findViewById(R.id.layout_list);
-        editTextTrainingsplantitle = (EditText) findViewById(R.id.trainingsplantitle);
+        buttonAdd = (Button) findViewById(R.id.addbutton_createtrainingsplan);
+        buttonSubmit = (Button) findViewById(R.id.submitbutton_createtrainingsplan);
+        layoutList = findViewById(R.id.layoutlist_createtrainingsplan);
+        editTextTrainingsplantitle = (EditText) findViewById(R.id.edittrainingsplantitle_createtrainingsplan);
         buttonAdd.setOnClickListener(this);
         buttonSubmit.setOnClickListener(this);
 
@@ -78,10 +78,10 @@ public class CreateTrainingsplanActivity extends AppCompatActivity implements Vi
     @Override
     public void onClick(View v) {
         switch(v.getId()){
-            case R.id.addbutton:
+            case R.id.addbutton_createtrainingsplan:
                 addView();
                 break;  
-            case R.id.submitbutton:
+            case R.id.submitbutton_createtrainingsplan:
                 createTrainingsplan();
                 break;
         }
@@ -106,9 +106,9 @@ public class CreateTrainingsplanActivity extends AppCompatActivity implements Vi
 
                     View exerciseView = layoutList.getChildAt(i);
 
-                    EditText editTextExtraWeight = (EditText)exerciseView.findViewById(R.id.edit_extraweight);
-                    AppCompatSpinner spinnerExercise = (AppCompatSpinner)exerciseView.findViewById(R.id.exercise_name);
-                    AppCompatSpinner spinnerDays = (AppCompatSpinner) exerciseView.findViewById(R.id.day_name);
+                    EditText editTextExtraWeight = (EditText)exerciseView.findViewById(R.id.editextraweight_rowaddexercise);
+                    AppCompatSpinner spinnerExercise = (AppCompatSpinner)exerciseView.findViewById(R.id.exercisename_rowaddexercise);
+                    AppCompatSpinner spinnerDays = (AppCompatSpinner) exerciseView.findViewById(R.id.dayname_rowaddexercise);
 
                     Exercise exercise = new Exercise();
 
@@ -190,10 +190,10 @@ public class CreateTrainingsplanActivity extends AppCompatActivity implements Vi
     private void addView() {
         final View exerciseView = getLayoutInflater().inflate(R.layout.row_add_exercise,null,false);
 
-        EditText editText = (EditText)exerciseView.findViewById(R.id.edit_extraweight);
-        AppCompatSpinner spinnerExercise = (AppCompatSpinner)exerciseView.findViewById(R.id.exercise_name);
-        AppCompatSpinner spinnerDay = (AppCompatSpinner)exerciseView.findViewById(R.id.day_name);
-        TextView closeX = (TextView) exerciseView.findViewById(R.id.button_remove);
+        EditText editText = (EditText)exerciseView.findViewById(R.id.editextraweight_rowaddexercise);
+        AppCompatSpinner spinnerExercise = (AppCompatSpinner)exerciseView.findViewById(R.id.exercisename_rowaddexercise);
+        AppCompatSpinner spinnerDay = (AppCompatSpinner)exerciseView.findViewById(R.id.dayname_rowaddexercise);
+        TextView closeX = (TextView) exerciseView.findViewById(R.id.removebutton_rowaddexercise);
 
         ArrayAdapter arrayAdapterExerciseName = new ArrayAdapter(this,android.R.layout.simple_spinner_item, exerciseNames);
         ArrayAdapter arrayAdapterDayName = new ArrayAdapter(this,android.R.layout.simple_spinner_item, exerciseDays);

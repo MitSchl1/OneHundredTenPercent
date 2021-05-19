@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".CreateTrainingsplanActivity">
     <TextView
-        android:id="@+id/banner"
+        android:id="@+id/banner_createtrainingsplan"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="110%"
@@ -21,7 +21,7 @@
         android:gravity="center_horizontal" />
 
     <TextView
-        android:id="@+id/bannerDescription"
+        android:id="@+id/bannerDescription_createtrainingsplan"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Motivation für deine Sinne"
@@ -29,45 +29,45 @@
         android:textAlignment="center"
         android:textStyle="italic"
         android:fontFamily="sans-serif"
-        app:layout_constraintTop_toBottomOf="@+id/banner"
+        app:layout_constraintTop_toBottomOf="@+id/banner_createtrainingsplan"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         android:gravity="center_horizontal" />
 
     <EditText
-        android:id="@+id/trainingsplantitle"
+        android:id="@+id/edittrainingsplantitle_createtrainingsplan"
         android:layout_width="380dp"
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="text"
         android:hint="Titel"
         android:textSize="24sp"
-        app:layout_constraintTop_toBottomOf="@+id/bannerDescription"
+        app:layout_constraintTop_toBottomOf="@+id/bannerDescription_createtrainingsplan"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginTop="20dp"
         />
     <ScrollView
-        android:id="@+id/scroll"
+        android:id="@+id/scrollview_createtrainingsplan"
         android:layout_width="380dp"
         android:layout_height="300dp"
         android:orientation="vertical"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/trainingsplantitle">
+        app:layout_constraintTop_toBottomOf="@id/edittrainingsplantitle_createtrainingsplan">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/layout_list"
+            android:id="@+id/layoutlist_createtrainingsplan"
             android:orientation="vertical"
-            app:layout_constraintLeft_toLeftOf="@+id/bannerDescription"
-            app:layout_constraintTop_toBottomOf="@+id/trainingsplantitle"
+            app:layout_constraintLeft_toLeftOf="@+id/bannerDescription_createtrainingsplan"
+            app:layout_constraintTop_toBottomOf="@+id/edittrainingsplantitle_createtrainingsplan"
             android:layout_marginTop="10dp"
             />
     </ScrollView>
 
     <Button
-        android:id="@+id/addbutton"
+        android:id="@+id/addbutton_createtrainingsplan"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:text="+"
@@ -78,12 +78,12 @@
         android:textAllCaps="false"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/scroll"
+        app:layout_constraintTop_toBottomOf="@+id/scrollview_createtrainingsplan"
         android:layout_marginTop="10dp"
         />
 
     <Button
-        android:id="@+id/submitbutton"
+        android:id="@+id/submitbutton_createtrainingsplan"
         android:layout_width="380dp"
         android:layout_height="70dp"
         android:text="Erstellen"
@@ -94,7 +94,7 @@
         android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addbutton"
+        app:layout_constraintTop_toBottomOf="@+id/addbutton_createtrainingsplan"
         android:layout_marginTop="10dp"
         />
 </androidx.constraintlayout.widget.ConstraintLayout>

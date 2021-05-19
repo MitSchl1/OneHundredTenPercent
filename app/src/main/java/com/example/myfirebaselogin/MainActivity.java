@@ -32,18 +32,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        register = (TextView) findViewById(R.id.register);
+        register = (TextView) findViewById(R.id.registeruser_main);
         register.setOnClickListener(this);
 
-        forgotPassword = (TextView) findViewById(R.id.forgotPassword);
+        forgotPassword = (TextView) findViewById(R.id.forgotPassword_main);
         forgotPassword.setOnClickListener(this);
-        signIn = (Button) findViewById(R.id.logIn);
+        signIn = (Button) findViewById(R.id.loginbutton_main);
         signIn.setOnClickListener(this);
 
-        editTextEmail = (EditText) findViewById(R.id.email);
-        editTextPassword = (EditText) findViewById(R.id.password);
+        editTextEmail = (EditText) findViewById(R.id.edituseremail_main);
+        editTextPassword = (EditText) findViewById(R.id.edituserpassword_main);
 
-        progressbar = (ProgressBar) findViewById(R.id.progressBar);
+        progressbar = (ProgressBar) findViewById(R.id.progressBar_main);
         mAuth = FirebaseAuth.getInstance();
 
     }
@@ -51,14 +51,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.register:
+            case R.id.registeruser_main:
                 startActivity(new Intent(this, RegisterUser.class));
                 break;
 
-            case R.id.logIn:
+            case R.id.loginbutton_main:
                 userLogin();
                 break;
-            case R.id.forgotPassword:
+            case R.id.forgotPassword_main:
                 startActivity(new Intent(this,ForgotPassword.class));
                 break;
         }

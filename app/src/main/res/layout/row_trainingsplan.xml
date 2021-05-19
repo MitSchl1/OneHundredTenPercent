@@ -7,7 +7,7 @@
     android:paddingBottom="5dp">
 
     <TextView
-        android:id="@+id/day_trainingsplan"
+        android:id="@+id/exerciseday_rowtrainingsplan"
         android:layout_width="120dp"
         android:layout_height="25dp"
         android:tint="#000000"
@@ -19,7 +19,7 @@
         android:gravity="left"
         ></TextView>
     <TextView
-        android:id="@+id/firstcut_trainingsplan"
+        android:id="@+id/firstcut_rowtrainingsplan"
         android:layout_width="10dp"
         android:layout_height="25dp"
         android:tint="#000000"
@@ -30,7 +30,7 @@
         android:gravity="center"
         ></TextView>
     <TextView
-        android:id="@+id/exercise_name_trainingsplan"
+        android:id="@+id/exercisename_rowtrainingsplan"
         android:layout_width="120dp"
         android:layout_height="25dp"
         android:tint="#000000"
@@ -42,7 +42,7 @@
         android:gravity="center"
         ></TextView>
     <TextView
-        android:id="@+id/secondcut_trainingsplan"
+        android:id="@+id/secondcut_rowtrainingsplan"
         android:layout_width="10dp"
         android:layout_height="25dp"
         android:tint="#000000"
@@ -53,7 +53,7 @@
         android:gravity="center"
         ></TextView>
     <TextView
-        android:id="@+id/extraweight_trainingsplan"
+        android:id="@+id/extraweight_rowtrainingsplan"
         android:layout_width="80dp"
         android:layout_height="25dp"
         android:tint="#000000"

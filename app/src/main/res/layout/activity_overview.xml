@@ -7,7 +7,7 @@
     tools:context=".OverviewActivity">
 
     <Button
-        android:id="@+id/signout"
+        android:id="@+id/signoutbutton_overview"
         android:layout_width="370dp"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/colorAccent"
@@ -20,7 +20,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/userdata"
+        android:id="@+id/userdatabutton_overview"
         android:layout_width="370dp"
         android:layout_height="100dp"
         android:backgroundTint="@color/cardview_dark_background"
@@ -29,13 +29,13 @@
         android:textColor="#ffffff"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintLeft_toLeftOf="@id/signout"
-        app:layout_constraintTop_toBottomOf="@id/signout"
+        app:layout_constraintLeft_toLeftOf="@id/signoutbutton_overview"
+        app:layout_constraintTop_toBottomOf="@id/signoutbutton_overview"
 
         />
 
     <Button
-        android:id="@+id/explainexercise"
+        android:id="@+id/explainexercisebutton_overview"
         android:layout_width="370dp"
         android:layout_height="100dp"
         android:backgroundTint="@color/colorAccent"
@@ -44,11 +44,11 @@
         android:textColor="#ffffff"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintLeft_toLeftOf="@id/userdata"
-        app:layout_constraintTop_toBottomOf="@id/userdata" />
+        app:layout_constraintLeft_toLeftOf="@id/userdatabutton_overview"
+        app:layout_constraintTop_toBottomOf="@id/userdatabutton_overview" />
 
     <Button
-        android:id="@+id/createTrainingsplan"
+        android:id="@+id/createTrainingsplanbutton_overview"
         android:layout_width="370dp"
         android:layout_height="100dp"
         android:backgroundTint="@color/cardview_dark_background"
@@ -57,10 +57,10 @@
         android:textColor="#ffffff"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintLeft_toLeftOf="@id/userdata"
-        app:layout_constraintTop_toBottomOf="@id/explainexercise" />
+        app:layout_constraintLeft_toLeftOf="@id/userdatabutton_overview"
+        app:layout_constraintTop_toBottomOf="@id/explainexercisebutton_overview" />
     <Button
-        android:id="@+id/showTrainingsplan"
+        android:id="@+id/showTrainingsplanbutton_overview"
         android:layout_width="370dp"
         android:layout_height="100dp"
         android:backgroundTint="@color/colorAccent"
@@ -69,8 +69,8 @@
         android:textColor="#ffffff"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintLeft_toLeftOf="@id/userdata"
-        app:layout_constraintTop_toBottomOf="@id/createTrainingsplan" />
+        app:layout_constraintLeft_toLeftOf="@id/userdatabutton_overview"
+        app:layout_constraintTop_toBottomOf="@id/createTrainingsplanbutton_overview" />
     <Button
         android:id="@+id/other4"
         android:layout_width="370dp"
@@ -81,8 +81,8 @@
         android:textColor="#ffffff"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintLeft_toLeftOf="@id/userdata"
-        app:layout_constraintTop_toBottomOf="@id/showTrainingsplan" />
+        app:layout_constraintLeft_toLeftOf="@id/userdatabutton_overview"
+        app:layout_constraintTop_toBottomOf="@id/showTrainingsplanbutton_overview" />
     <Button
         android:id="@+id/other5"
         android:layout_width="370dp"
@@ -93,7 +93,7 @@
         android:textColor="#ffffff"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintLeft_toLeftOf="@id/userdata"
+        app:layout_constraintLeft_toLeftOf="@id/userdatabutton_overview"
         app:layout_constraintTop_toBottomOf="@id/other4" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".RegisterUser">
     <TextView
-        android:id="@+id/banner"
+        android:id="@+id/banner_registeruser"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="110%"
@@ -21,7 +21,7 @@
         android:gravity="center_horizontal" />
 
     <TextView
-        android:id="@+id/bannerDescription"
+        android:id="@+id/bannerDescription_registeruser"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Motivation für deine Sinne"
@@ -29,64 +29,64 @@
         android:textAlignment="center"
         android:textStyle="italic"
         android:fontFamily="sans-serif"
-        app:layout_constraintTop_toBottomOf="@+id/banner"
+        app:layout_constraintTop_toBottomOf="@+id/banner_registeruser"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         android:gravity="center_horizontal" />
     <EditText
-        android:id="@+id/name"
+        android:id="@+id/editusername_registeruser"
         android:layout_width="380dp"
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="text"
         android:hint="Name"
         android:textSize="24sp"
-        app:layout_constraintTop_toBottomOf="@+id/bannerDescription"
+        app:layout_constraintTop_toBottomOf="@+id/bannerDescription_registeruser"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginTop="60dp"
         />
     <EditText
-        android:id="@+id/weight"
+        android:id="@+id/edituserweight_registeruser"
         android:layout_width="380dp"
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="numberDecimal"
         android:hint="Gewicht"
         android:textSize="24sp"
-        app:layout_constraintTop_toBottomOf="@+id/name"
+        app:layout_constraintTop_toBottomOf="@+id/editusername_registeruser"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginTop="20dp"
         />
     <EditText
-        android:id="@+id/mail"
+        android:id="@+id/edituseremail_registeruser"
         android:layout_width="380dp"
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textEmailAddress"
         android:hint="Mail"
         android:textSize="24sp"
-        app:layout_constraintTop_toBottomOf="@+id/weight"
+        app:layout_constraintTop_toBottomOf="@+id/edituserweight_registeruser"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginTop="20dp"
         />
     <EditText
-        android:id="@+id/password"
+        android:id="@+id/edituserpassword_registeruser"
         android:layout_width="380dp"
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPassword"
         android:hint="Passwort"
         android:textSize="24sp"
-        app:layout_constraintTop_toBottomOf="@+id/mail"
+        app:layout_constraintTop_toBottomOf="@+id/edituseremail_registeruser"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginTop="20dp"
         />
     <Button
-        android:id="@+id/registerButton"
+        android:id="@+id/registerButton_registeruser"
         android:layout_width="380dp"
         android:layout_height="70dp"
         android:text="Registrieren"
@@ -97,10 +97,10 @@
         android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/password"
+        app:layout_constraintTop_toBottomOf="@+id/edituserpassword_registeruser"
         />
     <ProgressBar
-        android:id="@+id/progressBar"
+        android:id="@+id/progressBar_registeruser"
         style="?android:attr/progressBarStyleLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

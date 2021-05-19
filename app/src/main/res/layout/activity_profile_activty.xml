@@ -7,7 +7,7 @@
     tools:context=".ProfileActivty">
 
     <Button
-        android:id="@+id/signout"
+        android:id="@+id/signoutbutton_profile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Logout"
@@ -20,47 +20,47 @@
         app:layout_constraintRight_toRightOf="parent"
         />
     <TextView
-        android:id="@+id/emailAdressTitle"
+        android:id="@+id/emailAdressTitle_profile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Email Addresse: "
         android:textStyle="bold"
         android:textSize="20sp"
-        app:layout_constraintTop_toBottomOf="@id/signout"
-        app:layout_constraintRight_toLeftOf="@id/signout"
+        app:layout_constraintTop_toBottomOf="@id/signoutbutton_profile"
+        app:layout_constraintRight_toLeftOf="@id/signoutbutton_profile"
         android:layout_marginTop="20dp"
         />
     <TextView
-        android:id="@+id/emailAdress"
+        android:id="@+id/useremailAdress_profile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textStyle="bold"
         android:textSize="20sp"
-        app:layout_constraintTop_toTopOf="@id/emailAdressTitle"
-        app:layout_constraintLeft_toRightOf="@id/emailAdressTitle"
+        app:layout_constraintTop_toTopOf="@id/emailAdressTitle_profile"
+        app:layout_constraintLeft_toRightOf="@id/emailAdressTitle_profile"
         />
     <TextView
-        android:id="@+id/nameTitle"
+        android:id="@+id/nameTitle_profile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Name: "
         android:textStyle="bold"
         android:textSize="20sp"
-        app:layout_constraintTop_toBottomOf="@id/emailAdressTitle"
-        app:layout_constraintRight_toLeftOf="@id/signout"
+        app:layout_constraintTop_toBottomOf="@id/emailAdressTitle_profile"
+        app:layout_constraintRight_toLeftOf="@id/signoutbutton_profile"
         android:layout_marginTop="20dp"
         />
     <TextView
-        android:id="@+id/name"
+        android:id="@+id/username_profile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textStyle="bold"
         android:textSize="20sp"
-        app:layout_constraintTop_toTopOf="@id/nameTitle"
-        app:layout_constraintLeft_toRightOf="@id/nameTitle"
+        app:layout_constraintTop_toTopOf="@id/nameTitle_profile"
+        app:layout_constraintLeft_toRightOf="@id/nameTitle_profile"
         />
     <Button
-        android:id="@+id/editProfile"
+        android:id="@+id/editProfilebutton_profile"
         android:layout_width="380dp"
         android:layout_height="70dp"
         android:text="Edit"
@@ -68,19 +68,19 @@
         android:textSize="24dp"
         android:textColor="#ffffff"
         android:backgroundTint="@color/colorAccent"
-        app:layout_constraintTop_toBottomOf="@id/nameTitle"
+        app:layout_constraintTop_toBottomOf="@id/nameTitle_profile"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginTop="50dp"
         />
     <TextView
-        android:id="@+id/changePassword"
+        android:id="@+id/changePassword_profile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Passwort ändern"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@+id/editProfile"
+        app:layout_constraintTop_toBottomOf="@+id/editProfilebutton_profile"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginTop="25dp"
         android:layout_marginLeft="50dp" />

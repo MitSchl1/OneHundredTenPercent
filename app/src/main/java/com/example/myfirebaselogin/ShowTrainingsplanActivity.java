@@ -49,15 +49,15 @@ public class ShowTrainingsplanActivity extends AppCompatActivity implements View
         user = FirebaseAuth.getInstance().getCurrentUser();
         dbReference = FirebaseDatabase.getInstance().getReference("Users");
         userId = user.getUid();
-        layoutList = findViewById(R.id.layout_list_trainingsplan);
+        layoutList = findViewById(R.id.layoutlist__showtrainingsplan);
 
         listOfTrainingsplanNames.add("Trainingsplan auswählen");
         getTraininngsplanNames();
-        spinnerTraingsplanName = (AppCompatSpinner) findViewById(R.id.spinner_trainingsplanlist);
+        spinnerTraingsplanName = (AppCompatSpinner) findViewById(R.id.trainingsplantitlespinner_showtrainingsplan);
         ArrayAdapter arrayAdapterTrainingsplanName = new ArrayAdapter(this, android.R.layout.simple_spinner_item, listOfTrainingsplanNames);
         spinnerTraingsplanName.setAdapter(arrayAdapterTrainingsplanName);
 
-        showButton = (Button) findViewById(R.id.showbutton);
+        showButton = (Button) findViewById(R.id.showbutton_showtrainingsplan);
         showButton.setOnClickListener(this);
         editButton = (Button) findViewById(R.id.editbutton_showtrainingsplan);
         editButton.setOnClickListener(this);
@@ -91,7 +91,7 @@ public class ShowTrainingsplanActivity extends AppCompatActivity implements View
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.showbutton:
+            case R.id.showbutton_showtrainingsplan:
                 selectedTrainingsplan();
                 break;
             case R.id.editbutton_showtrainingsplan:
@@ -193,9 +193,9 @@ public class ShowTrainingsplanActivity extends AppCompatActivity implements View
                         for (Exercise e : t.getExerciseList()) {
                             final View trainingsplanView = getLayoutInflater().inflate(R.layout.row_trainingsplan, null, false);
 
-                            TextView trainingsplanDay = trainingsplanView.findViewById(R.id.day_trainingsplan);
-                            TextView trainingsplanExercise = trainingsplanView.findViewById(R.id.exercise_name_trainingsplan);
-                            TextView trainingsplanExtraWeight = trainingsplanView.findViewById(R.id.extraweight_trainingsplan);
+                            TextView trainingsplanDay = trainingsplanView.findViewById(R.id.exerciseday_rowtrainingsplan);
+                            TextView trainingsplanExercise = trainingsplanView.findViewById(R.id.exercisename_rowtrainingsplan);
+                            TextView trainingsplanExtraWeight = trainingsplanView.findViewById(R.id.extraweight_rowtrainingsplan);
 
                             String extraWeightString = String.valueOf(e.getExtraWeight()) + " kg";
                             trainingsplanDay.setText(e.getDay());
@@ -242,11 +242,11 @@ public class ShowTrainingsplanActivity extends AppCompatActivity implements View
                         for (Exercise e : t.getExerciseList()) {
                             final View exerciseView = getLayoutInflater().inflate(R.layout.row_add_exercise,null,false);
 
-                            EditText editText = (EditText)exerciseView.findViewById(R.id.edit_extraweight);
+                            EditText editText = (EditText)exerciseView.findViewById(R.id.editextraweight_rowaddexercise);
                             editText.setText(String.valueOf(e.getExtraWeight()));
-                            AppCompatSpinner spinnerExercise = (AppCompatSpinner)exerciseView.findViewById(R.id.exercise_name);
-                            AppCompatSpinner spinnerDay = (AppCompatSpinner)exerciseView.findViewById(R.id.day_name);
-                            TextView closeX = (TextView) exerciseView.findViewById(R.id.button_remove);
+                            AppCompatSpinner spinnerExercise = (AppCompatSpinner)exerciseView.findViewById(R.id.exercisename_rowaddexercise);
+                            AppCompatSpinner spinnerDay = (AppCompatSpinner)exerciseView.findViewById(R.id.dayname_rowaddexercise);
+                            TextView closeX = (TextView) exerciseView.findViewById(R.id.removebutton_rowaddexercise);
 
 
                             spinnerExercise.setAdapter(arrayAdapterExerciseName);
@@ -286,6 +286,7 @@ public class ShowTrainingsplanActivity extends AppCompatActivity implements View
         breakButton.setVisibility(View.VISIBLE);
         safeButton.setVisibility(View.VISIBLE);
         editButton.setVisibility(View.GONE);
+        deleteButton.setVisibility(View.GONE);
         editTextTrainingsplantitle.setVisibility(View.VISIBLE);
 
     }
@@ -297,10 +298,10 @@ public class ShowTrainingsplanActivity extends AppCompatActivity implements View
     private void addView() {
         final View exerciseView = getLayoutInflater().inflate(R.layout.row_add_exercise,null,false);
 
-        EditText editText = (EditText)exerciseView.findViewById(R.id.edit_extraweight);
-        AppCompatSpinner spinnerExercise = (AppCompatSpinner)exerciseView.findViewById(R.id.exercise_name);
-        AppCompatSpinner spinnerDay = (AppCompatSpinner)exerciseView.findViewById(R.id.day_name);
-        TextView closeX = (TextView) exerciseView.findViewById(R.id.button_remove);
+        EditText editText = (EditText)exerciseView.findViewById(R.id.editextraweight_rowaddexercise);
+        AppCompatSpinner spinnerExercise = (AppCompatSpinner)exerciseView.findViewById(R.id.exercisename_rowaddexercise);
+        AppCompatSpinner spinnerDay = (AppCompatSpinner)exerciseView.findViewById(R.id.dayname_rowaddexercise);
+        TextView closeX = (TextView) exerciseView.findViewById(R.id.removebutton_rowaddexercise);
 
         ArrayAdapter arrayAdapterExerciseName = new ArrayAdapter(this,android.R.layout.simple_spinner_item, exerciseNames);
         ArrayAdapter arrayAdapterDayName = new ArrayAdapter(this,android.R.layout.simple_spinner_item, exerciseDays);
@@ -346,9 +347,9 @@ public class ShowTrainingsplanActivity extends AppCompatActivity implements View
 
                     View exerciseView = layoutList.getChildAt(i);
 
-                    EditText editTextExtraWeight = (EditText)exerciseView.findViewById(R.id.edit_extraweight);
-                    AppCompatSpinner spinnerExercise = (AppCompatSpinner)exerciseView.findViewById(R.id.exercise_name);
-                    AppCompatSpinner spinnerDays = (AppCompatSpinner) exerciseView.findViewById(R.id.day_name);
+                    EditText editTextExtraWeight = (EditText)exerciseView.findViewById(R.id.editextraweight_rowaddexercise);
+                    AppCompatSpinner spinnerExercise = (AppCompatSpinner)exerciseView.findViewById(R.id.exercisename_rowaddexercise);
+                    AppCompatSpinner spinnerDays = (AppCompatSpinner) exerciseView.findViewById(R.id.dayname_rowaddexercise);
 
                     Exercise exercise = new Exercise();
 
@@ -407,6 +408,7 @@ public class ShowTrainingsplanActivity extends AppCompatActivity implements View
                 breakButton.setVisibility(View.GONE);
                 safeButton.setVisibility(View.GONE);
                 editButton.setVisibility(View.VISIBLE);
+                deleteButton.setVisibility(View.VISIBLE);
                 editTextTrainingsplantitle.setVisibility(View.GONE);
 
                 FirebaseDatabase.getInstance().getReference("Users")
@@ -436,6 +438,7 @@ public class ShowTrainingsplanActivity extends AppCompatActivity implements View
         breakButton.setVisibility(View.GONE);
         safeButton.setVisibility(View.GONE);
         editButton.setVisibility(View.VISIBLE);
+        deleteButton.setVisibility(View.VISIBLE);
         editTextTrainingsplantitle.setVisibility(View.GONE);
         selectedTrainingsplan();
     }

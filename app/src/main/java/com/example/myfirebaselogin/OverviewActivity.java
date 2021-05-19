@@ -16,15 +16,15 @@ public class OverviewActivity extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_overview);
 
-        Button userdata = (Button) findViewById(R.id.userdata);
+        Button userdata = (Button) findViewById(R.id.userdatabutton_overview);
         userdata.setOnClickListener(this);
-        Button explainExercise = (Button) findViewById(R.id.explainexercise);
+        Button explainExercise = (Button) findViewById(R.id.explainexercisebutton_overview);
         explainExercise.setOnClickListener(this);
-        Button createTrainingsplan = (Button) findViewById(R.id.createTrainingsplan);
+        Button createTrainingsplan = (Button) findViewById(R.id.createTrainingsplanbutton_overview);
         createTrainingsplan.setOnClickListener(this);
-        Button showTrainingsplan = (Button) findViewById(R.id.showTrainingsplan);
+        Button showTrainingsplan = (Button) findViewById(R.id.showTrainingsplanbutton_overview);
         showTrainingsplan.setOnClickListener(this);
-        Button logout = (Button) findViewById(R.id.signout);
+        Button logout = (Button) findViewById(R.id.signoutbutton_overview);
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -36,16 +36,16 @@ public class OverviewActivity extends AppCompatActivity implements View.OnClickL
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.userdata:
+            case R.id.userdatabutton_overview:
                 startActivity(new Intent(this, ProfileActivty.class));
                 break;
-            case R.id.explainexercise:
+            case R.id.explainexercisebutton_overview:
                 startActivity(new Intent (this, ExplainExerciseBenchPressStepOneActivity.class));
                 break;
-            case R.id.createTrainingsplan:
+            case R.id.createTrainingsplanbutton_overview:
                 startActivity(new Intent (this, CreateTrainingsplanActivity.class));
                 break;
-            case R.id.showTrainingsplan:
+            case R.id.showTrainingsplanbutton_overview:
                 startActivity(new Intent (this, ShowTrainingsplanActivity.class));
                 break;
 
