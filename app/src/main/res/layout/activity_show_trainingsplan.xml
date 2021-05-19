@@ -4,39 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".CreateTrainingsplanActivity">
-    <TextView
-        android:id="@+id/banner"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="110%"
-        android:textSize="60sp"
-        android:textAlignment="center"
-        android:textStyle="bold"
-        android:fontFamily="sans-serif"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginTop="50dp"
-        android:gravity="center_horizontal" />
 
-    <TextView
-        android:id="@+id/bannerDescription"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Motivation für deine Sinne"
-        android:textSize="18sp"
-        android:textAlignment="center"
-        android:textStyle="italic"
-        android:fontFamily="sans-serif"
-        app:layout_constraintTop_toBottomOf="@+id/banner"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:gravity="center_horizontal" />
     <FrameLayout
         android:id="@+id/trainingsplantitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/bannerDescription"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="10dp"
         app:layout_constraintLeft_toLeftOf="@id/scroll_trainingsplanlist"
 
         >
@@ -56,14 +30,29 @@
         app:layout_constraintLeft_toRightOf="@+id/trainingsplantitle"
         android:text="Anzeigen"
         />
+    <EditText
+        android:id="@+id/edittrainingsplantitle_showtrainingsplan"
+        android:layout_width="380dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="text"
+        android:hint="Titel"
+        android:textSize="24sp"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/trainingsplantitle"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginTop="20dp"
+        />
+
     <ScrollView
         android:id="@+id/scroll_trainingsplanlist"
         android:layout_width="380dp"
-        android:layout_height="400dp"
+        android:layout_height="330dp"
         android:orientation="vertical"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/showbutton">
+        app:layout_constraintTop_toBottomOf="@id/edittrainingsplantitle_showtrainingsplan">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -74,19 +63,43 @@
             />
     </ScrollView>
     <Button
-        android:layout_width="380dp"
+        android:layout_width="170dp"
         android:layout_height="70dp"
         android:id="@+id/safebutton_showtrainingsplan"
         app:layout_constraintTop_toBottomOf="@id/scroll_trainingsplanlist"
-        app:layout_constraintLeft_toLeftOf="@id/scroll_trainingsplanlist"
+        app:layout_constraintLeft_toRightOf="@id/addbutton_showtrainingsplan"
         android:backgroundTint="#0ED6B9"
         android:textColor="#ffffff"
         android:text="Speichern"
         android:visibility="gone"
         android:textStyle="bold"
+        android:textSize="20sp"/>
+    <Button
+        android:layout_width="40dp"
+        android:layout_height="70dp"
+        android:id="@+id/addbutton_showtrainingsplan"
+        app:layout_constraintTop_toBottomOf="@id/scroll_trainingsplanlist"
+        app:layout_constraintLeft_toRightOf="@id/breakbutton_showtrainingsplan"
+        android:backgroundTint="#0ED6B9"
+        android:textColor="#ffffff"
+        android:text="+"
+        android:visibility="gone"
+        android:textStyle="bold"
         android:textSize="26sp"/>
     <Button
-        android:layout_width="380dp"
+        android:layout_width="170dp"
+        android:layout_height="70dp"
+        android:id="@+id/breakbutton_showtrainingsplan"
+        app:layout_constraintTop_toBottomOf="@id/scroll_trainingsplanlist"
+        app:layout_constraintLeft_toLeftOf="@id/scroll_trainingsplanlist"
+        android:backgroundTint="#0ED6B9"
+        android:textColor="#ffffff"
+        android:text="Abbrechen"
+        android:visibility="gone"
+        android:textStyle="bold"
+        android:textSize="20sp"/>
+    <Button
+        android:layout_width="190dp"
         android:layout_height="70dp"
         android:id="@+id/editbutton_showtrainingsplan"
         app:layout_constraintTop_toBottomOf="@id/scroll_trainingsplanlist"
@@ -95,7 +108,20 @@
         android:textColor="#ffffff"
         android:text="Bearbeiten"
         android:textStyle="bold"
-        android:textSize="26sp"
+        android:textSize="20sp"
+        android:visibility="visible"
+        />
+    <Button
+        android:layout_width="190dp"
+        android:layout_height="70dp"
+        android:id="@+id/deletebutton_showtrainingsplan"
+        app:layout_constraintTop_toBottomOf="@id/scroll_trainingsplanlist"
+        app:layout_constraintLeft_toRightOf="@id/editbutton_showtrainingsplan"
+        android:backgroundTint="#0ED6B9"
+        android:textColor="#ffffff"
+        android:text="Löschen"
+        android:textStyle="bold"
+        android:textSize="20sp"
         android:visibility="visible"
         />
 

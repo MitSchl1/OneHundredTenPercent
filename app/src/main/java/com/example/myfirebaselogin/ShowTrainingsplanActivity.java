@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatSpinner;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -11,7 +12,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -35,8 +39,8 @@ public class ShowTrainingsplanActivity extends AppCompatActivity implements View
     private List<String> exerciseNames = new ArrayList<>();
     private List<String> exerciseDays = new ArrayList<>();
 
-    private Button showButton,editButton,safeButton;
-
+    private Button showButton,editButton,safeButton, addButton, breakButton, deleteButton;
+    EditText editTextTrainingsplantitle;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,6 +63,14 @@ public class ShowTrainingsplanActivity extends AppCompatActivity implements View
         editButton.setOnClickListener(this);
         safeButton = (Button) findViewById(R.id.safebutton_showtrainingsplan);
         safeButton.setOnClickListener(this);
+        addButton = (Button) findViewById(R.id.addbutton_showtrainingsplan);
+        addButton.setOnClickListener(this);
+        breakButton = (Button) findViewById(R.id.breakbutton_showtrainingsplan);
+        breakButton.setOnClickListener(this);
+        deleteButton = (Button) findViewById(R.id.deletebutton_showtrainingsplan);
+        deleteButton.setOnClickListener(this);
+
+        editTextTrainingsplantitle = (EditText) findViewById(R.id.edittrainingsplantitle_showtrainingsplan);
 
         exerciseNames.add("Übung");
         exerciseNames.add("Liegestütze");
@@ -87,8 +99,57 @@ public class ShowTrainingsplanActivity extends AppCompatActivity implements View
                 break;
             case R.id.safebutton_showtrainingsplan:
                 safeEditedTrainingsplan();
+                //selectedTrainingsplan();
+                break;
+            case R.id.addbutton_showtrainingsplan:
+                addView();
+                break;
+            case R.id.breakbutton_showtrainingsplan:
+                breakEditingTrainingsplan();
+                break;
+            case R.id.deletebutton_showtrainingsplan:
+                deleteTrainingsplan();
                 break;
         }
+    }
+
+    private void deleteTrainingsplan() {
+        dbReference.child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                User userProfile = snapshot.getValue(User.class);
+                assert userProfile != null;
+
+                int currentTrainingsplanIndex = 0;
+                for(Trainingsplan t : userProfile.getTrainingsplanList()){
+                    if(t.getName().equals(spinnerTraingsplanName.getSelectedItem().toString())){
+                        currentTrainingsplanIndex = userProfile.getTrainingsplanList().indexOf(t);
+                    }
+                }
+
+                userProfile.removeTrainingsplanFromList(currentTrainingsplanIndex);
+
+                FirebaseDatabase.getInstance().getReference("Users")
+                        .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                        .setValue(userProfile).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(ShowTrainingsplanActivity.this, "Trainingsplan erfolgreich bearbeitet", Toast.LENGTH_LONG).show();
+                            startActivity(new Intent(ShowTrainingsplanActivity.this, ShowTrainingsplanActivity.class));
+
+                        } else {
+                            Toast.makeText(ShowTrainingsplanActivity.this, "Bearbeitung fehlgeschlagen! Probiers nochmal", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
+
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
 
@@ -158,8 +219,8 @@ public class ShowTrainingsplanActivity extends AppCompatActivity implements View
         });
     }
     private void editCurrentTrainingsplan() {
-        editButton.setVisibility(View.GONE);
-        safeButton.setVisibility(View.VISIBLE);
+
+        editTextTrainingsplantitle.setText(spinnerTraingsplanName.getSelectedItem().toString());
 
         int layoutListLength = layoutList.getChildCount();
         for(int i=0;i <= layoutListLength;i++){
@@ -221,21 +282,17 @@ public class ShowTrainingsplanActivity extends AppCompatActivity implements View
 
             }
         });
-
+        addButton.setVisibility(View.VISIBLE);
+        breakButton.setVisibility(View.VISIBLE);
+        safeButton.setVisibility(View.VISIBLE);
+        editButton.setVisibility(View.GONE);
+        editTextTrainingsplantitle.setVisibility(View.VISIBLE);
 
     }
-    private void safeEditedTrainingsplan() {
-        editButton.setVisibility(View.VISIBLE);
-        safeButton.setVisibility(View.GONE);
-    }
 
 
-    public void showView(View v, ArrayList<Trainingsplan> t, TextView textview) {
-        for (Trainingsplan trainingsplan : t) {
-            textview.setText(trainingsplan.getName());
-            layoutList.addView(v);
-        }
-    }
+
+
 
     private void addView() {
         final View exerciseView = getLayoutInflater().inflate(R.layout.row_add_exercise,null,false);
@@ -261,6 +318,125 @@ public class ShowTrainingsplanActivity extends AppCompatActivity implements View
     }
     private void removeView(View view) {
         layoutList.removeView(view);
-    }
 
+    }
+    private void safeEditedTrainingsplan() {
+        dbReference.child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                User userProfile = snapshot.getValue(User.class);
+                assert userProfile != null;
+                double userWeight = userProfile.getWeight();
+                int exercisePoints;
+                int pointSum = 0;
+                int pushUps = 6;
+                int pullUps = 10;
+                int squats = 7;
+
+                ArrayList<Exercise> exerciseList = new ArrayList<>();
+                int currentTrainingsplanIndex = 0;
+                for(Trainingsplan t : userProfile.getTrainingsplanList()){
+                    if(t.getName().equals(spinnerTraingsplanName.getSelectedItem().toString())){
+                        currentTrainingsplanIndex = userProfile.getTrainingsplanList().indexOf(t);
+                    }
+                }
+                final String trainingsplantitle = editTextTrainingsplantitle.getText().toString().trim();
+
+                for(int i=0;i<layoutList.getChildCount();i++){
+
+                    View exerciseView = layoutList.getChildAt(i);
+
+                    EditText editTextExtraWeight = (EditText)exerciseView.findViewById(R.id.edit_extraweight);
+                    AppCompatSpinner spinnerExercise = (AppCompatSpinner)exerciseView.findViewById(R.id.exercise_name);
+                    AppCompatSpinner spinnerDays = (AppCompatSpinner) exerciseView.findViewById(R.id.day_name);
+
+                    Exercise exercise = new Exercise();
+
+                    if(!editTextExtraWeight.getText().toString().equals("")){
+                        exercise.setExtraWeight(Double.parseDouble(editTextExtraWeight.getText().toString()));
+                    }else{
+                        exercise.setExtraWeight(0);
+
+                    }
+                    if(spinnerExercise.getSelectedItemPosition()==0){
+                        editTextExtraWeight.setError("Bitte Übung auswählen");
+                        editTextExtraWeight.requestFocus();
+                        return;
+                    }
+                    if(spinnerDays.getSelectedItemPosition()==0){
+                        editTextExtraWeight.setError("Bitte Tag auswählen");
+                        editTextExtraWeight.requestFocus();
+                        return;
+                    }
+
+
+                    exercise.setName(exerciseNames.get(spinnerExercise.getSelectedItemPosition()));
+                    exercise.setDay(exerciseDays.get(spinnerDays.getSelectedItemPosition()));
+                    if(exercise.getName().equals("Liegestütze")){
+                        exercisePoints = (int) (pushUps*(1/userWeight*(userWeight+exercise.getExtraWeight())));
+                        exercise.setPoints(exercisePoints);
+                    }
+                    if(exercise.getName().equals("Kniebeugen")){
+                        exercisePoints = (int) (squats*(1/userWeight*(userWeight+exercise.getExtraWeight())));
+                        exercise.setPoints(exercisePoints);
+                    }
+                    if(exercise.getName().equals("Klimmzüge")){
+                        exercisePoints = (int) (pullUps*(1/userWeight*(userWeight+exercise.getExtraWeight())));
+                        exercise.setPoints(exercisePoints);
+                    }
+                    exerciseList.add(exercise);
+                }
+
+                if(exerciseList.size()==0){
+                    addButton.setError("Bitte zuerst eine Uebung hinzufuegen");
+                    addButton.requestFocus();
+                    return;
+                }
+                if(trainingsplantitle.isEmpty()){
+                    editTextTrainingsplantitle.setError("Bitte gib einen Titel ein");
+                    editTextTrainingsplantitle.requestFocus();
+                    return;
+                }
+
+                for(Exercise e : exerciseList){
+                    pointSum += e.getPoints();
+                }
+                Trainingsplan trainingsplan = new Trainingsplan(exerciseList,trainingsplantitle,pointSum);
+                userProfile.editTrainingsplan(currentTrainingsplanIndex,trainingsplan);
+                addButton.setVisibility(View.GONE);
+                breakButton.setVisibility(View.GONE);
+                safeButton.setVisibility(View.GONE);
+                editButton.setVisibility(View.VISIBLE);
+                editTextTrainingsplantitle.setVisibility(View.GONE);
+
+                FirebaseDatabase.getInstance().getReference("Users")
+                        .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                        .setValue(userProfile).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(ShowTrainingsplanActivity.this, "Trainingsplan erfolgreich bearbeitet", Toast.LENGTH_LONG).show();
+                            startActivity(new Intent(ShowTrainingsplanActivity.this, ShowTrainingsplanActivity.class));
+
+                        } else {
+                            Toast.makeText(ShowTrainingsplanActivity.this, "Bearbeitung fehlgeschlagen! Probiers nochmal", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
+
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+    private void breakEditingTrainingsplan() {
+        addButton.setVisibility(View.GONE);
+        breakButton.setVisibility(View.GONE);
+        safeButton.setVisibility(View.GONE);
+        editButton.setVisibility(View.VISIBLE);
+        editTextTrainingsplantitle.setVisibility(View.GONE);
+        selectedTrainingsplan();
+    }
 }

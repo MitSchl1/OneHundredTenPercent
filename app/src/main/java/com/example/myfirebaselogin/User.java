@@ -51,4 +51,10 @@ public class User {
     public void addTrainingsplanToList( Trainingsplan trainingsplan){
         this.trainingsplanList.add(trainingsplan);
     }
+    public void removeTrainingsplanFromList(int index){
+        this.trainingsplanList.remove(index);
+    }
+    public void editTrainingsplan ( int index,Trainingsplan trainingsplan){
+        this.trainingsplanList.set(index,trainingsplan);
+    }
 }
