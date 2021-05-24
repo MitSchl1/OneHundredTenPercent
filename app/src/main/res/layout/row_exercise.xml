@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:text="Cricketer Name"
             android:textSize="18sp"
-            android:textColor="#000000"></TextView>
+            android:textColor="#000000" />
 
         <TextView
             android:id="@+id/text_name"
@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:text="Team Name"
             android:textSize="14sp"
-            android:textColor="	#bebebe"></TextView>
+            android:textColor="	#bebebe" />
 
     </LinearLayout>
 

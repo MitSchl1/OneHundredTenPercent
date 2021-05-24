@@ -6,6 +6,7 @@ public class User {
     private String name, mail;
     private double weight;
     private ArrayList<Trainingsplan> trainingsplanList = new ArrayList<Trainingsplan>();
+    private ArrayList<Successes> successes = new ArrayList<>();
 
     public User(){
 
@@ -56,5 +57,17 @@ public class User {
     }
     public void editTrainingsplan ( int index,Trainingsplan trainingsplan){
         this.trainingsplanList.set(index,trainingsplan);
+    }
+
+    public ArrayList<Successes> getSuccesses() {
+        return successes;
+    }
+
+    public void setSuccesses(ArrayList<Successes> successes) {
+        this.successes = successes;
+    }
+
+    public void addSuccess( Successes s ){
+        this.successes.add(s);
     }
 }
