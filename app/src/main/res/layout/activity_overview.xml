@@ -72,12 +72,12 @@
         app:layout_constraintLeft_toLeftOf="@id/userdatabutton_overview"
         app:layout_constraintTop_toBottomOf="@id/createTrainingsplanbutton_overview" />
     <Button
-        android:id="@+id/other4"
+        android:id="@+id/starttrainingbutton_overview"
         android:layout_width="370dp"
         android:layout_height="100dp"
         android:backgroundTint="@color/cardview_dark_background"
         android:gravity="center"
-        android:text="Other Function 4"
+        android:text="Training starten"
         android:textColor="#ffffff"
         android:textSize="24sp"
         android:textStyle="bold"
@@ -94,6 +94,6 @@
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="@id/userdatabutton_overview"
-        app:layout_constraintTop_toBottomOf="@id/other4" />
+        app:layout_constraintTop_toBottomOf="@id/starttrainingbutton_overview" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
