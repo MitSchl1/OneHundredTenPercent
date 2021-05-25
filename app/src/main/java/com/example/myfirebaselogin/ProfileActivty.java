@@ -111,6 +111,53 @@ public class ProfileActivty extends AppCompatActivity implements View.OnClickLis
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void getAllSuccesses(User user){
+        boolean existSuccessOneHundredPoints = false;
+        boolean existSuccessTwoHundredFiftyPoints = false;
+        boolean existSuccessFiveHundredPoints = false;
+        boolean existSuccessOneThousandPoints = false;
+
+        for(Successes s : user.getSuccesses()){
+            if(s.equals(Successes.ONEHUNDREDPOINTS)){
+                existSuccessOneHundredPoints = true;
+            }else if(s.equals(Successes.TWOHUNDREDFIFTYPOINTS)){
+                existSuccessTwoHundredFiftyPoints = true;
+            }else if(s.equals(Successes.FIVEHUNDREDPOINTS)){
+                existSuccessFiveHundredPoints = true;
+            }else if (s.equals(Successes.ONETHOUSANDPOINTS)){
+                existSuccessOneThousandPoints = true;
+            }
+        }
+
+        if(user.getPoints() >= 100){
+            if(!existSuccessOneHundredPoints){
+                user.addSuccess(Successes.ONEHUNDREDPOINTS);
+                user.setPoints(user.getPoints()+Successes.ONEHUNDREDPOINTS.getPoints());
+                Toast.makeText(ProfileActivty.this,"Neuer Erfolg freigeschalten",Toast.LENGTH_LONG).show();
+
+            }
+        }
+        if(user.getPoints() >= 250){
+            if(!existSuccessTwoHundredFiftyPoints){
+                user.addSuccess(Successes.TWOHUNDREDFIFTYPOINTS);
+                user.setPoints(user.getPoints()+Successes.TWOHUNDREDFIFTYPOINTS.getPoints());
+                Toast.makeText(ProfileActivty.this,"Neuer Erfolg freigeschalten",Toast.LENGTH_LONG).show();
+
+            }
+        }
+        if(user.getPoints() >= 500){
+            if(!existSuccessFiveHundredPoints){
+                user.addSuccess(Successes.FIVEHUNDREDPOINTS);
+                user.setPoints(user.getPoints()+Successes.FIVEHUNDREDPOINTS.getPoints());
+                Toast.makeText(ProfileActivty.this,"Neuer Erfolg freigeschalten",Toast.LENGTH_LONG).show();
+            }
+        }
+        if(user.getPoints() >= 1000){
+            if(!existSuccessOneThousandPoints){
+                user.addSuccess(Successes.ONETHOUSANDPOINTS);
+                user.setPoints(user.getPoints()+Successes.ONETHOUSANDPOINTS.getPoints());
+                Toast.makeText(ProfileActivty.this,"Neuer Erfolg freigeschalten",Toast.LENGTH_LONG).show();
+            }
+        }
 
         for(Successes s : user.getSuccesses()){
             final View successesView = getLayoutInflater().inflate(R.layout.row_successes, null, false);
