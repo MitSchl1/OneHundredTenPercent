@@ -7,6 +7,7 @@ import androidx.appcompat.widget.AppCompatSpinner;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -66,6 +67,7 @@ public class ProfileActivty extends AppCompatActivity implements View.OnClickLis
         final TextView nameTextView = (TextView) findViewById(R.id.username_profile);
         final TextView emailTextView = (TextView) findViewById(R.id.useremailAdress_profile);
         final TextView weightTextView = (TextView) findViewById(R.id.userweight_profile);
+        final TextView pointTextView = (TextView) findViewById(R.id.userpoints_profile);
 
         dbReference.child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -76,10 +78,14 @@ public class ProfileActivty extends AppCompatActivity implements View.OnClickLis
                     String name = userProfile.getName();
                     String mail = userProfile.getMail();
                     String weight = String.valueOf(userProfile.getWeight());
+                    String points = String.valueOf(userProfile.getPoints());
 
                     nameTextView.setText(name);
                     emailTextView.setText(mail);
                     weightTextView.setText(weight);
+                    pointTextView.setText(points);
+
+                    getAllSuccesses(userProfile);
                 }
             }
 
@@ -88,7 +94,6 @@ public class ProfileActivty extends AppCompatActivity implements View.OnClickLis
                 Toast.makeText(ProfileActivty.this, "Da ist wohl was schiefgelaufen", Toast.LENGTH_LONG).show();
             }
         });
-        getAllSuccesses();
     }
 
     @Override
@@ -105,14 +110,13 @@ public class ProfileActivty extends AppCompatActivity implements View.OnClickLis
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public void getAllSuccesses(){
+    public void getAllSuccesses(User user){
 
-        for(Successes s : Successes.values()){
+        for(Successes s : user.getSuccesses()){
             final View successesView = getLayoutInflater().inflate(R.layout.row_successes, null, false);
 
             TextView successName = successesView.findViewById(R.id.success_rowsuccesses);
             successName.setText(s.getName());
-
             gridLayoutList.addView(successesView);
         }
 

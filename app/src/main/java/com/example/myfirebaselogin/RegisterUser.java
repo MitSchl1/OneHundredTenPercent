@@ -115,11 +115,13 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
         progressBar.setVisibility(View.VISIBLE);
         mAuth.createUserWithEmailAndPassword(userMail, userPassword)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @RequiresApi(api = Build.VERSION_CODES.O)
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             User user = new User(userName, userMail, userWeight);
-
+                            user.addSuccess(Successes.CREATEACCOUNT);
+                            user.setPoints(user.getPoints() + Successes.CREATEACCOUNT.getPoints());
                             FirebaseDatabase.getInstance().getReference("Users")
                                     .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                                     .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {

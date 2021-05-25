@@ -7,6 +7,7 @@ public class User {
     private double weight;
     private ArrayList<Trainingsplan> trainingsplanList = new ArrayList<Trainingsplan>();
     private ArrayList<Successes> successes = new ArrayList<>();
+    private int points;
 
     public User(){
 
@@ -69,5 +70,13 @@ public class User {
 
     public void addSuccess( Successes s ){
         this.successes.add(s);
+    }
+
+    public int getPoints() {
+        return points;
+    }
+
+    public void setPoints(int points) {
+        this.points = points;
     }
 }

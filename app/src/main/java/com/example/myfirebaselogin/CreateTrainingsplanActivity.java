@@ -1,10 +1,12 @@
 package com.example.myfirebaselogin;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatSpinner;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -92,6 +94,7 @@ public class CreateTrainingsplanActivity extends AppCompatActivity implements Vi
 
     private void createTrainingsplan() {
         dbReference.child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 User userProfile = snapshot.getValue(User.class);
@@ -99,7 +102,13 @@ public class CreateTrainingsplanActivity extends AppCompatActivity implements Vi
                 double userWeight = userProfile.getWeight();
                 int exercisePoints;
                 int pointSum = 0;
-
+                boolean existSuccessCreateFirstTrainingsplan = false;
+                boolean existSuccessTenPercentExtraWeight = true;
+                boolean existSuccessTwentyFivePercentExtraWeight = true;
+                boolean existSuccessFiftyPercentExtraWeight = true;
+                boolean existSuccessSeventyFivePercentExtraWeight = true;
+                boolean existSuccessOneHundredPercentExtraWeight = true;
+                boolean existSuccessOneHundredTenPercentExtraWeight = true;
 
                 final String trainingsplantitle = editTextTrainingsplantitle.getText().toString().trim();
                 for(int i=0;i<layoutList.getChildCount();i++){
@@ -144,6 +153,26 @@ public class CreateTrainingsplanActivity extends AppCompatActivity implements Vi
                         exercisePoints = (int) (pullUps*(1/userWeight*(userWeight+exercise.getExtraWeight())));
                         exercise.setPoints(exercisePoints);
                     }
+
+                    if(exercise.getExtraWeight() >= userWeight*0.1){
+                        existSuccessTenPercentExtraWeight = false;
+                    }
+                    if(exercise.getExtraWeight() >= userWeight*0.25){
+                        existSuccessTwentyFivePercentExtraWeight = false;
+                    }
+                    if(exercise.getExtraWeight() >= userWeight*0.5){
+                        existSuccessFiftyPercentExtraWeight = false;
+                    }
+                    if(exercise.getExtraWeight() >= userWeight*0.75){
+                        existSuccessSeventyFivePercentExtraWeight = false;
+                    }
+                    if(exercise.getExtraWeight() >= userWeight){
+                        existSuccessOneHundredPercentExtraWeight = false;
+                    }
+                    if(exercise.getExtraWeight() >= userWeight*1.1){
+                        existSuccessOneHundredTenPercentExtraWeight = false;
+                    }
+
                     exerciseList.add(exercise);
                 }
 
@@ -164,6 +193,67 @@ public class CreateTrainingsplanActivity extends AppCompatActivity implements Vi
                 Trainingsplan trainingsplan = new Trainingsplan(exerciseList,trainingsplantitle,pointSum);
                 userProfile.addTrainingsplanToList(trainingsplan);
 
+
+
+                for( Successes s : userProfile.getSuccesses()){
+                    if(s.equals(Successes.CREATEFIRSTTRAININGSPLAN)){
+                        existSuccessCreateFirstTrainingsplan = true;
+                    }
+                    else if(s.equals(Successes.TENPERCENTEXTRAWEIGHT)){
+                        existSuccessTenPercentExtraWeight = true;
+                    }
+                    else if(s.equals(Successes.TWENTYFIVEPERCENTEXTRAWEIGHT)){
+                        existSuccessTwentyFivePercentExtraWeight = true;
+                    }
+                    else if(s.equals(Successes.FIFTYPERCENTEXTRAWEIGHT)){
+                        existSuccessFiftyPercentExtraWeight = true;
+                    }
+                    else if(s.equals(Successes.SEVENTYFIVEPERCENTEXTRAWEIGHT)){
+                        existSuccessSeventyFivePercentExtraWeight = true;
+                    }
+                    else if(s.equals(Successes.ONEHUNDREDPERCENTEXTRAWEIGHT)){
+                        existSuccessOneHundredPercentExtraWeight = true;
+                    }
+                    else if(s.equals(Successes.ONEHUNDREDTENPERCENTEXTRAWEIGHT)){
+                        existSuccessOneHundredTenPercentExtraWeight = true;
+                    }
+
+                }
+                if(!existSuccessCreateFirstTrainingsplan){
+                    userProfile.addSuccess(Successes.CREATEFIRSTTRAININGSPLAN);
+                    userProfile.setPoints(userProfile.getPoints() + Successes.CREATEFIRSTTRAININGSPLAN.getPoints());
+                    Toast.makeText(CreateTrainingsplanActivity.this,"Neuer Erfolg freigeschalten",Toast.LENGTH_LONG).show();
+                }
+                if(!existSuccessTenPercentExtraWeight){
+                    userProfile.addSuccess(Successes.TENPERCENTEXTRAWEIGHT);
+                    userProfile.setPoints(userProfile.getPoints() + Successes.TENPERCENTEXTRAWEIGHT.getPoints());
+                    Toast.makeText(CreateTrainingsplanActivity.this,"Neuer Erfolg freigeschalten",Toast.LENGTH_LONG).show();
+                }
+                if(!existSuccessTwentyFivePercentExtraWeight){
+                    userProfile.addSuccess(Successes.TWENTYFIVEPERCENTEXTRAWEIGHT);
+                    userProfile.setPoints(userProfile.getPoints() + Successes.TWENTYFIVEPERCENTEXTRAWEIGHT.getPoints());
+                    Toast.makeText(CreateTrainingsplanActivity.this,"Neuer Erfolg freigeschalten",Toast.LENGTH_LONG).show();
+                }
+                if(!existSuccessFiftyPercentExtraWeight){
+                    userProfile.addSuccess(Successes.FIFTYPERCENTEXTRAWEIGHT);
+                    userProfile.setPoints(userProfile.getPoints() + Successes.FIFTYPERCENTEXTRAWEIGHT.getPoints());
+                    Toast.makeText(CreateTrainingsplanActivity.this,"Neuer Erfolg freigeschalten",Toast.LENGTH_LONG).show();
+                }
+                if(!existSuccessSeventyFivePercentExtraWeight){
+                    userProfile.addSuccess(Successes.SEVENTYFIVEPERCENTEXTRAWEIGHT);
+                    userProfile.setPoints(userProfile.getPoints() + Successes.SEVENTYFIVEPERCENTEXTRAWEIGHT.getPoints());
+                    Toast.makeText(CreateTrainingsplanActivity.this,"Neuer Erfolg freigeschalten",Toast.LENGTH_LONG).show();
+                }
+                if(!existSuccessOneHundredPercentExtraWeight){
+                    userProfile.addSuccess(Successes.ONEHUNDREDPERCENTEXTRAWEIGHT);
+                    userProfile.setPoints(userProfile.getPoints() + Successes.ONEHUNDREDPERCENTEXTRAWEIGHT.getPoints());
+                    Toast.makeText(CreateTrainingsplanActivity.this,"Neuer Erfolg freigeschalten",Toast.LENGTH_LONG).show();
+                }
+                if(!existSuccessOneHundredTenPercentExtraWeight){
+                    userProfile.addSuccess(Successes.ONEHUNDREDTENPERCENTEXTRAWEIGHT);
+                    userProfile.setPoints(userProfile.getPoints() + Successes.ONEHUNDREDTENPERCENTEXTRAWEIGHT.getPoints());
+                    Toast.makeText(CreateTrainingsplanActivity.this,"Neuer Erfolg freigeschalten",Toast.LENGTH_LONG).show();
+                }
                 FirebaseDatabase.getInstance().getReference("Users")
                         .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                         .setValue(userProfile).addOnCompleteListener(new OnCompleteListener<Void>() {
