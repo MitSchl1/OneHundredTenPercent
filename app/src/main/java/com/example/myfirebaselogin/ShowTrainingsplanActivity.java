@@ -162,9 +162,6 @@ public class ShowTrainingsplanActivity extends AppCompatActivity implements View
                 for (Trainingsplan t : userProfile.getTrainingsplanList()) {
                     listOfTrainingsplanNames.add(t.getName());
                 }
-                //final View trainingsplanView = getLayoutInflater().inflate(R.layout.row_trainingsplan,null,false);
-                //TextView trainingsplanTitle = trainingsplanView.findViewById(R.id.name_trainingsplan);
-                //showView(trainingsplanView,userProfile.getTrainingsplanList(),trainingsplanTitle);
             }
 
             @Override

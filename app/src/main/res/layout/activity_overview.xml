@@ -8,64 +8,73 @@
 
     <Button
         android:id="@+id/signoutbutton_overview"
-        android:layout_width="370dp"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/colorAccent"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:background="@drawable/overviewbutton_textview"
         android:text="Logout"
-        android:textColor="#ffffff"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/userdatabutton_overview"
-        android:layout_width="370dp"
-        android:layout_height="100dp"
-        android:backgroundTint="@color/cardview_dark_background"
-        android:gravity="center"
-        android:text="Nutzerdaten"
         android:textColor="#ffffff"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintLeft_toLeftOf="@id/signoutbutton_overview"
-        app:layout_constraintTop_toBottomOf="@id/signoutbutton_overview"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="100dp"
+        />
 
+    <Button
+        android:id="@+id/userdatabutton_overview"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:gravity="center"
+        android:background="@drawable/overviewbutton_textview"
+        android:text="Nutzer
+        daten"
+        android:textColor="#ffffff"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_marginRight="40dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/signoutbutton_overview"
         />
 
     <Button
         android:id="@+id/explainexercisebutton_overview"
-        android:layout_width="370dp"
-        android:layout_height="100dp"
-        android:backgroundTint="@color/colorAccent"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         android:gravity="center"
+        android:background="@drawable/overviewbutton_textview"
+        android:layout_marginTop="30dp"
+
         android:text="How To "
         android:textColor="#ffffff"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintLeft_toLeftOf="@id/userdatabutton_overview"
-        app:layout_constraintTop_toBottomOf="@id/userdatabutton_overview" />
+        app:layout_constraintLeft_toLeftOf="@id/signoutbutton_overview"
+        app:layout_constraintTop_toBottomOf="@id/signoutbutton_overview" />
 
     <Button
         android:id="@+id/createTrainingsplanbutton_overview"
-        android:layout_width="370dp"
-        android:layout_height="100dp"
-        android:backgroundTint="@color/cardview_dark_background"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         android:gravity="center"
-        android:text="Trainingsplan erstellen"
+        android:background="@drawable/overviewbutton_textview"
+        android:layout_marginTop="30dp"
+        android:text="Trainings
+        plan erstellen"
         android:textColor="#ffffff"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="@id/userdatabutton_overview"
-        app:layout_constraintTop_toBottomOf="@id/explainexercisebutton_overview" />
+        app:layout_constraintTop_toBottomOf="@id/signoutbutton_overview" />
     <Button
         android:id="@+id/showTrainingsplanbutton_overview"
-        android:layout_width="370dp"
-        android:layout_height="100dp"
-        android:backgroundTint="@color/colorAccent"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         android:gravity="center"
-        android:text="Trainingspläne anzeigen"
+        android:background="@drawable/overviewbutton_textview"
+        android:layout_marginTop="30dp"
+        android:text="Trainings
+        pläne anzeigen"
         android:textColor="#ffffff"
         android:textSize="24sp"
         android:textStyle="bold"
@@ -73,27 +82,17 @@
         app:layout_constraintTop_toBottomOf="@id/createTrainingsplanbutton_overview" />
     <Button
         android:id="@+id/starttrainingbutton_overview"
-        android:layout_width="370dp"
-        android:layout_height="100dp"
-        android:backgroundTint="@color/cardview_dark_background"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         android:gravity="center"
+        android:background="@drawable/overviewbutton_textview"
+        android:layout_marginTop="30dp"
         android:text="Training starten"
         android:textColor="#ffffff"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintLeft_toLeftOf="@id/userdatabutton_overview"
-        app:layout_constraintTop_toBottomOf="@id/showTrainingsplanbutton_overview" />
-    <Button
-        android:id="@+id/other5"
-        android:layout_width="370dp"
-        android:layout_height="100dp"
-        android:backgroundTint="@color/colorAccent"
-        android:gravity="center"
-        android:text="Other Function 5"
-        android:textColor="#ffffff"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintLeft_toLeftOf="@id/userdatabutton_overview"
-        app:layout_constraintTop_toBottomOf="@id/starttrainingbutton_overview" />
+        app:layout_constraintLeft_toLeftOf="@id/signoutbutton_overview"
+        app:layout_constraintTop_toBottomOf="@id/createTrainingsplanbutton_overview" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
