@@ -118,10 +118,12 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
                 }
 
                 progressBar.setVisibility(View.VISIBLE);
-                User ChangeDataUser = new User(userName, userMail, userWeight);
+                userProfile.setMail(userMail);
+                userProfile.setName(userName);
+                userProfile.setWeight(userWeight);
                 FirebaseDatabase.getInstance().getReference("Users")
                         .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                        .setValue(ChangeDataUser).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        .setValue(userProfile).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
