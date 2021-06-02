@@ -12,7 +12,7 @@ public class ExplainExerciseBenchPressStepTwoActivity extends AppCompatActivity 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_explain_exercise_bench_press_step_two);
+        setContentView(R.layout.activity_how_to_push_up_step_one);
 
 
         Button nextStep = (Button) findViewById(R.id.buttonNext);

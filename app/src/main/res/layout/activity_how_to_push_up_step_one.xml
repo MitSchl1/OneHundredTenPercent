@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".HowToPushUpStepOne">
+
+    <TextView
+        android:id="@+id/headline_howtopushupstepone"
+        android:layout_width="380dp"
+        android:layout_height="40dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:text="Schritt 1: Ausgangsposition"
+        android:textSize="26sp"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:layout_marginTop="20dp"
+        />
+    <TextView
+        android:id="@+id/declaration_howtopushupstepone"
+        android:layout_width="380dp"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        app:layout_constraintTop_toBottomOf="@+id/headline_howtopushupstepone"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="20dp"
+        android:text="Die Beine sind durchgestreckt und zusammen. Die Hände befinden sich parallel unter den Schultern. Die Arme sind ebenfalls durchgestreckt. Der Bauch ist angespannt und der Rücken gerade. Der Po ist ebenfalls angespannt." />
+
+    <ImageView
+        android:id="@+id/pushupimg_howtopushupstepone"
+        android:layout_width="380dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/declaration_howtopushupstepone"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/pushup"
+        android:contentDescription="TODO" />
+
+    <Button
+        android:id="@+id/buttonNext_howtopushupstepone"
+        android:layout_width="190dp"
+        android:layout_height="70dp"
+        android:text="Nächster Schritt "
+        android:textColor="#ffff"
+        android:fontFamily="sans-serif"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:backgroundTint="#0ED6B9"
+        app:layout_constraintRight_toRightOf="@+id/declaration_howtopushupstepone"
+        app:layout_constraintTop_toBottomOf="@+id/pushupimg_howtopushupstepone"
+        />
+    <Button
+        android:id="@+id/buttonPrev_howtopushupstepone"
+        android:layout_width="190dp"
+        android:layout_height="70dp"
+        android:text="Zurück "
+        android:textColor="#ffff"
+        android:fontFamily="sans-serif"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="@+id/declaration_howtopushupstepone"
+        app:layout_constraintTop_toBottomOf="@+id/pushupimg_howtopushupstepone"
+        android:backgroundTint="#0ED6B9"
+        />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -9,7 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name=".StartTrainingActivity"></activity>
+        <activity android:name=".HowToPushUpStepTwo"></activity>
+        <activity android:name=".HowToPushUpStepOne" />
+        <activity android:name=".HowToOverview" />
+        <activity android:name=".StartTrainingActivity" />
         <activity android:name=".ShowTrainingsplanActivity" />
         <activity android:name=".ExerciseActivity" />
         <activity android:name=".CreateTrainingsplanActivity" />
