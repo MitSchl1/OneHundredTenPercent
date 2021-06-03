@@ -5,6 +5,7 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatSpinner;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -28,36 +29,35 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class CreateTrainingsplanActivity extends AppCompatActivity implements View.OnClickListener {
-    private Button buttonAdd;
-    private Button buttonSubmit;
+    private Button addButton;
     private LinearLayout layoutList;
 
-    private int pushUps = 6;
-    private int pullUps = 10;
-    private int squats = 8;
+    private final int pushUps = 6;
+    private final int pullUps = 10;
+    private final int squats = 8;
 
 
     private DatabaseReference dbReference;
     private String userId;
-    private FirebaseUser user;
 
-    private List<String> exerciseNames = new ArrayList<>();
-    private List<String> exerciseDays = new ArrayList<>();
-    private ArrayList<Exercise> exerciseList = new ArrayList<>();
-    private EditText editTextTrainingsplantitle;
+    private final List<String> exerciseNames = new ArrayList<>();
+    private final List<String> exerciseDays = new ArrayList<>();
+    private final ArrayList<Exercise> exerciseList = new ArrayList<>();
+    private EditText trainingsplantitleEditText;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_trainingsplan);
 
-        buttonAdd = (Button) findViewById(R.id.addbutton_createtrainingsplan);
-        buttonSubmit = (Button) findViewById(R.id.submitbutton_createtrainingsplan);
+        addButton = (Button) findViewById(R.id.addbutton_createtrainingsplan);
+        Button submitButton = (Button) findViewById(R.id.submitbutton_createtrainingsplan);
         layoutList = findViewById(R.id.layoutlist_createtrainingsplan);
-        editTextTrainingsplantitle = (EditText) findViewById(R.id.edittrainingsplantitle_createtrainingsplan);
-        buttonAdd.setOnClickListener(this);
-        buttonSubmit.setOnClickListener(this);
+        trainingsplantitleEditText = (EditText) findViewById(R.id.edittrainingsplantitle_createtrainingsplan);
+        addButton.setOnClickListener(this);
+        submitButton.setOnClickListener(this);
 
         exerciseNames.add("Übung");
         exerciseNames.add("Liegestütze");
@@ -72,11 +72,13 @@ public class CreateTrainingsplanActivity extends AppCompatActivity implements Vi
         exerciseDays.add("Freitag");
         exerciseDays.add("Samstag");
         exerciseDays.add("Sonntag");
-        user = FirebaseAuth.getInstance().getCurrentUser();
+        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         dbReference = FirebaseDatabase.getInstance().getReference("Users");
-        userId = user.getUid();
+        assert firebaseUser != null;
+        userId = firebaseUser.getUid();
     }
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     public void onClick(View v) {
         switch(v.getId()){
@@ -110,7 +112,7 @@ public class CreateTrainingsplanActivity extends AppCompatActivity implements Vi
                 boolean existSuccessOneHundredPercentExtraWeight = true;
                 boolean existSuccessOneHundredTenPercentExtraWeight = true;
 
-                final String trainingsplantitle = editTextTrainingsplantitle.getText().toString().trim();
+                final String trainingsplantitle = trainingsplantitleEditText.getText().toString().trim();
                 for(int i=0;i<layoutList.getChildCount();i++){
 
                     View exerciseView = layoutList.getChildAt(i);
@@ -177,13 +179,13 @@ public class CreateTrainingsplanActivity extends AppCompatActivity implements Vi
                 }
 
                 if(exerciseList.size()==0){
-                    buttonAdd.setError("Bitte zuerst eine Uebung hinzufuegen");
-                    buttonAdd.requestFocus();
+                    addButton.setError("Bitte zuerst eine Uebung hinzufuegen");
+                    addButton.requestFocus();
                     return;
                 }
                 if(trainingsplantitle.isEmpty()){
-                    editTextTrainingsplantitle.setError("Bitte gib einen Titel ein");
-                    editTextTrainingsplantitle.requestFocus();
+                    trainingsplantitleEditText.setError("Bitte gib einen Titel ein");
+                    trainingsplantitleEditText.requestFocus();
                     return;
                 }
 
@@ -255,7 +257,7 @@ public class CreateTrainingsplanActivity extends AppCompatActivity implements Vi
                     Toast.makeText(CreateTrainingsplanActivity.this,"Neuer Erfolg freigeschalten",Toast.LENGTH_LONG).show();
                 }
                 FirebaseDatabase.getInstance().getReference("Users")
-                        .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                        .child(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid())
                         .setValue(userProfile).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
@@ -278,9 +280,8 @@ public class CreateTrainingsplanActivity extends AppCompatActivity implements Vi
     }
 
     private void addView() {
-        final View exerciseView = getLayoutInflater().inflate(R.layout.row_add_exercise,null,false);
+        @SuppressLint("InflateParams") final View exerciseView = getLayoutInflater().inflate(R.layout.row_add_exercise,null,false);
 
-        EditText editText = (EditText)exerciseView.findViewById(R.id.editextraweight_rowaddexercise);
         AppCompatSpinner spinnerExercise = (AppCompatSpinner)exerciseView.findViewById(R.id.exercisename_rowaddexercise);
         AppCompatSpinner spinnerDay = (AppCompatSpinner)exerciseView.findViewById(R.id.dayname_rowaddexercise);
         TextView closeX = (TextView) exerciseView.findViewById(R.id.removebutton_rowaddexercise);

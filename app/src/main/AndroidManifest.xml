@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name=".HowToSquatStepTwoActivity"></activity>
+        <activity android:name=".HowToSquatStepTwoActivity"/>
         <activity android:name=".HowToSquatStepOneActivity" />
         <activity android:name=".HowToPullUpStepTwoActivity" />
         <activity android:name=".HowToPullUpStepOneActivity" />

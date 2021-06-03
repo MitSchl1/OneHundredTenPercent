@@ -1,10 +1,13 @@
 package com.example.myfirebaselogin;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatSpinner;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -26,38 +29,43 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class ShowTrainingsplanActivity extends AppCompatActivity implements View.OnClickListener {
     private LinearLayout layoutList;
 
     private DatabaseReference dbReference;
     private String userId;
-    private FirebaseUser user;
-    private List<String> listOfTrainingsplanNames = new ArrayList<>();
-    private AppCompatSpinner spinnerTraingsplanName;
+    private final List<String> listOfTrainingsplanNames = new ArrayList<>();
+    private AppCompatSpinner traingsplanNameSpinner;
 
-    private List<String> exerciseNames = new ArrayList<>();
-    private List<String> exerciseDays = new ArrayList<>();
+    private final List<String> exerciseNames = new ArrayList<>();
+    private final List<String> exerciseDays = new ArrayList<>();
 
-    private Button showButton,editButton,safeButton, addButton, breakButton, deleteButton;
+    private Button editButton;
+    private Button safeButton;
+    private Button addButton;
+    private Button breakButton;
+    private Button deleteButton;
     EditText editTextTrainingsplantitle;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_trainingsplan);
 
-        user = FirebaseAuth.getInstance().getCurrentUser();
+        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         dbReference = FirebaseDatabase.getInstance().getReference("Users");
-        userId = user.getUid();
+        assert firebaseUser != null;
+        userId = firebaseUser.getUid();
         layoutList = findViewById(R.id.layoutlist__showtrainingsplan);
 
         listOfTrainingsplanNames.add("Trainingsplan auswählen");
         getTraininngsplanNames();
-        spinnerTraingsplanName = (AppCompatSpinner) findViewById(R.id.trainingsplantitlespinner_showtrainingsplan);
+        traingsplanNameSpinner = (AppCompatSpinner) findViewById(R.id.trainingsplantitlespinner_showtrainingsplan);
         ArrayAdapter arrayAdapterTrainingsplanName = new ArrayAdapter(this, android.R.layout.simple_spinner_item, listOfTrainingsplanNames);
-        spinnerTraingsplanName.setAdapter(arrayAdapterTrainingsplanName);
+        traingsplanNameSpinner.setAdapter(arrayAdapterTrainingsplanName);
 
-        showButton = (Button) findViewById(R.id.showbutton_showtrainingsplan);
+        Button showButton = (Button) findViewById(R.id.showbutton_showtrainingsplan);
         showButton.setOnClickListener(this);
         editButton = (Button) findViewById(R.id.editbutton_showtrainingsplan);
         editButton.setOnClickListener(this);
@@ -88,6 +96,7 @@ public class ShowTrainingsplanActivity extends AppCompatActivity implements View
 
     }
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -115,6 +124,7 @@ public class ShowTrainingsplanActivity extends AppCompatActivity implements View
 
     private void deleteTrainingsplan() {
         dbReference.child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
+            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 User userProfile = snapshot.getValue(User.class);
@@ -122,7 +132,7 @@ public class ShowTrainingsplanActivity extends AppCompatActivity implements View
 
                 int currentTrainingsplanIndex = 0;
                 for(Trainingsplan t : userProfile.getTrainingsplanList()){
-                    if(t.getName().equals(spinnerTraingsplanName.getSelectedItem().toString())){
+                    if(t.getName().equals(traingsplanNameSpinner.getSelectedItem().toString())){
                         currentTrainingsplanIndex = userProfile.getTrainingsplanList().indexOf(t);
                     }
                 }
@@ -130,7 +140,7 @@ public class ShowTrainingsplanActivity extends AppCompatActivity implements View
                 userProfile.removeTrainingsplanFromList(currentTrainingsplanIndex);
 
                 FirebaseDatabase.getInstance().getReference("Users")
-                        .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                        .child(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid())
                         .setValue(userProfile).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
@@ -186,9 +196,9 @@ public class ShowTrainingsplanActivity extends AppCompatActivity implements View
 
                 for (Trainingsplan t : userProfile.getTrainingsplanList()) {
 
-                    if (t.getName().equals(spinnerTraingsplanName.getSelectedItem().toString())) {
+                    if (t.getName().equals(traingsplanNameSpinner.getSelectedItem().toString())) {
                         for (Exercise e : t.getExerciseList()) {
-                            final View trainingsplanView = getLayoutInflater().inflate(R.layout.row_trainingsplan, null, false);
+                            @SuppressLint("InflateParams") final View trainingsplanView = getLayoutInflater().inflate(R.layout.row_trainingsplan, null, false);
 
                             TextView trainingsplanDay = trainingsplanView.findViewById(R.id.exerciseday_rowtrainingsplan);
                             TextView trainingsplanExercise = trainingsplanView.findViewById(R.id.exercisename_rowtrainingsplan);
@@ -217,7 +227,7 @@ public class ShowTrainingsplanActivity extends AppCompatActivity implements View
     }
     private void editCurrentTrainingsplan() {
 
-        editTextTrainingsplantitle.setText(spinnerTraingsplanName.getSelectedItem().toString());
+        editTextTrainingsplantitle.setText(traingsplanNameSpinner.getSelectedItem().toString());
 
         int layoutListLength = layoutList.getChildCount();
         for(int i=0;i <= layoutListLength;i++){
@@ -235,9 +245,9 @@ public class ShowTrainingsplanActivity extends AppCompatActivity implements View
 
                 for (Trainingsplan t : userProfile.getTrainingsplanList()) {
 
-                    if (t.getName().equals(spinnerTraingsplanName.getSelectedItem().toString())) {
+                    if (t.getName().equals(traingsplanNameSpinner.getSelectedItem().toString())) {
                         for (Exercise e : t.getExerciseList()) {
-                            final View exerciseView = getLayoutInflater().inflate(R.layout.row_add_exercise,null,false);
+                            @SuppressLint("InflateParams") final View exerciseView = getLayoutInflater().inflate(R.layout.row_add_exercise,null,false);
 
                             EditText editText = (EditText)exerciseView.findViewById(R.id.editextraweight_rowaddexercise);
                             editText.setText(String.valueOf(e.getExtraWeight()));
@@ -293,7 +303,7 @@ public class ShowTrainingsplanActivity extends AppCompatActivity implements View
 
 
     private void addView() {
-        final View exerciseView = getLayoutInflater().inflate(R.layout.row_add_exercise,null,false);
+        @SuppressLint("InflateParams") final View exerciseView = getLayoutInflater().inflate(R.layout.row_add_exercise,null,false);
 
         EditText editText = (EditText)exerciseView.findViewById(R.id.editextraweight_rowaddexercise);
         AppCompatSpinner spinnerExercise = (AppCompatSpinner)exerciseView.findViewById(R.id.exercisename_rowaddexercise);
@@ -320,6 +330,7 @@ public class ShowTrainingsplanActivity extends AppCompatActivity implements View
     }
     private void safeEditedTrainingsplan() {
         dbReference.child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
+            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 User userProfile = snapshot.getValue(User.class);
@@ -334,7 +345,7 @@ public class ShowTrainingsplanActivity extends AppCompatActivity implements View
                 ArrayList<Exercise> exerciseList = new ArrayList<>();
                 int currentTrainingsplanIndex = 0;
                 for(Trainingsplan t : userProfile.getTrainingsplanList()){
-                    if(t.getName().equals(spinnerTraingsplanName.getSelectedItem().toString())){
+                    if(t.getName().equals(traingsplanNameSpinner.getSelectedItem().toString())){
                         currentTrainingsplanIndex = userProfile.getTrainingsplanList().indexOf(t);
                     }
                 }
@@ -409,7 +420,7 @@ public class ShowTrainingsplanActivity extends AppCompatActivity implements View
                 editTextTrainingsplantitle.setVisibility(View.GONE);
 
                 FirebaseDatabase.getInstance().getReference("Users")
-                        .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                        .child(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid())
                         .setValue(userProfile).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {

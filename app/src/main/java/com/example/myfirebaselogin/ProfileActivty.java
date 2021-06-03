@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -22,12 +23,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class ProfileActivty extends AppCompatActivity implements View.OnClickListener {
-    private TextView changePassword;
-    private Button logout;
-    private FirebaseUser user;
-    private DatabaseReference dbReference;
-    private String userId;
-    private Button editProfile;
 
     private GridLayout gridLayoutList;
 
@@ -37,8 +32,8 @@ public class ProfileActivty extends AppCompatActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_activty);
 
-        logout = (Button) findViewById(R.id.signoutbutton_profile);
-        logout.setOnClickListener(new View.OnClickListener() {
+        Button logoutButton = (Button) findViewById(R.id.signoutbutton_profile);
+        logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FirebaseAuth.getInstance().signOut();
@@ -49,14 +44,15 @@ public class ProfileActivty extends AppCompatActivity implements View.OnClickLis
 
         gridLayoutList = findViewById(R.id.layoutlist_profile);
         gridLayoutList.setColumnCount(3);
-        changePassword = (TextView) findViewById(R.id.changePassword_profile);
-        changePassword.setOnClickListener(this);
-        editProfile = (Button) findViewById(R.id.editProfilebutton_profile);
-        editProfile.setOnClickListener(this);
+        TextView changePasswordTextView = (TextView) findViewById(R.id.changePassword_profile);
+        changePasswordTextView.setOnClickListener(this);
+        Button editProfileButton = (Button) findViewById(R.id.editProfilebutton_profile);
+        editProfileButton.setOnClickListener(this);
 
-        user = FirebaseAuth.getInstance().getCurrentUser();
-        dbReference = FirebaseDatabase.getInstance().getReference("Users");
-        userId = user.getUid();
+        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        DatabaseReference dbReference = FirebaseDatabase.getInstance().getReference("Users");
+        assert firebaseUser != null;
+        String userId = firebaseUser.getUid();
 
         final TextView nameTextView = (TextView) findViewById(R.id.username_profile);
         final TextView emailTextView = (TextView) findViewById(R.id.useremailAdress_profile);
@@ -90,6 +86,7 @@ public class ProfileActivty extends AppCompatActivity implements View.OnClickLis
         });
     }
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     public void onClick(View v) {
         switch (v.getId()) {

@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatSpinner;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -26,30 +27,28 @@ import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
-import static android.os.SystemClock.sleep;
-
 public class StartTrainingActivity extends AppCompatActivity implements View.OnClickListener {
     private long duration;
-    private TextView timer, exerciseName;
+    private TextView timerTextView;
     private Button startButton, stopButton;
 
     private DatabaseReference dbReference;
     private String userId;
-    private FirebaseUser user;
-    private List<String> listOfTrainingsplanNames = new ArrayList<>();
-    private AppCompatSpinner spinnerTraingsplanName;
+    private final List<String> listOfTrainingsplanNames = new ArrayList<>();
+    private AppCompatSpinner traingsplanNameSpinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start_training);
 
-        user = FirebaseAuth.getInstance().getCurrentUser();
+        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         dbReference = FirebaseDatabase.getInstance().getReference("Users");
-        userId = user.getUid();
+        assert firebaseUser != null;
+        userId = firebaseUser.getUid();
 
-        timer = (TextView) findViewById(R.id.timer_starttraining);
-        exerciseName = (TextView) findViewById(R.id.exercisename_starttraining);
+        timerTextView = (TextView) findViewById(R.id.timer_starttraining);
+        TextView exerciseNameTextView = (TextView) findViewById(R.id.exercisename_starttraining);
 
         startButton = (Button) findViewById(R.id.startbutton_starttraining);
         startButton.setOnClickListener(this);
@@ -58,14 +57,15 @@ public class StartTrainingActivity extends AppCompatActivity implements View.OnC
 
         listOfTrainingsplanNames.add("Trainingsplan auswählen");
         getTraininngsplanNames();
-        spinnerTraingsplanName = (AppCompatSpinner) findViewById(R.id.trainingsplantitlespinner_starttraining);
+        traingsplanNameSpinner = (AppCompatSpinner) findViewById(R.id.trainingsplantitlespinner_starttraining);
         ArrayAdapter arrayAdapterTrainingsplanName = new ArrayAdapter(this, android.R.layout.simple_spinner_item, listOfTrainingsplanNames);
-        spinnerTraingsplanName.setAdapter(arrayAdapterTrainingsplanName);
+        traingsplanNameSpinner.setAdapter(arrayAdapterTrainingsplanName);
 
 
     }
 
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -87,12 +87,12 @@ public class StartTrainingActivity extends AppCompatActivity implements View.OnC
                 assert userProfile != null;
 
                 for (final Trainingsplan t : userProfile.getTrainingsplanList()) {
-                    if(spinnerTraingsplanName.getSelectedItem().toString().equals("Trainingsplan auswählen")){
+                    if(traingsplanNameSpinner.getSelectedItem().toString().equals("Trainingsplan auswählen")){
                         startButton.setError("Bitte zuerst Trainingsplan auswählen");
                         startButton.requestFocus();
                         break;
                     }
-                    if (t.getName().equals(spinnerTraingsplanName.getSelectedItem().toString())) {
+                    if (t.getName().equals(traingsplanNameSpinner.getSelectedItem().toString())) {
                         int minutes = 0;
                         for (Exercise e : t.getExerciseList()) {
                             minutes += 1;
@@ -105,13 +105,13 @@ public class StartTrainingActivity extends AppCompatActivity implements View.OnC
                             @Override
                             public void onTick(long millisUntilFinished) {
                                 String stringDuration = String.format(Locale.ENGLISH, "%02d : %02d", TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished), TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished)));
-                                timer.setText(stringDuration);
+                                timerTextView.setText(stringDuration);
 
                             }
 
                             @Override
                             public void onFinish() {
-                                timer.setVisibility(View.GONE);
+                                timerTextView.setVisibility(View.GONE);
                                 userProfile.setPoints(userProfile.getPoints()+ t.getPointSum());
                                 Toast.makeText(getApplicationContext(), "Training beendet dir wurden " + t.getPointSum() + " Punkte gutgeschrieben", Toast.LENGTH_LONG).show();
                                 startActivity(new Intent(StartTrainingActivity.this,OverviewActivity.class));

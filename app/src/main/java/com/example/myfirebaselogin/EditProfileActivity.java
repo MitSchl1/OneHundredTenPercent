@@ -1,9 +1,12 @@
 package com.example.myfirebaselogin;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
@@ -14,26 +17,20 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Objects;
 
 public class EditProfileActivity extends AppCompatActivity implements View.OnClickListener {
-    private TextView banner;
-    private EditText editTextName, editTextMail, editTextWeight;
+    private EditText nameEditText, emailEditText, weightEditText;
     private ProgressBar progressBar;
-    private FirebaseUser user;
     private DatabaseReference dbReference;
     private String userId;
     private Task<Void> myRef;
@@ -44,23 +41,25 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
-        banner =(TextView) findViewById(R.id.banner_editprofile);
-        banner.setOnClickListener(this);
+        TextView bannerTextView = (TextView) findViewById(R.id.banner_editprofile);
+        bannerTextView.setOnClickListener(this);
 
         editProfileButton = (Button) findViewById(R.id.editButton_editprofile);
         editProfileButton.setOnClickListener(this);
 
-        editTextName = (EditText) findViewById(R.id.editusername_editprofile);
-        editTextMail = (EditText) findViewById(R.id.edituseremail_editprofile);
-        editTextWeight = (EditText) findViewById(R.id.edituserweight_editprofile);
+        nameEditText = (EditText) findViewById(R.id.editusername_editprofile);
+        emailEditText = (EditText) findViewById(R.id.edituseremail_editprofile);
+        weightEditText = (EditText) findViewById(R.id.edituserweight_editprofile);
 
         progressBar = (ProgressBar) findViewById(R.id.progressBar_editprofile);
 
-        user = FirebaseAuth.getInstance().getCurrentUser();
+        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         dbReference = FirebaseDatabase.getInstance().getReference("Users");
-        userId = user.getUid();
+        assert firebaseUser != null;
+        userId = firebaseUser.getUid();
     }
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     public void onClick(View v) {
         switch(v.getId()){
@@ -78,12 +77,13 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
 
 
         dbReference.child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
+            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 User userProfile = snapshot.getValue(User.class);
-                String userMail = editTextMail.getText().toString().trim();
-                String userName = editTextName.getText().toString().trim();
-                String stringWeight = editTextWeight.getText().toString().trim();
+                String userMail = emailEditText.getText().toString().trim();
+                String userName = nameEditText.getText().toString().trim();
+                String stringWeight = weightEditText.getText().toString().trim();
                 double userWeight = 0;
                 if(userProfile != null){
 
@@ -94,16 +94,17 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
                     if(userMail.isEmpty()){
                         userMail = mail;
                     }else if (!Patterns.EMAIL_ADDRESS.matcher(userMail).matches()) {
-                        editTextMail.setError("Bitte gültige Email angeben");
-                        editTextMail.requestFocus();
+                        emailEditText.setError("Bitte gültige Email angeben");
+                        emailEditText.requestFocus();
                         return;
                     }else if(userMail.equals(mail)){
-                        editTextMail.setError("eingegebene Mail gleich der Mail");
-                        editTextMail.requestFocus();
+                        emailEditText.setError("eingegebene Mail gleich der Mail");
+                        emailEditText.requestFocus();
                         return;
                     }
                     else{
                         FirebaseUser fUser = FirebaseAuth.getInstance().getCurrentUser();
+                        assert fUser != null;
                         fUser.updateEmail(userMail);
                         fUser.sendEmailVerification();
                     }
@@ -118,11 +119,12 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
                 }
 
                 progressBar.setVisibility(View.VISIBLE);
+                assert userProfile != null;
                 userProfile.setMail(userMail);
                 userProfile.setName(userName);
                 userProfile.setWeight(userWeight);
                 FirebaseDatabase.getInstance().getReference("Users")
-                        .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                        .child(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid())
                         .setValue(userProfile).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {

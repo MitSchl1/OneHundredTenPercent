@@ -18,7 +18,6 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class ForgotPasswordActivity extends AppCompatActivity {
     private EditText emailEditText;
-    private Button resetButton;
     private ProgressBar progressbar;
 
     FirebaseAuth mAuth;
@@ -30,7 +29,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         setContentView(R.layout.activity_forgot_password);
 
         emailEditText = (EditText) findViewById(R.id.edituseremail_forgotpassword);
-        resetButton = (Button) findViewById(R.id.resetpasswordbutton_forgotpassword);
+        Button resetButton = (Button) findViewById(R.id.resetpasswordbutton_forgotpassword);
         progressbar = (ProgressBar) findViewById(R.id.progressBar_forgotpassword);
 
         mAuth = FirebaseAuth.getInstance();

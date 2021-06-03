@@ -3,6 +3,7 @@ package com.example.myfirebaselogin;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
@@ -21,9 +22,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private TextView register, forgotPassword;
-    private EditText editTextEmail, editTextPassword;
-    private Button signIn;
+    private EditText emailEditText, passwordEditText;
     private FirebaseAuth mAuth;
     private ProgressBar progressbar;
 
@@ -32,22 +31,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        register = (TextView) findViewById(R.id.registeruser_main);
-        register.setOnClickListener(this);
+        TextView registerTextView = (TextView) findViewById(R.id.registeruser_main);
+        registerTextView.setOnClickListener(this);
 
-        forgotPassword = (TextView) findViewById(R.id.forgotPassword_main);
-        forgotPassword.setOnClickListener(this);
-        signIn = (Button) findViewById(R.id.loginbutton_main);
-        signIn.setOnClickListener(this);
+        TextView forgotPasswordTextView = (TextView) findViewById(R.id.forgotPassword_main);
+        forgotPasswordTextView.setOnClickListener(this);
+        Button signInButton = (Button) findViewById(R.id.loginbutton_main);
+        signInButton.setOnClickListener(this);
 
-        editTextEmail = (EditText) findViewById(R.id.edituseremail_main);
-        editTextPassword = (EditText) findViewById(R.id.edituserpassword_main);
+        emailEditText = (EditText) findViewById(R.id.edituseremail_main);
+        passwordEditText = (EditText) findViewById(R.id.edituserpassword_main);
 
         progressbar = (ProgressBar) findViewById(R.id.progressBar_main);
         mAuth = FirebaseAuth.getInstance();
 
     }
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -66,27 +66,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void userLogin() {
 
-        String email = editTextEmail.getText().toString().trim();
-        String password = editTextPassword.getText().toString().trim();
+        String email = emailEditText.getText().toString().trim();
+        String password = passwordEditText.getText().toString().trim();
 
         if (email.isEmpty()) {
-            editTextEmail.setError("Bitte Email eingeben");
-            editTextEmail.requestFocus();
+            emailEditText.setError("Bitte Email eingeben");
+            emailEditText.requestFocus();
             return;
         }
         if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            editTextEmail.setError("Bitte gültige Email angeben");
-            editTextEmail.requestFocus();
+            emailEditText.setError("Bitte gültige Email angeben");
+            emailEditText.requestFocus();
             return;
         }
         if (password.isEmpty()) {
-            editTextPassword.setError("Bitte Passwort eingeben");
-            editTextPassword.requestFocus();
+            passwordEditText.setError("Bitte Passwort eingeben");
+            passwordEditText.requestFocus();
             return;
         }
         if (password.length() < 6) {
-            editTextPassword.setError("Passwort zu kurz");
-            editTextPassword.requestFocus();
+            passwordEditText.setError("Passwort zu kurz");
+            passwordEditText.requestFocus();
             return;
         }
 
@@ -98,6 +98,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 if (task.isSuccessful()) {
 
                     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                    assert user != null;
                     if(user.isEmailVerified()){
                         startActivity(new Intent(MainActivity.this, OverviewActivity.class));
                     }else{

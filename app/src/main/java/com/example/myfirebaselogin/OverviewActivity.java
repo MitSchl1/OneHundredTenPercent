@@ -2,6 +2,7 @@ package com.example.myfirebaselogin;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -16,18 +17,18 @@ public class OverviewActivity extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_overview);
 
-        Button userdata = (Button) findViewById(R.id.userdatabutton_overview);
-        userdata.setOnClickListener(this);
-        Button explainExercise = (Button) findViewById(R.id.explainexercisebutton_overview);
-        explainExercise.setOnClickListener(this);
-        Button createTrainingsplan = (Button) findViewById(R.id.createTrainingsplanbutton_overview);
-        createTrainingsplan.setOnClickListener(this);
-        Button showTrainingsplan = (Button) findViewById(R.id.showTrainingsplanbutton_overview);
-        showTrainingsplan.setOnClickListener(this);
-        Button startTraining = (Button) findViewById(R.id.starttrainingbutton_overview);
-        startTraining.setOnClickListener(this);
-        Button logout = (Button) findViewById(R.id.signoutbutton_overview);
-        logout.setOnClickListener(new View.OnClickListener() {
+        Button userdataButton = (Button) findViewById(R.id.userdatabutton_overview);
+        userdataButton.setOnClickListener(this);
+        Button explainExerciseButton = (Button) findViewById(R.id.explainexercisebutton_overview);
+        explainExerciseButton.setOnClickListener(this);
+        Button createTrainingsplanButton = (Button) findViewById(R.id.createTrainingsplanbutton_overview);
+        createTrainingsplanButton.setOnClickListener(this);
+        Button showTrainingsplanButton = (Button) findViewById(R.id.showTrainingsplanbutton_overview);
+        showTrainingsplanButton.setOnClickListener(this);
+        Button startTrainingButton = (Button) findViewById(R.id.starttrainingbutton_overview);
+        startTrainingButton.setOnClickListener(this);
+        Button logoutButton = (Button) findViewById(R.id.signoutbutton_overview);
+        logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FirebaseAuth.getInstance().signOut();
@@ -35,6 +36,7 @@ public class OverviewActivity extends AppCompatActivity implements View.OnClickL
             }
         });
     }
+    @SuppressLint("NonConstantResourceId")
     @Override
     public void onClick(View v) {
         switch (v.getId()) {

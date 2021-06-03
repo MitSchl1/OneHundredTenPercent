@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -22,12 +23,12 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.Objects;
+
 public class RegisterUserActivity extends AppCompatActivity implements View.OnClickListener {
-    private TextView banner, registerUser;
-    private EditText editTextName, editTextMail, editTextPassword, editTextWeight;
+    private EditText nameEditText, emailEditText, passwordEditText, weightEditText;
     private ProgressBar progressBar;
     private FirebaseAuth mAuth;
-    private Task<Void> myRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,20 +37,21 @@ public class RegisterUserActivity extends AppCompatActivity implements View.OnCl
 
         mAuth = FirebaseAuth.getInstance();
 
-        banner =(TextView) findViewById(R.id.banner_registeruser);
-        banner.setOnClickListener(this);
+        TextView bannerTextView = (TextView) findViewById(R.id.banner_registeruser);
+        bannerTextView.setOnClickListener(this);
 
-        registerUser = (Button) findViewById(R.id.registerButton_registeruser);
-        registerUser.setOnClickListener(this);
+        TextView registerUserTextView = (Button) findViewById(R.id.registerButton_registeruser);
+        registerUserTextView.setOnClickListener(this);
 
-        editTextName = (EditText) findViewById(R.id.editusername_registeruser);
-        editTextMail = (EditText) findViewById(R.id.edituseremail_registeruser);
-        editTextPassword = (EditText) findViewById(R.id.edituserpassword_registeruser);
-        editTextWeight = (EditText) findViewById(R.id.edituserweight_registeruser);
+        nameEditText = (EditText) findViewById(R.id.editusername_registeruser);
+        emailEditText = (EditText) findViewById(R.id.edituseremail_registeruser);
+        passwordEditText = (EditText) findViewById(R.id.edituserpassword_registeruser);
+        weightEditText = (EditText) findViewById(R.id.edituserweight_registeruser);
         progressBar = (ProgressBar) findViewById(R.id.progressBar_registeruser);
 
     }
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     public void onClick(View v) {
         switch(v.getId()){
@@ -64,46 +66,46 @@ public class RegisterUserActivity extends AppCompatActivity implements View.OnCl
     }
 
     private void registerUser() {
-        final String userMail = editTextMail.getText().toString().trim();
-        final String userName = editTextName.getText().toString().trim();
-        String userPassword = editTextPassword.getText().toString().trim();
-        final String stringWeight = editTextWeight.getText().toString().trim();
+        final String userMail = emailEditText.getText().toString().trim();
+        final String userName = nameEditText.getText().toString().trim();
+        String userPassword = passwordEditText.getText().toString().trim();
+        final String stringWeight = weightEditText.getText().toString().trim();
         final double userWeight = Double.parseDouble(stringWeight);
 
 
         if (userName.isEmpty()) {
-            editTextName.setError("Bitte Name eingeben");
-            editTextName.requestFocus();
+            nameEditText.setError("Bitte Name eingeben");
+            nameEditText.requestFocus();
             return;
         }
         if (userMail.isEmpty()) {
-            editTextMail.setError("Bitte Email eingeben");
-            editTextMail.requestFocus();
+            emailEditText.setError("Bitte Email eingeben");
+            emailEditText.requestFocus();
             return;
         }
         if (!Patterns.EMAIL_ADDRESS.matcher(userMail).matches()) {
-            editTextMail.setError("Bitte gültige Email angeben");
-            editTextMail.requestFocus();
+            emailEditText.setError("Bitte gültige Email angeben");
+            emailEditText.requestFocus();
             return;
         }
         if (userPassword.isEmpty()) {
-            editTextPassword.setError("Bitte Email eingeben");
-            editTextPassword.requestFocus();
+            passwordEditText.setError("Bitte Email eingeben");
+            passwordEditText.requestFocus();
             return;
         }
         if (userPassword.length() < 6) {
-            editTextPassword.setError("Passwort zu kurz");
-            editTextPassword.requestFocus();
+            passwordEditText.setError("Passwort zu kurz");
+            passwordEditText.requestFocus();
             return;
         }
         if(stringWeight.isEmpty()){
-            editTextWeight.setError("Bitte Gewicht eingeben");
-            editTextWeight.requestFocus();
+            weightEditText.setError("Bitte Gewicht eingeben");
+            weightEditText.requestFocus();
             return;
         }
         if(userWeight < 20 || userWeight > 300) {
-            editTextWeight.setError("Bitte gültiges GEwicht eingeben");
-            editTextWeight.requestFocus();
+            weightEditText.setError("Bitte gültiges GEwicht eingeben");
+            weightEditText.requestFocus();
             return;
         }
 
@@ -118,7 +120,7 @@ public class RegisterUserActivity extends AppCompatActivity implements View.OnCl
                             user.addSuccess(Successes.CREATEACCOUNT);
                             user.setPoints(user.getPoints() + Successes.CREATEACCOUNT.getPoints());
                             FirebaseDatabase.getInstance().getReference("Users")
-                                    .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                                    .child(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid())
                                     .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
