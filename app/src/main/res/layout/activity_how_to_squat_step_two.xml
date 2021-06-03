@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".HowToPushUpStepTwoActivity">
     <TextView
-        android:id="@+id/headline_howtopushupsteptwo"
+        android:id="@+id/headline_howtosquatsteptwo"
         android:layout_width="380dp"
         android:layout_height="40dp"
         app:layout_constraintTop_toTopOf="parent"
@@ -19,28 +19,27 @@
         android:layout_marginTop="20dp"
         />
     <TextView
-        android:id="@+id/declaration_howtopushupsteptwo"
+        android:id="@+id/declaration_howtosquatsteptwo"
         android:layout_width="380dp"
         android:layout_height="wrap_content"
         android:textSize="18sp"
-        app:layout_constraintTop_toBottomOf="@+id/headline_howtopushupsteptwo"
+        app:layout_constraintTop_toBottomOf="@+id/headline_howtosquatsteptwo"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginTop="20dp"
-        android:text="Die Spannung der Ausgangsposition wird gehalten und der Körper wird soweit abgesenkt bis der Brustkorb den Boden berührt. Die Ellenbogen zeigen währendessen durchgehend nach hinten und nicht zur Seite. Nachdem  der Brustkorb den Boden berührt hat, wird sich wieder in die Ausgangsposition der Liegestütze gedrückt." />
+        android:text="Der Körper steht während der Übung unter Spannung und der Rücken bleibt gerade. Die Beine werden langsam und kontrolliert gebuegt, während der Oberkörper ein wenig nach vorne geneigt und der Po nach Hinten geschoben wird. Die Knie zeigen durchgehend in Richtung der Fußspitzen. Sobald die Oberschenkel parallel zum Boden sind, wird der Körper mit Druck über die Fersen wieder in Ausgangsstellung gebracht." />
 
     <pl.droidsonroids.gif.GifImageView
-        android:id="@+id/pushupimg_howtopushupsteptwo"
+        android:id="@+id/pushupimg_howtosquatsteptwo"
         android:layout_width="2500dp"
         android:layout_height="250dp"
-        app:layout_constraintTop_toBottomOf="@+id/declaration_howtopushupsteptwo"
+        app:layout_constraintTop_toBottomOf="@+id/declaration_howtosquatsteptwo"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginTop="10dp"
-        android:src="@drawable/pushupanimated"/>
-
+        android:src="@drawable/squatanimated"/>
     <Button
-        android:id="@+id/buttonNext_howtopushupsteptwo"
+        android:id="@+id/buttonNext_howtosquatsteptwo"
         android:layout_width="190dp"
         android:layout_height="70dp"
         android:text="Verstanden !"
@@ -50,21 +49,23 @@
         android:textStyle="bold"
         android:backgroundTint="#0ED6B9"
         android:layout_marginTop="10dp"
-        app:layout_constraintRight_toRightOf="@+id/declaration_howtopushupsteptwo"
-        app:layout_constraintTop_toBottomOf="@+id/pushupimg_howtopushupsteptwo"
+        app:layout_constraintRight_toRightOf="@+id/declaration_howtosquatsteptwo"
+        app:layout_constraintTop_toBottomOf="@+id/pushupimg_howtosquatsteptwo"
         />
     <Button
-        android:id="@+id/buttonPrev_howtopushupsteptwo"
+        android:id="@+id/buttonPrev_howtosquatsteptwo"
         android:layout_width="190dp"
         android:layout_height="70dp"
+        android:layout_marginTop="10dp"
         android:text="Zurück "
         android:textColor="#ffff"
         android:fontFamily="sans-serif"
         android:textSize="20sp"
         android:textStyle="bold"
-        android:layout_marginTop="10dp"
-        app:layout_constraintLeft_toLeftOf="@+id/declaration_howtopushupsteptwo"
-        app:layout_constraintTop_toBottomOf="@+id/pushupimg_howtopushupsteptwo"
+        app:layout_constraintLeft_toLeftOf="@+id/declaration_howtosquatsteptwo"
+        app:layout_constraintTop_toBottomOf="@+id/pushupimg_howtosquatsteptwo"
         android:backgroundTint="#0ED6B9"
         />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

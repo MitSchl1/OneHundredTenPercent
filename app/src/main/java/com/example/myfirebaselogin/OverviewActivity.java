@@ -42,7 +42,7 @@ public class OverviewActivity extends AppCompatActivity implements View.OnClickL
                 startActivity(new Intent(this, ProfileActivty.class));
                 break;
             case R.id.explainexercisebutton_overview:
-                startActivity(new Intent (this, ExplainExerciseBenchPressStepOneActivity.class));
+                startActivity(new Intent (this, HowToOverviewActivity.class));
                 break;
             case R.id.createTrainingsplanbutton_overview:
                 startActivity(new Intent (this, CreateTrainingsplanActivity.class));

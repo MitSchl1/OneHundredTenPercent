@@ -16,7 +16,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class ForgotPassword extends AppCompatActivity {
+public class ForgotPasswordActivity extends AppCompatActivity {
     private EditText emailEditText;
     private Button resetButton;
     private ProgressBar progressbar;
@@ -62,11 +62,11 @@ public class ForgotPassword extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if(task.isSuccessful()){
-                    Toast.makeText(ForgotPassword.this,"Email zum zurücksetzen des Passworts wurde versendet", Toast.LENGTH_LONG).show();
-                    startActivity(new Intent(ForgotPassword.this, MainActivity.class));
+                    Toast.makeText(ForgotPasswordActivity.this,"Email zum zurücksetzen des Passworts wurde versendet", Toast.LENGTH_LONG).show();
+                    startActivity(new Intent(ForgotPasswordActivity.this, MainActivity.class));
                     progressbar.setVisibility(View.GONE);
                 }else{
-                    Toast.makeText(ForgotPassword.this," Probiers nochmal ", Toast.LENGTH_LONG).show();
+                    Toast.makeText(ForgotPasswordActivity.this," Probiers nochmal ", Toast.LENGTH_LONG).show();
                     progressbar.setVisibility(View.GONE);
                 }
             }

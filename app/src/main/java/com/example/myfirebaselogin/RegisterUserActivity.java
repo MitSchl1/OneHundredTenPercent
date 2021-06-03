@@ -7,8 +7,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.text.Editable;
-import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
@@ -22,12 +20,9 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.util.Objects;
-
-public class RegisterUser extends AppCompatActivity implements View.OnClickListener {
+public class RegisterUserActivity extends AppCompatActivity implements View.OnClickListener {
     private TextView banner, registerUser;
     private EditText editTextName, editTextMail, editTextPassword, editTextWeight;
     private ProgressBar progressBar;
@@ -128,12 +123,12 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if (task.isSuccessful()) {
-                                        Toast.makeText(RegisterUser.this, "Nutzer erfolgreich registriert", Toast.LENGTH_LONG).show();
-                                        startActivity(new Intent(RegisterUser.this, MainActivity.class));
+                                        Toast.makeText(RegisterUserActivity.this, "Nutzer erfolgreich registriert", Toast.LENGTH_LONG).show();
+                                        startActivity(new Intent(RegisterUserActivity.this, MainActivity.class));
                                         progressBar.setVisibility(View.GONE);
 
                                     } else {
-                                        Toast.makeText(RegisterUser.this, "Registrierung fehlgeschlagen! Probiers nochmal", Toast.LENGTH_LONG).show();
+                                        Toast.makeText(RegisterUserActivity.this, "Registrierung fehlgeschlagen! Probiers nochmal", Toast.LENGTH_LONG).show();
                                         progressBar.setVisibility(View.GONE);
                                     }
                                 }
