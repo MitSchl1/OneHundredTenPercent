@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -47,7 +48,8 @@ public class ShowTrainingsplanActivity extends AppCompatActivity implements View
     private Button addButton;
     private Button breakButton;
     private Button deleteButton;
-    EditText editTextTrainingsplantitle;
+    private EditText trainingsplantitleEditText;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,8 +79,10 @@ public class ShowTrainingsplanActivity extends AppCompatActivity implements View
         breakButton.setOnClickListener(this);
         deleteButton = (Button) findViewById(R.id.deletebutton_showtrainingsplan);
         deleteButton.setOnClickListener(this);
+        ImageButton menuImageButton = (ImageButton) findViewById(R.id.menubutton_showtrainingsplan);
+        menuImageButton.setOnClickListener(this);
 
-        editTextTrainingsplantitle = (EditText) findViewById(R.id.edittrainingsplantitle_showtrainingsplan);
+        trainingsplantitleEditText = (EditText) findViewById(R.id.edittrainingsplantitle_showtrainingsplan);
 
         exerciseNames.add("Übung");
         exerciseNames.add("Liegestütze");
@@ -119,6 +123,9 @@ public class ShowTrainingsplanActivity extends AppCompatActivity implements View
             case R.id.deletebutton_showtrainingsplan:
                 deleteTrainingsplan();
                 break;
+            case R.id.menubutton_showtrainingsplan:
+                startActivity(new Intent(this, OverviewActivity.class));
+                break;
         }
     }
 
@@ -131,8 +138,8 @@ public class ShowTrainingsplanActivity extends AppCompatActivity implements View
                 assert userProfile != null;
 
                 int currentTrainingsplanIndex = 0;
-                for(Trainingsplan t : userProfile.getTrainingsplanList()){
-                    if(t.getName().equals(traingsplanNameSpinner.getSelectedItem().toString())){
+                for (Trainingsplan t : userProfile.getTrainingsplanList()) {
+                    if (t.getName().equals(traingsplanNameSpinner.getSelectedItem().toString())) {
                         currentTrainingsplanIndex = userProfile.getTrainingsplanList().indexOf(t);
                     }
                 }
@@ -155,6 +162,7 @@ public class ShowTrainingsplanActivity extends AppCompatActivity implements View
                 });
 
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
@@ -183,7 +191,7 @@ public class ShowTrainingsplanActivity extends AppCompatActivity implements View
 
     public void selectedTrainingsplan() {
         int layoutListLength = layoutList.getChildCount();
-        for(int i=0;i <= layoutListLength;i++){
+        for (int i = 0; i <= layoutListLength; i++) {
             layoutList.removeView(layoutList.getChildAt(0));
         }
 
@@ -225,17 +233,18 @@ public class ShowTrainingsplanActivity extends AppCompatActivity implements View
             }
         });
     }
+
     private void editCurrentTrainingsplan() {
 
-        editTextTrainingsplantitle.setText(traingsplanNameSpinner.getSelectedItem().toString());
+        trainingsplantitleEditText.setText(traingsplanNameSpinner.getSelectedItem().toString());
 
         int layoutListLength = layoutList.getChildCount();
-        for(int i=0;i <= layoutListLength;i++){
+        for (int i = 0; i <= layoutListLength; i++) {
             layoutList.removeView(layoutList.getChildAt(0));
         }
 
-        final ArrayAdapter arrayAdapterExerciseName = new ArrayAdapter(this,android.R.layout.simple_spinner_item, exerciseNames);
-        final ArrayAdapter arrayAdapterDayName = new ArrayAdapter(this,android.R.layout.simple_spinner_item, exerciseDays);
+        final ArrayAdapter arrayAdapterExerciseName = new ArrayAdapter(this, android.R.layout.simple_spinner_item, exerciseNames);
+        final ArrayAdapter arrayAdapterDayName = new ArrayAdapter(this, android.R.layout.simple_spinner_item, exerciseDays);
         dbReference.child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -247,24 +256,24 @@ public class ShowTrainingsplanActivity extends AppCompatActivity implements View
 
                     if (t.getName().equals(traingsplanNameSpinner.getSelectedItem().toString())) {
                         for (Exercise e : t.getExerciseList()) {
-                            @SuppressLint("InflateParams") final View exerciseView = getLayoutInflater().inflate(R.layout.row_add_exercise,null,false);
+                            @SuppressLint("InflateParams") final View exerciseView = getLayoutInflater().inflate(R.layout.row_add_exercise, null, false);
 
-                            EditText editText = (EditText)exerciseView.findViewById(R.id.editextraweight_rowaddexercise);
+                            EditText editText = (EditText) exerciseView.findViewById(R.id.editextraweight_rowaddexercise);
                             editText.setText(String.valueOf(e.getExtraWeight()));
-                            AppCompatSpinner spinnerExercise = (AppCompatSpinner)exerciseView.findViewById(R.id.exercisename_rowaddexercise);
-                            AppCompatSpinner spinnerDay = (AppCompatSpinner)exerciseView.findViewById(R.id.dayname_rowaddexercise);
+                            AppCompatSpinner spinnerExercise = (AppCompatSpinner) exerciseView.findViewById(R.id.exercisename_rowaddexercise);
+                            AppCompatSpinner spinnerDay = (AppCompatSpinner) exerciseView.findViewById(R.id.dayname_rowaddexercise);
                             TextView closeX = (TextView) exerciseView.findViewById(R.id.removebutton_rowaddexercise);
 
 
                             spinnerExercise.setAdapter(arrayAdapterExerciseName);
                             spinnerDay.setAdapter(arrayAdapterDayName);
-                            for(int i =0 ; i<8;i++){
-                                if(spinnerDay.getItemAtPosition(i).toString().equals(e.getDay())){
+                            for (int i = 0; i < 8; i++) {
+                                if (spinnerDay.getItemAtPosition(i).toString().equals(e.getDay())) {
                                     spinnerDay.setSelection(i);
                                 }
                             }
-                            for(int i = 0; i<4; i++){
-                                if(spinnerExercise.getItemAtPosition(i).toString().equals(e.getName())){
+                            for (int i = 0; i < 4; i++) {
+                                if (spinnerExercise.getItemAtPosition(i).toString().equals(e.getName())) {
                                     spinnerExercise.setSelection(i);
                                 }
                             }
@@ -294,24 +303,21 @@ public class ShowTrainingsplanActivity extends AppCompatActivity implements View
         safeButton.setVisibility(View.VISIBLE);
         editButton.setVisibility(View.GONE);
         deleteButton.setVisibility(View.GONE);
-        editTextTrainingsplantitle.setVisibility(View.VISIBLE);
+        trainingsplantitleEditText.setVisibility(View.VISIBLE);
 
     }
 
 
-
-
-
     private void addView() {
-        @SuppressLint("InflateParams") final View exerciseView = getLayoutInflater().inflate(R.layout.row_add_exercise,null,false);
+        @SuppressLint("InflateParams") final View exerciseView = getLayoutInflater().inflate(R.layout.row_add_exercise, null, false);
 
-        EditText editText = (EditText)exerciseView.findViewById(R.id.editextraweight_rowaddexercise);
-        AppCompatSpinner spinnerExercise = (AppCompatSpinner)exerciseView.findViewById(R.id.exercisename_rowaddexercise);
-        AppCompatSpinner spinnerDay = (AppCompatSpinner)exerciseView.findViewById(R.id.dayname_rowaddexercise);
+        EditText editText = (EditText) exerciseView.findViewById(R.id.editextraweight_rowaddexercise);
+        AppCompatSpinner spinnerExercise = (AppCompatSpinner) exerciseView.findViewById(R.id.exercisename_rowaddexercise);
+        AppCompatSpinner spinnerDay = (AppCompatSpinner) exerciseView.findViewById(R.id.dayname_rowaddexercise);
         TextView closeX = (TextView) exerciseView.findViewById(R.id.removebutton_rowaddexercise);
 
-        ArrayAdapter arrayAdapterExerciseName = new ArrayAdapter(this,android.R.layout.simple_spinner_item, exerciseNames);
-        ArrayAdapter arrayAdapterDayName = new ArrayAdapter(this,android.R.layout.simple_spinner_item, exerciseDays);
+        ArrayAdapter arrayAdapterExerciseName = new ArrayAdapter(this, android.R.layout.simple_spinner_item, exerciseNames);
+        ArrayAdapter arrayAdapterDayName = new ArrayAdapter(this, android.R.layout.simple_spinner_item, exerciseDays);
 
         spinnerExercise.setAdapter(arrayAdapterExerciseName);
         spinnerDay.setAdapter(arrayAdapterDayName);
@@ -324,10 +330,12 @@ public class ShowTrainingsplanActivity extends AppCompatActivity implements View
         });
         layoutList.addView(exerciseView);
     }
+
     private void removeView(View view) {
         layoutList.removeView(view);
 
     }
+
     private void safeEditedTrainingsplan() {
         dbReference.child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -344,35 +352,35 @@ public class ShowTrainingsplanActivity extends AppCompatActivity implements View
 
                 ArrayList<Exercise> exerciseList = new ArrayList<>();
                 int currentTrainingsplanIndex = 0;
-                for(Trainingsplan t : userProfile.getTrainingsplanList()){
-                    if(t.getName().equals(traingsplanNameSpinner.getSelectedItem().toString())){
+                for (Trainingsplan t : userProfile.getTrainingsplanList()) {
+                    if (t.getName().equals(traingsplanNameSpinner.getSelectedItem().toString())) {
                         currentTrainingsplanIndex = userProfile.getTrainingsplanList().indexOf(t);
                     }
                 }
-                final String trainingsplantitle = editTextTrainingsplantitle.getText().toString().trim();
+                final String trainingsplantitle = trainingsplantitleEditText.getText().toString().trim();
 
-                for(int i=0;i<layoutList.getChildCount();i++){
+                for (int i = 0; i < layoutList.getChildCount(); i++) {
 
                     View exerciseView = layoutList.getChildAt(i);
 
-                    EditText editTextExtraWeight = (EditText)exerciseView.findViewById(R.id.editextraweight_rowaddexercise);
-                    AppCompatSpinner spinnerExercise = (AppCompatSpinner)exerciseView.findViewById(R.id.exercisename_rowaddexercise);
+                    EditText editTextExtraWeight = (EditText) exerciseView.findViewById(R.id.editextraweight_rowaddexercise);
+                    AppCompatSpinner spinnerExercise = (AppCompatSpinner) exerciseView.findViewById(R.id.exercisename_rowaddexercise);
                     AppCompatSpinner spinnerDays = (AppCompatSpinner) exerciseView.findViewById(R.id.dayname_rowaddexercise);
 
                     Exercise exercise = new Exercise();
 
-                    if(!editTextExtraWeight.getText().toString().equals("")){
+                    if (!editTextExtraWeight.getText().toString().equals("")) {
                         exercise.setExtraWeight(Double.parseDouble(editTextExtraWeight.getText().toString()));
-                    }else{
+                    } else {
                         exercise.setExtraWeight(0);
 
                     }
-                    if(spinnerExercise.getSelectedItemPosition()==0){
+                    if (spinnerExercise.getSelectedItemPosition() == 0) {
                         editTextExtraWeight.setError("Bitte Übung auswählen");
                         editTextExtraWeight.requestFocus();
                         return;
                     }
-                    if(spinnerDays.getSelectedItemPosition()==0){
+                    if (spinnerDays.getSelectedItemPosition() == 0) {
                         editTextExtraWeight.setError("Bitte Tag auswählen");
                         editTextExtraWeight.requestFocus();
                         return;
@@ -381,43 +389,43 @@ public class ShowTrainingsplanActivity extends AppCompatActivity implements View
 
                     exercise.setName(exerciseNames.get(spinnerExercise.getSelectedItemPosition()));
                     exercise.setDay(exerciseDays.get(spinnerDays.getSelectedItemPosition()));
-                    if(exercise.getName().equals("Liegestütze")){
-                        exercisePoints = (int) (pushUps*(1/userWeight*(userWeight+exercise.getExtraWeight())));
+                    if (exercise.getName().equals("Liegestütze")) {
+                        exercisePoints = (int) (pushUps * (1 / userWeight * (userWeight + exercise.getExtraWeight())));
                         exercise.setPoints(exercisePoints);
                     }
-                    if(exercise.getName().equals("Kniebeugen")){
-                        exercisePoints = (int) (squats*(1/userWeight*(userWeight+exercise.getExtraWeight())));
+                    if (exercise.getName().equals("Kniebeugen")) {
+                        exercisePoints = (int) (squats * (1 / userWeight * (userWeight + exercise.getExtraWeight())));
                         exercise.setPoints(exercisePoints);
                     }
-                    if(exercise.getName().equals("Klimmzüge")){
-                        exercisePoints = (int) (pullUps*(1/userWeight*(userWeight+exercise.getExtraWeight())));
+                    if (exercise.getName().equals("Klimmzüge")) {
+                        exercisePoints = (int) (pullUps * (1 / userWeight * (userWeight + exercise.getExtraWeight())));
                         exercise.setPoints(exercisePoints);
                     }
                     exerciseList.add(exercise);
                 }
 
-                if(exerciseList.size()==0){
+                if (exerciseList.size() == 0) {
                     addButton.setError("Bitte zuerst eine Uebung hinzufuegen");
                     addButton.requestFocus();
                     return;
                 }
-                if(trainingsplantitle.isEmpty()){
-                    editTextTrainingsplantitle.setError("Bitte gib einen Titel ein");
-                    editTextTrainingsplantitle.requestFocus();
+                if (trainingsplantitle.isEmpty()) {
+                    trainingsplantitleEditText.setError("Bitte gib einen Titel ein");
+                    trainingsplantitleEditText.requestFocus();
                     return;
                 }
 
-                for(Exercise e : exerciseList){
+                for (Exercise e : exerciseList) {
                     pointSum += e.getPoints();
                 }
-                Trainingsplan trainingsplan = new Trainingsplan(exerciseList,trainingsplantitle,pointSum);
-                userProfile.editTrainingsplan(currentTrainingsplanIndex,trainingsplan);
+                Trainingsplan trainingsplan = new Trainingsplan(exerciseList, trainingsplantitle, pointSum);
+                userProfile.editTrainingsplan(currentTrainingsplanIndex, trainingsplan);
                 addButton.setVisibility(View.GONE);
                 breakButton.setVisibility(View.GONE);
                 safeButton.setVisibility(View.GONE);
                 editButton.setVisibility(View.VISIBLE);
                 deleteButton.setVisibility(View.VISIBLE);
-                editTextTrainingsplantitle.setVisibility(View.GONE);
+                trainingsplantitleEditText.setVisibility(View.GONE);
 
                 FirebaseDatabase.getInstance().getReference("Users")
                         .child(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid())
@@ -435,19 +443,21 @@ public class ShowTrainingsplanActivity extends AppCompatActivity implements View
                 });
 
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
         });
     }
+
     private void breakEditingTrainingsplan() {
         addButton.setVisibility(View.GONE);
         breakButton.setVisibility(View.GONE);
         safeButton.setVisibility(View.GONE);
         editButton.setVisibility(View.VISIBLE);
         deleteButton.setVisibility(View.VISIBLE);
-        editTextTrainingsplantitle.setVisibility(View.GONE);
+        trainingsplantitleEditText.setVisibility(View.GONE);
         selectedTrainingsplan();
     }
 }

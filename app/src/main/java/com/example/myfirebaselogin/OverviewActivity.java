@@ -10,7 +10,7 @@ import android.widget.Button;
 
 import com.google.firebase.auth.FirebaseAuth;
 
-public class OverviewActivity extends AppCompatActivity implements View.OnClickListener{
+public class OverviewActivity extends AppCompatActivity implements View.OnClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +36,7 @@ public class OverviewActivity extends AppCompatActivity implements View.OnClickL
             }
         });
     }
+
     @SuppressLint("NonConstantResourceId")
     @Override
     public void onClick(View v) {
@@ -44,16 +45,16 @@ public class OverviewActivity extends AppCompatActivity implements View.OnClickL
                 startActivity(new Intent(this, ProfileActivty.class));
                 break;
             case R.id.explainexercisebutton_overview:
-                startActivity(new Intent (this, HowToOverviewActivity.class));
+                startActivity(new Intent(this, HowToOverviewActivity.class));
                 break;
             case R.id.createTrainingsplanbutton_overview:
-                startActivity(new Intent (this, CreateTrainingsplanActivity.class));
+                startActivity(new Intent(this, CreateTrainingsplanActivity.class));
                 break;
             case R.id.showTrainingsplanbutton_overview:
-                startActivity(new Intent (this, ShowTrainingsplanActivity.class));
+                startActivity(new Intent(this, ShowTrainingsplanActivity.class));
                 break;
             case R.id.starttrainingbutton_overview:
-                startActivity(new Intent (this, StartTrainingActivity.class));
+                startActivity(new Intent(this, StartTrainingActivity.class));
                 break;
 
         }

@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -47,6 +48,7 @@ public class CreateTrainingsplanActivity extends AppCompatActivity implements Vi
     private final List<String> exerciseDays = new ArrayList<>();
     private final ArrayList<Exercise> exerciseList = new ArrayList<>();
     private EditText trainingsplantitleEditText;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,10 +56,14 @@ public class CreateTrainingsplanActivity extends AppCompatActivity implements Vi
 
         addButton = (Button) findViewById(R.id.addbutton_createtrainingsplan);
         Button submitButton = (Button) findViewById(R.id.submitbutton_createtrainingsplan);
-        layoutList = findViewById(R.id.layoutlist_createtrainingsplan);
-        trainingsplantitleEditText = (EditText) findViewById(R.id.edittrainingsplantitle_createtrainingsplan);
+        ImageButton menuImageButton = (ImageButton) findViewById(R.id.menubutton_createtrainingsplan);
         addButton.setOnClickListener(this);
         submitButton.setOnClickListener(this);
+        menuImageButton.setOnClickListener(this);
+
+        layoutList = findViewById(R.id.layoutlist_createtrainingsplan);
+        trainingsplantitleEditText = (EditText) findViewById(R.id.edittrainingsplantitle_createtrainingsplan);
+
 
         exerciseNames.add("Übung");
         exerciseNames.add("Liegestütze");
@@ -81,17 +87,19 @@ public class CreateTrainingsplanActivity extends AppCompatActivity implements Vi
     @SuppressLint("NonConstantResourceId")
     @Override
     public void onClick(View v) {
-        switch(v.getId()){
+        switch (v.getId()) {
             case R.id.addbutton_createtrainingsplan:
                 addView();
-                break;  
+                break;
             case R.id.submitbutton_createtrainingsplan:
                 createTrainingsplan();
+                break;
+            case R.id.menubutton_createtrainingsplan:
+                startActivity(new Intent(this, OverviewActivity.class));
                 break;
         }
 
     }
-
 
 
     private void createTrainingsplan() {
@@ -113,28 +121,30 @@ public class CreateTrainingsplanActivity extends AppCompatActivity implements Vi
                 boolean existSuccessOneHundredTenPercentExtraWeight = true;
 
                 final String trainingsplantitle = trainingsplantitleEditText.getText().toString().trim();
-                for(int i=0;i<layoutList.getChildCount();i++){
+                for (int i = 0; i < layoutList.getChildCount(); i++) {
 
                     View exerciseView = layoutList.getChildAt(i);
 
-                    EditText editTextExtraWeight = (EditText)exerciseView.findViewById(R.id.editextraweight_rowaddexercise);
-                    AppCompatSpinner spinnerExercise = (AppCompatSpinner)exerciseView.findViewById(R.id.exercisename_rowaddexercise);
+                    EditText editTextExtraWeight = (EditText) exerciseView.findViewById(R.id.editextraweight_rowaddexercise);
+                    AppCompatSpinner spinnerExercise = (AppCompatSpinner) exerciseView.findViewById(R.id.exercisename_rowaddexercise);
                     AppCompatSpinner spinnerDays = (AppCompatSpinner) exerciseView.findViewById(R.id.dayname_rowaddexercise);
 
                     Exercise exercise = new Exercise();
 
-                    if(!editTextExtraWeight.getText().toString().equals("")){
+                    if (!editTextExtraWeight.getText().toString().equals("")) {
                         exercise.setExtraWeight(Double.parseDouble(editTextExtraWeight.getText().toString()));
-                    }else{
+                    } else {
                         exercise.setExtraWeight(0);
 
                     }
-                    if(spinnerExercise.getSelectedItemPosition()==0){
+                    if (spinnerExercise.getSelectedItemPosition() == 0) {
+                        exerciseList.clear();
                         editTextExtraWeight.setError("Bitte Übung auswählen");
                         editTextExtraWeight.requestFocus();
                         return;
                     }
-                    if(spinnerDays.getSelectedItemPosition()==0){
+                    if (spinnerDays.getSelectedItemPosition() == 0) {
+                        exerciseList.clear();
                         editTextExtraWeight.setError("Bitte Tag auswählen");
                         editTextExtraWeight.requestFocus();
                         return;
@@ -143,118 +153,111 @@ public class CreateTrainingsplanActivity extends AppCompatActivity implements Vi
 
                     exercise.setName(exerciseNames.get(spinnerExercise.getSelectedItemPosition()));
                     exercise.setDay(exerciseDays.get(spinnerDays.getSelectedItemPosition()));
-                    if(exercise.getName().equals("Liegestütze")){
-                        exercisePoints = (int) (pushUps*(1/userWeight*(userWeight+exercise.getExtraWeight())));
+                    if (exercise.getName().equals("Liegestütze")) {
+                        exercisePoints = (int) (pushUps * (1 / userWeight * (userWeight + exercise.getExtraWeight())));
                         exercise.setPoints(exercisePoints);
                     }
-                    if(exercise.getName().equals("Kniebeugen")){
-                        exercisePoints = (int) (squats*(1/userWeight*(userWeight+exercise.getExtraWeight())));
+                    if (exercise.getName().equals("Kniebeugen")) {
+                        exercisePoints = (int) (squats * (1 / userWeight * (userWeight + exercise.getExtraWeight())));
                         exercise.setPoints(exercisePoints);
                     }
-                    if(exercise.getName().equals("Klimmzüge")){
-                        exercisePoints = (int) (pullUps*(1/userWeight*(userWeight+exercise.getExtraWeight())));
+                    if (exercise.getName().equals("Klimmzüge")) {
+                        exercisePoints = (int) (pullUps * (1 / userWeight * (userWeight + exercise.getExtraWeight())));
                         exercise.setPoints(exercisePoints);
                     }
 
-                    if(exercise.getExtraWeight() >= userWeight*0.1){
+                    if (exercise.getExtraWeight() >= userWeight * 0.1) {
                         existSuccessTenPercentExtraWeight = false;
                     }
-                    if(exercise.getExtraWeight() >= userWeight*0.25){
+                    if (exercise.getExtraWeight() >= userWeight * 0.25) {
                         existSuccessTwentyFivePercentExtraWeight = false;
                     }
-                    if(exercise.getExtraWeight() >= userWeight*0.5){
+                    if (exercise.getExtraWeight() >= userWeight * 0.5) {
                         existSuccessFiftyPercentExtraWeight = false;
                     }
-                    if(exercise.getExtraWeight() >= userWeight*0.75){
+                    if (exercise.getExtraWeight() >= userWeight * 0.75) {
                         existSuccessSeventyFivePercentExtraWeight = false;
                     }
-                    if(exercise.getExtraWeight() >= userWeight){
+                    if (exercise.getExtraWeight() >= userWeight) {
                         existSuccessOneHundredPercentExtraWeight = false;
                     }
-                    if(exercise.getExtraWeight() >= userWeight*1.1){
+                    if (exercise.getExtraWeight() >= userWeight * 1.1) {
                         existSuccessOneHundredTenPercentExtraWeight = false;
                     }
 
                     exerciseList.add(exercise);
                 }
 
-                if(exerciseList.size()==0){
+                if (exerciseList.size() == 0) {
                     addButton.setError("Bitte zuerst eine Uebung hinzufuegen");
                     addButton.requestFocus();
                     return;
                 }
-                if(trainingsplantitle.isEmpty()){
+                if (trainingsplantitle.isEmpty()) {
                     trainingsplantitleEditText.setError("Bitte gib einen Titel ein");
                     trainingsplantitleEditText.requestFocus();
                     return;
                 }
 
-                for(Exercise e : exerciseList){
+                for (Exercise e : exerciseList) {
                     pointSum += e.getPoints();
                 }
-                Trainingsplan trainingsplan = new Trainingsplan(exerciseList,trainingsplantitle,pointSum);
+                Trainingsplan trainingsplan = new Trainingsplan(exerciseList, trainingsplantitle, pointSum);
                 userProfile.addTrainingsplanToList(trainingsplan);
 
 
-
-                for( Successes s : userProfile.getSuccesses()){
-                    if(s.equals(Successes.CREATEFIRSTTRAININGSPLAN)){
+                for (Successes s : userProfile.getSuccesses()) {
+                    if (s.equals(Successes.CREATEFIRSTTRAININGSPLAN)) {
                         existSuccessCreateFirstTrainingsplan = true;
-                    }
-                    else if(s.equals(Successes.TENPERCENTEXTRAWEIGHT)){
+                    } else if (s.equals(Successes.TENPERCENTEXTRAWEIGHT)) {
                         existSuccessTenPercentExtraWeight = true;
-                    }
-                    else if(s.equals(Successes.TWENTYFIVEPERCENTEXTRAWEIGHT)){
+                    } else if (s.equals(Successes.TWENTYFIVEPERCENTEXTRAWEIGHT)) {
                         existSuccessTwentyFivePercentExtraWeight = true;
-                    }
-                    else if(s.equals(Successes.FIFTYPERCENTEXTRAWEIGHT)){
+                    } else if (s.equals(Successes.FIFTYPERCENTEXTRAWEIGHT)) {
                         existSuccessFiftyPercentExtraWeight = true;
-                    }
-                    else if(s.equals(Successes.SEVENTYFIVEPERCENTEXTRAWEIGHT)){
+                    } else if (s.equals(Successes.SEVENTYFIVEPERCENTEXTRAWEIGHT)) {
                         existSuccessSeventyFivePercentExtraWeight = true;
-                    }
-                    else if(s.equals(Successes.ONEHUNDREDPERCENTEXTRAWEIGHT)){
+                    } else if (s.equals(Successes.ONEHUNDREDPERCENTEXTRAWEIGHT)) {
                         existSuccessOneHundredPercentExtraWeight = true;
-                    }
-                    else if(s.equals(Successes.ONEHUNDREDTENPERCENTEXTRAWEIGHT)){
+                    } else if (s.equals(Successes.ONEHUNDREDTENPERCENTEXTRAWEIGHT)) {
                         existSuccessOneHundredTenPercentExtraWeight = true;
                     }
 
                 }
-                if(!existSuccessCreateFirstTrainingsplan){
+                if (!existSuccessCreateFirstTrainingsplan) {
                     userProfile.addSuccess(Successes.CREATEFIRSTTRAININGSPLAN);
                     userProfile.setPoints(userProfile.getPoints() + Successes.CREATEFIRSTTRAININGSPLAN.getPoints());
-                    Toast.makeText(CreateTrainingsplanActivity.this,"Neuer Erfolg freigeschalten",Toast.LENGTH_LONG).show();
+                    Toast.makeText(CreateTrainingsplanActivity.this, "Neuer Erfolg freigeschalten", Toast.LENGTH_LONG).show();
                 }
-                if(!existSuccessTenPercentExtraWeight){
+                if (!existSuccessTenPercentExtraWeight) {
                     userProfile.addSuccess(Successes.TENPERCENTEXTRAWEIGHT);
                     userProfile.setPoints(userProfile.getPoints() + Successes.TENPERCENTEXTRAWEIGHT.getPoints());
-                    Toast.makeText(CreateTrainingsplanActivity.this,"Neuer Erfolg freigeschalten",Toast.LENGTH_LONG).show();
+                    Toast.makeText(CreateTrainingsplanActivity.this, "Neuer Erfolg freigeschalten", Toast.LENGTH_LONG).show();
                 }
-                if(!existSuccessTwentyFivePercentExtraWeight){
+                if (!existSuccessTwentyFivePercentExtraWeight) {
                     userProfile.addSuccess(Successes.TWENTYFIVEPERCENTEXTRAWEIGHT);
                     userProfile.setPoints(userProfile.getPoints() + Successes.TWENTYFIVEPERCENTEXTRAWEIGHT.getPoints());
-                    Toast.makeText(CreateTrainingsplanActivity.this,"Neuer Erfolg freigeschalten",Toast.LENGTH_LONG).show();
+                    Toast.makeText(CreateTrainingsplanActivity.this, "Neuer Erfolg freigeschalten", Toast.LENGTH_LONG).show();
                 }
-                if(!existSuccessFiftyPercentExtraWeight){
+                if (!existSuccessFiftyPercentExtraWeight) {
                     userProfile.addSuccess(Successes.FIFTYPERCENTEXTRAWEIGHT);
                     userProfile.setPoints(userProfile.getPoints() + Successes.FIFTYPERCENTEXTRAWEIGHT.getPoints());
-                    Toast.makeText(CreateTrainingsplanActivity.this,"Neuer Erfolg freigeschalten",Toast.LENGTH_LONG).show();
+                    Toast.makeText(CreateTrainingsplanActivity.this, "Neuer Erfolg freigeschalten", Toast.LENGTH_LONG).show();
                 }
-                if(!existSuccessSeventyFivePercentExtraWeight){
+                if (!existSuccessSeventyFivePercentExtraWeight) {
                     userProfile.addSuccess(Successes.SEVENTYFIVEPERCENTEXTRAWEIGHT);
                     userProfile.setPoints(userProfile.getPoints() + Successes.SEVENTYFIVEPERCENTEXTRAWEIGHT.getPoints());
-                    Toast.makeText(CreateTrainingsplanActivity.this,"Neuer Erfolg freigeschalten",Toast.LENGTH_LONG).show();
+                    Toast.makeText(CreateTrainingsplanActivity.this, "Neuer Erfolg freigeschalten", Toast.LENGTH_LONG).show();
                 }
-                if(!existSuccessOneHundredPercentExtraWeight){
+                if (!existSuccessOneHundredPercentExtraWeight) {
                     userProfile.addSuccess(Successes.ONEHUNDREDPERCENTEXTRAWEIGHT);
                     userProfile.setPoints(userProfile.getPoints() + Successes.ONEHUNDREDPERCENTEXTRAWEIGHT.getPoints());
-                    Toast.makeText(CreateTrainingsplanActivity.this,"Neuer Erfolg freigeschalten",Toast.LENGTH_LONG).show();
+                    Toast.makeText(CreateTrainingsplanActivity.this, "Neuer Erfolg freigeschalten", Toast.LENGTH_LONG).show();
                 }
-                if(!existSuccessOneHundredTenPercentExtraWeight){
+                if (!existSuccessOneHundredTenPercentExtraWeight) {
                     userProfile.addSuccess(Successes.ONEHUNDREDTENPERCENTEXTRAWEIGHT);
                     userProfile.setPoints(userProfile.getPoints() + Successes.ONEHUNDREDTENPERCENTEXTRAWEIGHT.getPoints());
-                    Toast.makeText(CreateTrainingsplanActivity.this,"Neuer Erfolg freigeschalten",Toast.LENGTH_LONG).show();
+                    Toast.makeText(CreateTrainingsplanActivity.this, "Neuer Erfolg freigeschalten", Toast.LENGTH_LONG).show();
                 }
                 FirebaseDatabase.getInstance().getReference("Users")
                         .child(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid())
@@ -262,8 +265,8 @@ public class CreateTrainingsplanActivity extends AppCompatActivity implements Vi
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
-                            Toast.makeText(CreateTrainingsplanActivity.this, "Nutzer erfolgreich registriert", Toast.LENGTH_LONG).show();
-                            startActivity(new Intent(CreateTrainingsplanActivity.this, ProfileActivty.class));
+                            Toast.makeText(CreateTrainingsplanActivity.this, "Trainingsplan Erfolgreich angelegt", Toast.LENGTH_LONG).show();
+                            startActivity(new Intent(CreateTrainingsplanActivity.this, OverviewActivity.class));
 
                         } else {
                             Toast.makeText(CreateTrainingsplanActivity.this, "Registrierung fehlgeschlagen! Probiers nochmal", Toast.LENGTH_LONG).show();
@@ -272,6 +275,7 @@ public class CreateTrainingsplanActivity extends AppCompatActivity implements Vi
                 });
 
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
@@ -280,14 +284,14 @@ public class CreateTrainingsplanActivity extends AppCompatActivity implements Vi
     }
 
     private void addView() {
-        @SuppressLint("InflateParams") final View exerciseView = getLayoutInflater().inflate(R.layout.row_add_exercise,null,false);
+        @SuppressLint("InflateParams") final View exerciseView = getLayoutInflater().inflate(R.layout.row_add_exercise, null, false);
 
-        AppCompatSpinner spinnerExercise = (AppCompatSpinner)exerciseView.findViewById(R.id.exercisename_rowaddexercise);
-        AppCompatSpinner spinnerDay = (AppCompatSpinner)exerciseView.findViewById(R.id.dayname_rowaddexercise);
+        AppCompatSpinner spinnerExercise = (AppCompatSpinner) exerciseView.findViewById(R.id.exercisename_rowaddexercise);
+        AppCompatSpinner spinnerDay = (AppCompatSpinner) exerciseView.findViewById(R.id.dayname_rowaddexercise);
         TextView closeX = (TextView) exerciseView.findViewById(R.id.removebutton_rowaddexercise);
 
-        ArrayAdapter arrayAdapterExerciseName = new ArrayAdapter(this,android.R.layout.simple_spinner_item, exerciseNames);
-        ArrayAdapter arrayAdapterDayName = new ArrayAdapter(this,android.R.layout.simple_spinner_item, exerciseDays);
+        ArrayAdapter arrayAdapterExerciseName = new ArrayAdapter(this, android.R.layout.simple_spinner_item, exerciseNames);
+        ArrayAdapter arrayAdapterDayName = new ArrayAdapter(this, android.R.layout.simple_spinner_item, exerciseDays);
 
         spinnerExercise.setAdapter(arrayAdapterExerciseName);
         spinnerDay.setAdapter(arrayAdapterDayName);
@@ -299,6 +303,7 @@ public class CreateTrainingsplanActivity extends AppCompatActivity implements Vi
         });
         layoutList.addView(exerciseView);
     }
+
     private void removeView(View view) {
         layoutList.removeView(view);
     }

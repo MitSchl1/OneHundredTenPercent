@@ -9,14 +9,14 @@ public class User {
     private ArrayList<Successes> successes = new ArrayList<>();
     private int points;
 
-    public User(){
+    public User() {
 
     }
-    public User(String name, String mail, double weight){
+
+    public User(String name, String mail, double weight) {
         this.name = name;
         this.mail = mail;
         this.weight = weight;
-        //this.trainingsplanList = new ArrayList<Trainingsplan>();
     }
 
     public String getName() {
@@ -43,21 +43,24 @@ public class User {
         this.weight = weight;
     }
 
-    public  ArrayList<Trainingsplan> getTrainingsplanList() {
+    public ArrayList<Trainingsplan> getTrainingsplanList() {
         return trainingsplanList;
     }
 
-    public void setTrainingsplanList( ArrayList<Trainingsplan>trainingsplanList) {
+    public void setTrainingsplanList(ArrayList<Trainingsplan> trainingsplanList) {
         this.trainingsplanList = trainingsplanList;
     }
-    public void addTrainingsplanToList( Trainingsplan trainingsplan){
+
+    public void addTrainingsplanToList(Trainingsplan trainingsplan) {
         this.trainingsplanList.add(trainingsplan);
     }
-    public void removeTrainingsplanFromList(int index){
+
+    public void removeTrainingsplanFromList(int index) {
         this.trainingsplanList.remove(index);
     }
-    public void editTrainingsplan ( int index,Trainingsplan trainingsplan){
-        this.trainingsplanList.set(index,trainingsplan);
+
+    public void editTrainingsplan(int index, Trainingsplan trainingsplan) {
+        this.trainingsplanList.set(index, trainingsplan);
     }
 
     public ArrayList<Successes> getSuccesses() {
@@ -68,7 +71,7 @@ public class User {
         this.successes = successes;
     }
 
-    public void addSuccess( Successes s ){
+    public void addSuccess(Successes s) {
         this.successes.add(s);
     }
 

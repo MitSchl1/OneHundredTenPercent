@@ -10,16 +10,26 @@
         android:id="@+id/trainingsplantitlespinnerframelayout_starttraining"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="10dp"
-        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/menubutton_starttraining"
+        app:layout_constraintTop_toTopOf="@+id/menubutton_starttraining"
+        app:layout_constraintBottom_toBottomOf="@+id/menubutton_starttraining"
         >
         <androidx.appcompat.widget.AppCompatSpinner
             android:id="@+id/trainingsplantitlespinner_starttraining"
-            android:layout_width="380dp"
-            android:layout_height="70dp"></androidx.appcompat.widget.AppCompatSpinner>
+            android:layout_width="350dp"
+            android:layout_height="50dp"></androidx.appcompat.widget.AppCompatSpinner>
     </FrameLayout>
+    <ImageButton
+        android:id="@+id/menubutton_starttraining"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/ic_menu"
+        android:background="#ffffff"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="25dp"
+        android:layout_marginLeft="5dp"
+        android:contentDescription="menuicon" />
     <TextView
         android:layout_width="380dp"
         android:layout_height="70dp"

@@ -7,9 +7,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 public class HowToPushUpStepTwoActivity extends AppCompatActivity implements View.OnClickListener {
     Button prevStepButton, nextStepButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -19,6 +21,8 @@ public class HowToPushUpStepTwoActivity extends AppCompatActivity implements Vie
         prevStepButton.setOnClickListener(this);
         nextStepButton = (Button) findViewById(R.id.buttonNext_howtopushupsteptwo);
         nextStepButton.setOnClickListener(this);
+        ImageButton menuImageButton = (ImageButton) findViewById(R.id.menubutton_howtopushupsteptwo);
+        menuImageButton.setOnClickListener(this);
     }
 
     @SuppressLint("NonConstantResourceId")
@@ -29,6 +33,9 @@ public class HowToPushUpStepTwoActivity extends AppCompatActivity implements Vie
                 startActivity(new Intent(this, HowToPushUpStepOneActivity.class));
                 break;
             case R.id.buttonNext_howtopushupsteptwo:
+                startActivity(new Intent(this, OverviewActivity.class));
+                break;
+            case R.id.menubutton_howtopushupsteptwo:
                 startActivity(new Intent(this, OverviewActivity.class));
                 break;
         }

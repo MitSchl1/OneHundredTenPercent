@@ -6,6 +6,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 public class HowToOverviewActivity extends AppCompatActivity implements View.OnClickListener {
@@ -22,6 +23,8 @@ public class HowToOverviewActivity extends AppCompatActivity implements View.OnC
         pushupTextView.setOnClickListener(this);
         pullupTextView = (TextView) findViewById(R.id.pullup_howtooverview);
         pullupTextView.setOnClickListener(this);
+        ImageButton menuImageButton = (ImageButton) findViewById(R.id.menubutton_howtooverview);
+        menuImageButton.setOnClickListener(this);
 
 
     }
@@ -40,8 +43,9 @@ public class HowToOverviewActivity extends AppCompatActivity implements View.OnC
             case R.id.pullup_howtooverview:
                 startActivity(new Intent(this, HowToPullUpStepOneActivity.class));
                 break;
-
-
+            case R.id.menubutton_howtooverview:
+                startActivity(new Intent(this, OverviewActivity.class));
+                break;
         }
     }
 }

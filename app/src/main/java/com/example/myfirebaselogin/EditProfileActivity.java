@@ -12,6 +12,7 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -43,9 +44,13 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
         setContentView(R.layout.activity_edit_profile);
         TextView bannerTextView = (TextView) findViewById(R.id.banner_editprofile);
         bannerTextView.setOnClickListener(this);
+        TextView changePasswordTextView = (TextView) findViewById(R.id.changePassword_editprofile);
+        changePasswordTextView.setOnClickListener(this);
 
         editProfileButton = (Button) findViewById(R.id.editButton_editprofile);
         editProfileButton.setOnClickListener(this);
+        ImageButton menuImageButton = (ImageButton) findViewById(R.id.menubutton_editprofile);
+        menuImageButton.setOnClickListener(this);
 
         nameEditText = (EditText) findViewById(R.id.editusername_editprofile);
         emailEditText = (EditText) findViewById(R.id.edituseremail_editprofile);
@@ -62,12 +67,18 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
     @SuppressLint("NonConstantResourceId")
     @Override
     public void onClick(View v) {
-        switch(v.getId()){
+        switch (v.getId()) {
             case R.id.banner_editprofile:
-                startActivity( new Intent(this, MainActivity.class));
+                startActivity(new Intent(this, MainActivity.class));
                 break;
             case R.id.editButton_editprofile:
                 editUserProfile();
+                break;
+            case R.id.changePassword_editprofile:
+                startActivity(new Intent(this, ForgotPasswordActivity.class));
+                break;
+            case R.id.menubutton_editprofile:
+                startActivity(new Intent(this, OverviewActivity.class));
                 break;
 
         }
@@ -85,35 +96,34 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
                 String userName = nameEditText.getText().toString().trim();
                 String stringWeight = weightEditText.getText().toString().trim();
                 double userWeight = 0;
-                if(userProfile != null){
+                if (userProfile != null) {
 
                     String name = userProfile.getName();
                     String mail = userProfile.getMail();
                     double weight = userProfile.getWeight();
 
-                    if(userMail.isEmpty()){
+                    if (userMail.isEmpty()) {
                         userMail = mail;
-                    }else if (!Patterns.EMAIL_ADDRESS.matcher(userMail).matches()) {
+                    } else if (!Patterns.EMAIL_ADDRESS.matcher(userMail).matches()) {
                         emailEditText.setError("Bitte gültige Email angeben");
                         emailEditText.requestFocus();
                         return;
-                    }else if(userMail.equals(mail)){
+                    } else if (userMail.equals(mail)) {
                         emailEditText.setError("eingegebene Mail gleich der Mail");
                         emailEditText.requestFocus();
                         return;
-                    }
-                    else{
+                    } else {
                         FirebaseUser fUser = FirebaseAuth.getInstance().getCurrentUser();
                         assert fUser != null;
                         fUser.updateEmail(userMail);
                         fUser.sendEmailVerification();
                     }
-                    if(userName.isEmpty()){
+                    if (userName.isEmpty()) {
                         userName = name;
                     }
-                    if(stringWeight.isEmpty()){
+                    if (stringWeight.isEmpty()) {
                         userWeight = weight;
-                    }else{
+                    } else {
                         userWeight = Double.parseDouble(stringWeight);
                     }
                 }

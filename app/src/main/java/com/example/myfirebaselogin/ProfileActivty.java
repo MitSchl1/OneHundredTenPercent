@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.GridLayout;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,22 +33,13 @@ public class ProfileActivty extends AppCompatActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_activty);
 
-        Button logoutButton = (Button) findViewById(R.id.signoutbutton_profile);
-        logoutButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FirebaseAuth.getInstance().signOut();
-                startActivity(new Intent(ProfileActivty.this, MainActivity.class));
-
-            }
-        });
-
         gridLayoutList = findViewById(R.id.layoutlist_profile);
         gridLayoutList.setColumnCount(3);
-        TextView changePasswordTextView = (TextView) findViewById(R.id.changePassword_profile);
-        changePasswordTextView.setOnClickListener(this);
+
         Button editProfileButton = (Button) findViewById(R.id.editProfilebutton_profile);
         editProfileButton.setOnClickListener(this);
+        ImageButton menuImageButton = (ImageButton) findViewById(R.id.menubutton_profile);
+        menuImageButton.setOnClickListener(this);
 
         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         DatabaseReference dbReference = FirebaseDatabase.getInstance().getReference("Users");
@@ -93,64 +85,64 @@ public class ProfileActivty extends AppCompatActivity implements View.OnClickLis
             case R.id.editProfilebutton_profile:
                 startActivity(new Intent(this, EditProfileActivity.class));
                 break;
-
-            case R.id.changePassword_profile:
-                startActivity(new Intent(this, ForgotPasswordActivity.class));
+            case R.id.menubutton_profile:
+                startActivity(new Intent(this, OverviewActivity.class));
                 break;
+
         }
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public void getAllSuccesses(User user){
+    public void getAllSuccesses(User user) {
         boolean existSuccessOneHundredPoints = false;
         boolean existSuccessTwoHundredFiftyPoints = false;
         boolean existSuccessFiveHundredPoints = false;
         boolean existSuccessOneThousandPoints = false;
 
-        for(Successes s : user.getSuccesses()){
-            if(s.equals(Successes.ONEHUNDREDPOINTS)){
+        for (Successes s : user.getSuccesses()) {
+            if (s.equals(Successes.ONEHUNDREDPOINTS)) {
                 existSuccessOneHundredPoints = true;
-            }else if(s.equals(Successes.TWOHUNDREDFIFTYPOINTS)){
+            } else if (s.equals(Successes.TWOHUNDREDFIFTYPOINTS)) {
                 existSuccessTwoHundredFiftyPoints = true;
-            }else if(s.equals(Successes.FIVEHUNDREDPOINTS)){
+            } else if (s.equals(Successes.FIVEHUNDREDPOINTS)) {
                 existSuccessFiveHundredPoints = true;
-            }else if (s.equals(Successes.ONETHOUSANDPOINTS)){
+            } else if (s.equals(Successes.ONETHOUSANDPOINTS)) {
                 existSuccessOneThousandPoints = true;
             }
         }
 
-        if(user.getPoints() >= 100){
-            if(!existSuccessOneHundredPoints){
+        if (user.getPoints() >= 100) {
+            if (!existSuccessOneHundredPoints) {
                 user.addSuccess(Successes.ONEHUNDREDPOINTS);
-                user.setPoints(user.getPoints()+Successes.ONEHUNDREDPOINTS.getPoints());
-                Toast.makeText(ProfileActivty.this,"Neuer Erfolg freigeschalten",Toast.LENGTH_LONG).show();
+                user.setPoints(user.getPoints() + Successes.ONEHUNDREDPOINTS.getPoints());
+                Toast.makeText(ProfileActivty.this, "Neuer Erfolg freigeschalten", Toast.LENGTH_LONG).show();
 
             }
         }
-        if(user.getPoints() >= 250){
-            if(!existSuccessTwoHundredFiftyPoints){
+        if (user.getPoints() >= 250) {
+            if (!existSuccessTwoHundredFiftyPoints) {
                 user.addSuccess(Successes.TWOHUNDREDFIFTYPOINTS);
-                user.setPoints(user.getPoints()+Successes.TWOHUNDREDFIFTYPOINTS.getPoints());
-                Toast.makeText(ProfileActivty.this,"Neuer Erfolg freigeschalten",Toast.LENGTH_LONG).show();
+                user.setPoints(user.getPoints() + Successes.TWOHUNDREDFIFTYPOINTS.getPoints());
+                Toast.makeText(ProfileActivty.this, "Neuer Erfolg freigeschalten", Toast.LENGTH_LONG).show();
 
             }
         }
-        if(user.getPoints() >= 500){
-            if(!existSuccessFiveHundredPoints){
+        if (user.getPoints() >= 500) {
+            if (!existSuccessFiveHundredPoints) {
                 user.addSuccess(Successes.FIVEHUNDREDPOINTS);
-                user.setPoints(user.getPoints()+Successes.FIVEHUNDREDPOINTS.getPoints());
-                Toast.makeText(ProfileActivty.this,"Neuer Erfolg freigeschalten",Toast.LENGTH_LONG).show();
+                user.setPoints(user.getPoints() + Successes.FIVEHUNDREDPOINTS.getPoints());
+                Toast.makeText(ProfileActivty.this, "Neuer Erfolg freigeschalten", Toast.LENGTH_LONG).show();
             }
         }
-        if(user.getPoints() >= 1000){
-            if(!existSuccessOneThousandPoints){
+        if (user.getPoints() >= 1000) {
+            if (!existSuccessOneThousandPoints) {
                 user.addSuccess(Successes.ONETHOUSANDPOINTS);
-                user.setPoints(user.getPoints()+Successes.ONETHOUSANDPOINTS.getPoints());
-                Toast.makeText(ProfileActivty.this,"Neuer Erfolg freigeschalten",Toast.LENGTH_LONG).show();
+                user.setPoints(user.getPoints() + Successes.ONETHOUSANDPOINTS.getPoints());
+                Toast.makeText(ProfileActivty.this, "Neuer Erfolg freigeschalten", Toast.LENGTH_LONG).show();
             }
         }
 
-        for(Successes s : user.getSuccesses()){
+        for (Successes s : user.getSuccesses()) {
             final View successesView = getLayoutInflater().inflate(R.layout.row_successes, null, false);
 
             TextView successName = successesView.findViewById(R.id.success_rowsuccesses);

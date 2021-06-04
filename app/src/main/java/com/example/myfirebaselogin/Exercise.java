@@ -8,7 +8,7 @@ public class Exercise implements Serializable {
     private int points;
     private String day;
 
-    public Exercise(){
+    public Exercise() {
 
     }
 

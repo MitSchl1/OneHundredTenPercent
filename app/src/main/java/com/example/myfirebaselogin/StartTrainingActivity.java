@@ -11,6 +11,7 @@ import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -54,6 +55,8 @@ public class StartTrainingActivity extends AppCompatActivity implements View.OnC
         startButton.setOnClickListener(this);
         stopButton = (Button) findViewById(R.id.stopbutton_starttraining);
         stopButton.setOnClickListener(this);
+        ImageButton menuImageButton = (ImageButton) findViewById(R.id.menubutton_starttraining);
+        menuImageButton.setOnClickListener(this);
 
         listOfTrainingsplanNames.add("Trainingsplan auswählen");
         getTraininngsplanNames();
@@ -73,8 +76,11 @@ public class StartTrainingActivity extends AppCompatActivity implements View.OnC
                 startTraining();
                 break;
             case R.id.stopbutton_starttraining:
-                Toast.makeText(StartTrainingActivity.this,"Training frühzeitig beendet. Bitte passe deinen Trainingsplan an",Toast.LENGTH_LONG).show();
-                startActivity(new Intent(this,OverviewActivity.class));
+                Toast.makeText(StartTrainingActivity.this, "Training frühzeitig beendet. Bitte passe deinen Trainingsplan an", Toast.LENGTH_LONG).show();
+                startActivity(new Intent(this, OverviewActivity.class));
+                break;
+            case R.id.menubutton_starttraining:
+                startActivity(new Intent(this, OverviewActivity.class));
                 break;
         }
     }
@@ -87,7 +93,7 @@ public class StartTrainingActivity extends AppCompatActivity implements View.OnC
                 assert userProfile != null;
 
                 for (final Trainingsplan t : userProfile.getTrainingsplanList()) {
-                    if(traingsplanNameSpinner.getSelectedItem().toString().equals("Trainingsplan auswählen")){
+                    if (traingsplanNameSpinner.getSelectedItem().toString().equals("Trainingsplan auswählen")) {
                         startButton.setError("Bitte zuerst Trainingsplan auswählen");
                         startButton.requestFocus();
                         break;
@@ -112,9 +118,9 @@ public class StartTrainingActivity extends AppCompatActivity implements View.OnC
                             @Override
                             public void onFinish() {
                                 timerTextView.setVisibility(View.GONE);
-                                userProfile.setPoints(userProfile.getPoints()+ t.getPointSum());
+                                userProfile.setPoints(userProfile.getPoints() + t.getPointSum());
                                 Toast.makeText(getApplicationContext(), "Training beendet dir wurden " + t.getPointSum() + " Punkte gutgeschrieben", Toast.LENGTH_LONG).show();
-                                startActivity(new Intent(StartTrainingActivity.this,OverviewActivity.class));
+                                startActivity(new Intent(StartTrainingActivity.this, OverviewActivity.class));
                             }
                         }.start();
                     }

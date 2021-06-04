@@ -54,9 +54,9 @@ public class RegisterUserActivity extends AppCompatActivity implements View.OnCl
     @SuppressLint("NonConstantResourceId")
     @Override
     public void onClick(View v) {
-        switch(v.getId()){
+        switch (v.getId()) {
             case R.id.banner_registeruser:
-                startActivity( new Intent(this, MainActivity.class));
+                startActivity(new Intent(this, MainActivity.class));
                 break;
             case R.id.registerButton_registeruser:
                 registerUser();
@@ -98,12 +98,12 @@ public class RegisterUserActivity extends AppCompatActivity implements View.OnCl
             passwordEditText.requestFocus();
             return;
         }
-        if(stringWeight.isEmpty()){
+        if (stringWeight.isEmpty()) {
             weightEditText.setError("Bitte Gewicht eingeben");
             weightEditText.requestFocus();
             return;
         }
-        if(userWeight < 20 || userWeight > 300) {
+        if (userWeight < 20 || userWeight > 300) {
             weightEditText.setError("Bitte gültiges GEwicht eingeben");
             weightEditText.requestFocus();
             return;
