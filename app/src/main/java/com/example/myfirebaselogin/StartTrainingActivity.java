@@ -86,6 +86,11 @@ public class StartTrainingActivity extends AppCompatActivity implements View.OnC
     }
 
     public void startTraining() {
+
+        if(traingsplanNameSpinner.getSelectedItem().equals("Trainingsplan auswählen")){
+            Toast.makeText(getApplicationContext(),"Bitte zuerst einen Trainingsplan auswählen",Toast.LENGTH_SHORT).show();
+            return;
+        }
         dbReference.child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {

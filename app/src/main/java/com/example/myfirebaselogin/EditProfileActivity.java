@@ -109,7 +109,7 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
                         emailEditText.requestFocus();
                         return;
                     } else if (userMail.equals(mail)) {
-                        emailEditText.setError("eingegebene Mail gleich der Mail");
+                        emailEditText.setError("Eingegebene Email ist deine Email");
                         emailEditText.requestFocus();
                         return;
                     } else {
@@ -139,12 +139,12 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
-                            Toast.makeText(EditProfileActivity.this, "Nutzer erfolgreich registriert", Toast.LENGTH_LONG).show();
+                            Toast.makeText(EditProfileActivity.this, "Nutzerdaten erfolgreich editiert", Toast.LENGTH_LONG).show();
                             startActivity(new Intent(EditProfileActivity.this, ProfileActivty.class));
                             progressBar.setVisibility(View.GONE);
 
                         } else {
-                            Toast.makeText(EditProfileActivity.this, "Registrierung fehlgeschlagen! Probiers nochmal", Toast.LENGTH_LONG).show();
+                            Toast.makeText(EditProfileActivity.this, "Editierung fehlgeschlagen! Probiers nochmal", Toast.LENGTH_LONG).show();
                             progressBar.setVisibility(View.GONE);
                         }
                     }

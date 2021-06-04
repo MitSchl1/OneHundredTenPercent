@@ -104,7 +104,7 @@ public class RegisterUserActivity extends AppCompatActivity implements View.OnCl
             return;
         }
         if (userWeight < 20 || userWeight > 300) {
-            weightEditText.setError("Bitte gültiges GEwicht eingeben");
+            weightEditText.setError("Bitte gültiges Gewicht eingeben. Zwischen 20 & 300 kg");
             weightEditText.requestFocus();
             return;
         }

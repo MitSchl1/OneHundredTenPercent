@@ -227,37 +227,37 @@ public class CreateTrainingsplanActivity extends AppCompatActivity implements Vi
                 if (!existSuccessCreateFirstTrainingsplan) {
                     userProfile.addSuccess(Successes.CREATEFIRSTTRAININGSPLAN);
                     userProfile.setPoints(userProfile.getPoints() + Successes.CREATEFIRSTTRAININGSPLAN.getPoints());
-                    Toast.makeText(CreateTrainingsplanActivity.this, "Neuer Erfolg freigeschalten", Toast.LENGTH_LONG).show();
+                    Toast.makeText(CreateTrainingsplanActivity.this, "Neuer Erfolg freigeschalten", Toast.LENGTH_SHORT).show();
                 }
                 if (!existSuccessTenPercentExtraWeight) {
                     userProfile.addSuccess(Successes.TENPERCENTEXTRAWEIGHT);
                     userProfile.setPoints(userProfile.getPoints() + Successes.TENPERCENTEXTRAWEIGHT.getPoints());
-                    Toast.makeText(CreateTrainingsplanActivity.this, "Neuer Erfolg freigeschalten", Toast.LENGTH_LONG).show();
+                    Toast.makeText(CreateTrainingsplanActivity.this, "Neuer Erfolg freigeschalten", Toast.LENGTH_SHORT).show();
                 }
                 if (!existSuccessTwentyFivePercentExtraWeight) {
                     userProfile.addSuccess(Successes.TWENTYFIVEPERCENTEXTRAWEIGHT);
                     userProfile.setPoints(userProfile.getPoints() + Successes.TWENTYFIVEPERCENTEXTRAWEIGHT.getPoints());
-                    Toast.makeText(CreateTrainingsplanActivity.this, "Neuer Erfolg freigeschalten", Toast.LENGTH_LONG).show();
+                    Toast.makeText(CreateTrainingsplanActivity.this, "Neuer Erfolg freigeschalten", Toast.LENGTH_SHORT).show();
                 }
                 if (!existSuccessFiftyPercentExtraWeight) {
                     userProfile.addSuccess(Successes.FIFTYPERCENTEXTRAWEIGHT);
                     userProfile.setPoints(userProfile.getPoints() + Successes.FIFTYPERCENTEXTRAWEIGHT.getPoints());
-                    Toast.makeText(CreateTrainingsplanActivity.this, "Neuer Erfolg freigeschalten", Toast.LENGTH_LONG).show();
+                    Toast.makeText(CreateTrainingsplanActivity.this, "Neuer Erfolg freigeschalten", Toast.LENGTH_SHORT).show();
                 }
                 if (!existSuccessSeventyFivePercentExtraWeight) {
                     userProfile.addSuccess(Successes.SEVENTYFIVEPERCENTEXTRAWEIGHT);
                     userProfile.setPoints(userProfile.getPoints() + Successes.SEVENTYFIVEPERCENTEXTRAWEIGHT.getPoints());
-                    Toast.makeText(CreateTrainingsplanActivity.this, "Neuer Erfolg freigeschalten", Toast.LENGTH_LONG).show();
+                    Toast.makeText(CreateTrainingsplanActivity.this, "Neuer Erfolg freigeschalten", Toast.LENGTH_SHORT).show();
                 }
                 if (!existSuccessOneHundredPercentExtraWeight) {
                     userProfile.addSuccess(Successes.ONEHUNDREDPERCENTEXTRAWEIGHT);
                     userProfile.setPoints(userProfile.getPoints() + Successes.ONEHUNDREDPERCENTEXTRAWEIGHT.getPoints());
-                    Toast.makeText(CreateTrainingsplanActivity.this, "Neuer Erfolg freigeschalten", Toast.LENGTH_LONG).show();
+                    Toast.makeText(CreateTrainingsplanActivity.this, "Neuer Erfolg freigeschalten", Toast.LENGTH_SHORT).show();
                 }
                 if (!existSuccessOneHundredTenPercentExtraWeight) {
                     userProfile.addSuccess(Successes.ONEHUNDREDTENPERCENTEXTRAWEIGHT);
                     userProfile.setPoints(userProfile.getPoints() + Successes.ONEHUNDREDTENPERCENTEXTRAWEIGHT.getPoints());
-                    Toast.makeText(CreateTrainingsplanActivity.this, "Neuer Erfolg freigeschalten", Toast.LENGTH_LONG).show();
+                    Toast.makeText(CreateTrainingsplanActivity.this, "Neuer Erfolg freigeschalten", Toast.LENGTH_SHORT).show();
                 }
                 FirebaseDatabase.getInstance().getReference("Users")
                         .child(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid())
@@ -269,7 +269,7 @@ public class CreateTrainingsplanActivity extends AppCompatActivity implements Vi
                             startActivity(new Intent(CreateTrainingsplanActivity.this, OverviewActivity.class));
 
                         } else {
-                            Toast.makeText(CreateTrainingsplanActivity.this, "Registrierung fehlgeschlagen! Probiers nochmal", Toast.LENGTH_LONG).show();
+                            Toast.makeText(CreateTrainingsplanActivity.this, "Trainingsplan konnte nicht erstellt werden. Versuch es nochmal", Toast.LENGTH_LONG).show();
                         }
                     }
                 });
@@ -278,7 +278,7 @@ public class CreateTrainingsplanActivity extends AppCompatActivity implements Vi
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                Toast.makeText(CreateTrainingsplanActivity.this, "Da ist wohl was schief gelaufen. Versuch es nochmal", Toast.LENGTH_LONG).show();
             }
         });
     }

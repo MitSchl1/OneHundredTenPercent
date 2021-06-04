@@ -65,7 +65,7 @@ public class ForgotPasswordActivity extends AppCompatActivity implements View.On
                     startActivity(new Intent(ForgotPasswordActivity.this, MainActivity.class));
                     progressbar.setVisibility(View.GONE);
                 } else {
-                    Toast.makeText(ForgotPasswordActivity.this, " Probiers nochmal ", Toast.LENGTH_LONG).show();
+                    Toast.makeText(ForgotPasswordActivity.this, " Da ist wohl was Schief gelaufen. Probiers nochmal ", Toast.LENGTH_LONG).show();
                     progressbar.setVisibility(View.GONE);
                 }
             }

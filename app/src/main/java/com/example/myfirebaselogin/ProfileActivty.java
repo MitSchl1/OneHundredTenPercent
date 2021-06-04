@@ -15,6 +15,8 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -22,6 +24,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import java.util.Objects;
 
 public class ProfileActivty extends AppCompatActivity implements View.OnClickListener {
 
@@ -69,11 +73,12 @@ public class ProfileActivty extends AppCompatActivity implements View.OnClickLis
 
                     getAllSuccesses(userProfile);
                 }
+
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(ProfileActivty.this, "Da ist wohl was schiefgelaufen", Toast.LENGTH_LONG).show();
+                Toast.makeText(ProfileActivty.this, "Da ist wohl was schiefgelaufen.", Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -100,13 +105,16 @@ public class ProfileActivty extends AppCompatActivity implements View.OnClickLis
         boolean existSuccessOneThousandPoints = false;
 
         for (Successes s : user.getSuccesses()) {
-            if (s.equals(Successes.ONEHUNDREDPOINTS)) {
+            if (s.getName().equals(Successes.ONEHUNDREDPOINTS.getName())) {
                 existSuccessOneHundredPoints = true;
-            } else if (s.equals(Successes.TWOHUNDREDFIFTYPOINTS)) {
+            }
+            if (s.getName().equals(Successes.TWOHUNDREDFIFTYPOINTS.getName())) {
                 existSuccessTwoHundredFiftyPoints = true;
-            } else if (s.equals(Successes.FIVEHUNDREDPOINTS)) {
+            }
+            if (s.getName().equals(Successes.FIVEHUNDREDPOINTS.getName())) {
                 existSuccessFiveHundredPoints = true;
-            } else if (s.equals(Successes.ONETHOUSANDPOINTS)) {
+            }
+            if (s.getName().equals(Successes.ONETHOUSANDPOINTS.getName())) {
                 existSuccessOneThousandPoints = true;
             }
         }
@@ -115,35 +123,42 @@ public class ProfileActivty extends AppCompatActivity implements View.OnClickLis
             if (!existSuccessOneHundredPoints) {
                 user.addSuccess(Successes.ONEHUNDREDPOINTS);
                 user.setPoints(user.getPoints() + Successes.ONEHUNDREDPOINTS.getPoints());
-                Toast.makeText(ProfileActivty.this, "Neuer Erfolg freigeschalten", Toast.LENGTH_LONG).show();
-
+                Toast.makeText(ProfileActivty.this, "Neuer Erfolg freigeschalten", Toast.LENGTH_SHORT).show();
             }
         }
         if (user.getPoints() >= 250) {
             if (!existSuccessTwoHundredFiftyPoints) {
                 user.addSuccess(Successes.TWOHUNDREDFIFTYPOINTS);
                 user.setPoints(user.getPoints() + Successes.TWOHUNDREDFIFTYPOINTS.getPoints());
-                Toast.makeText(ProfileActivty.this, "Neuer Erfolg freigeschalten", Toast.LENGTH_LONG).show();
-
+                Toast.makeText(ProfileActivty.this, "Neuer Erfolg freigeschalten", Toast.LENGTH_SHORT).show();
             }
         }
         if (user.getPoints() >= 500) {
             if (!existSuccessFiveHundredPoints) {
                 user.addSuccess(Successes.FIVEHUNDREDPOINTS);
                 user.setPoints(user.getPoints() + Successes.FIVEHUNDREDPOINTS.getPoints());
-                Toast.makeText(ProfileActivty.this, "Neuer Erfolg freigeschalten", Toast.LENGTH_LONG).show();
+                Toast.makeText(ProfileActivty.this, "Neuer Erfolg freigeschalten", Toast.LENGTH_SHORT).show();
             }
         }
         if (user.getPoints() >= 1000) {
             if (!existSuccessOneThousandPoints) {
                 user.addSuccess(Successes.ONETHOUSANDPOINTS);
                 user.setPoints(user.getPoints() + Successes.ONETHOUSANDPOINTS.getPoints());
-                Toast.makeText(ProfileActivty.this, "Neuer Erfolg freigeschalten", Toast.LENGTH_LONG).show();
+                Toast.makeText(ProfileActivty.this, "Neuer Erfolg freigeschalten", Toast.LENGTH_SHORT).show();
             }
         }
-
+        FirebaseDatabase.getInstance().getReference("Users")
+                .child(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid())
+                .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (!task.isSuccessful()) {
+                    Toast.makeText(ProfileActivty.this, "Da ist wohl was Schief gelaufen", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
         for (Successes s : user.getSuccesses()) {
-            final View successesView = getLayoutInflater().inflate(R.layout.row_successes, null, false);
+            @SuppressLint("InflateParams") final View successesView = getLayoutInflater().inflate(R.layout.row_successes, null, false);
 
             TextView successName = successesView.findViewById(R.id.success_rowsuccesses);
             successName.setText(s.getName());

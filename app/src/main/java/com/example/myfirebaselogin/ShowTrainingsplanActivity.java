@@ -48,6 +48,7 @@ public class ShowTrainingsplanActivity extends AppCompatActivity implements View
     private Button addButton;
     private Button breakButton;
     private Button deleteButton;
+    private Button showButton;
     private EditText trainingsplantitleEditText;
 
     @Override
@@ -67,7 +68,7 @@ public class ShowTrainingsplanActivity extends AppCompatActivity implements View
         ArrayAdapter arrayAdapterTrainingsplanName = new ArrayAdapter(this, android.R.layout.simple_spinner_item, listOfTrainingsplanNames);
         traingsplanNameSpinner.setAdapter(arrayAdapterTrainingsplanName);
 
-        Button showButton = (Button) findViewById(R.id.showbutton_showtrainingsplan);
+        showButton = (Button) findViewById(R.id.showbutton_showtrainingsplan);
         showButton.setOnClickListener(this);
         editButton = (Button) findViewById(R.id.editbutton_showtrainingsplan);
         editButton.setOnClickListener(this);
@@ -112,7 +113,6 @@ public class ShowTrainingsplanActivity extends AppCompatActivity implements View
                 break;
             case R.id.safebutton_showtrainingsplan:
                 safeEditedTrainingsplan();
-                //selectedTrainingsplan();
                 break;
             case R.id.addbutton_showtrainingsplan:
                 addView();
@@ -200,7 +200,10 @@ public class ShowTrainingsplanActivity extends AppCompatActivity implements View
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 User userProfile = snapshot.getValue(User.class);
                 assert userProfile != null;
-
+                if(traingsplanNameSpinner.getSelectedItem().equals("Trainingsplan auswählen")){
+                    Toast.makeText(getApplicationContext(),"Bitte zuerst einen Trainingsplan auswählen",Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
                 for (Trainingsplan t : userProfile.getTrainingsplanList()) {
 

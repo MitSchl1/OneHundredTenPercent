@@ -103,7 +103,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         startActivity(new Intent(MainActivity.this, OverviewActivity.class));
                     } else {
                         user.sendEmailVerification();
-                        Toast.makeText(MainActivity.this, "Bitte verifizieren sie ihre mail", Toast.LENGTH_LONG).show();
+                        Toast.makeText(MainActivity.this, "Bitte Verifizieren sie ihre Email", Toast.LENGTH_LONG).show();
                         progressbar.setVisibility(View.GONE);
                     }
 
