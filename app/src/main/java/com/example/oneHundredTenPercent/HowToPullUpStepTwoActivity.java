@@ -1,4 +1,4 @@
-package com.example.myfirebaselogin;
+package com.example.oneHundredTenPercent;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -9,19 +9,19 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 
-public class HowToPushUpStepOneActivity extends AppCompatActivity implements View.OnClickListener {
+public class HowToPullUpStepTwoActivity extends AppCompatActivity implements View.OnClickListener {
     Button prevStepButton, nextStepButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_how_to_push_up_step_one);
+        setContentView(R.layout.activity_how_to_pull_up_step_two);
 
-        prevStepButton = (Button) findViewById(R.id.buttonPrev_howtopushupstepone);
+        prevStepButton = (Button) findViewById(R.id.buttonPrev_howtopullupsteptwo);
         prevStepButton.setOnClickListener(this);
-        nextStepButton = (Button) findViewById(R.id.buttonNext_howtopushupstepone);
+        nextStepButton = (Button) findViewById(R.id.buttonNext_howtopullupsteptwo);
         nextStepButton.setOnClickListener(this);
-        ImageButton menuImageButton = (ImageButton) findViewById(R.id.menubutton_howtopushupstepone);
+        ImageButton menuImageButton = (ImageButton) findViewById(R.id.menubutton_howtopullupsteptwo);
         menuImageButton.setOnClickListener(this);
     }
 
@@ -29,13 +29,13 @@ public class HowToPushUpStepOneActivity extends AppCompatActivity implements Vie
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.buttonPrev_howtopushupstepone:
-                startActivity(new Intent(this, HowToOverviewActivity.class));
+            case R.id.buttonPrev_howtopullupsteptwo:
+                startActivity(new Intent(this, HowToPullUpStepOneActivity.class));
                 break;
-            case R.id.buttonNext_howtopushupstepone:
-                startActivity(new Intent(this, HowToPushUpStepTwoActivity.class));
+            case R.id.buttonNext_howtopullupsteptwo:
+                startActivity(new Intent(this, OverviewActivity.class));
                 break;
-            case R.id.menubutton_howtopushupstepone:
+            case R.id.menubutton_howtopullupsteptwo:
                 startActivity(new Intent(this, OverviewActivity.class));
                 break;
         }

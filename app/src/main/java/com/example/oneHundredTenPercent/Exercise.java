@@ -1,4 +1,4 @@
-package com.example.myfirebaselogin;
+package com.example.oneHundredTenPercent;
 
 import java.io.Serializable;
 

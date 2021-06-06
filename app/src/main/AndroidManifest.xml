@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.myfirebaselogin">
+    package="com.example.oneHundredTenPercent">
 
     <application
         android:allowBackup="true"
@@ -9,22 +9,22 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name=".HowToSquatStepTwoActivity"/>
-        <activity android:name=".HowToSquatStepOneActivity" />
-        <activity android:name=".HowToPullUpStepTwoActivity" />
-        <activity android:name=".HowToPullUpStepOneActivity" />
-        <activity android:name=".HowToPushUpStepTwoActivity" />
-        <activity android:name=".HowToPushUpStepOneActivity" />
-        <activity android:name=".HowToOverviewActivity" />
-        <activity android:name=".StartTrainingActivity" />
-        <activity android:name=".ShowTrainingsplanActivity" />
-        <activity android:name=".CreateTrainingsplanActivity" />
-        <activity android:name=".EditProfileActivity" />
-        <activity android:name=".OverviewActivity" />
-        <activity android:name=".ForgotPasswordActivity" />
-        <activity android:name=".ProfileActivty" />
-        <activity android:name=".RegisterUserActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name="com.example.oneHundredTenPercent.HowToSquatStepTwoActivity"/>
+        <activity android:name="com.example.oneHundredTenPercent.HowToSquatStepOneActivity" />
+        <activity android:name="com.example.oneHundredTenPercent.HowToPullUpStepTwoActivity" />
+        <activity android:name="com.example.oneHundredTenPercent.HowToPullUpStepOneActivity" />
+        <activity android:name="com.example.oneHundredTenPercent.HowToPushUpStepTwoActivity" />
+        <activity android:name="com.example.oneHundredTenPercent.HowToPushUpStepOneActivity" />
+        <activity android:name="com.example.oneHundredTenPercent.HowToOverviewActivity" />
+        <activity android:name="com.example.oneHundredTenPercent.StartTrainingActivity" />
+        <activity android:name="com.example.oneHundredTenPercent.ShowTrainingsplanActivity" />
+        <activity android:name="com.example.oneHundredTenPercent.CreateTrainingsplanActivity" />
+        <activity android:name="com.example.oneHundredTenPercent.EditProfileActivity" />
+        <activity android:name="com.example.oneHundredTenPercent.OverviewActivity" />
+        <activity android:name="com.example.oneHundredTenPercent.ForgotPasswordActivity" />
+        <activity android:name="com.example.oneHundredTenPercent.ProfileActivty" />
+        <activity android:name="com.example.oneHundredTenPercent.RegisterUserActivity" />
+        <activity android:name="com.example.oneHundredTenPercent.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

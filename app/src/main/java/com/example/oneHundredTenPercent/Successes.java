@@ -1,6 +1,5 @@
-package com.example.myfirebaselogin;
+package com.example.oneHundredTenPercent;
 
-import android.graphics.Color;
 import android.os.Build;
 
 import androidx.annotation.RequiresApi;
