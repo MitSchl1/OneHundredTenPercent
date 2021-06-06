@@ -40,6 +40,7 @@
         android:layout_marginTop="20dp"
         android:text="Umfasse die Klimmzugstange, mit den Händen nach vorne zeigend, etwas mehr als Schulterbreit. Die Arme sind durgestreckt und der Oberkörper angespannt. Die Beine werden nach Hinten hinweg angewinkelt." />
 
+    <!--pullup.png wurde unter https://www.fitundattraktiv.de/klimmzuege-muskelgruppen-top-6-uebungen/ heruntergeladen -->
     <ImageView
         android:id="@+id/pushupimg_howtopullupstepone"
         android:layout_width="250dp"

@@ -88,12 +88,13 @@ public class RegisterUserActivity extends AppCompatActivity implements View.OnCl
             emailEditText.requestFocus();
             return;
         }
-        if (userPassword.isEmpty()) {
-            passwordEditText.setError("Bitte Email eingeben");
+        if (userPassword.isEmpty() ) {
+            passwordEditText.setError("Bitte Passwort eingeben");
             passwordEditText.requestFocus();
             return;
         }
-        if (userPassword.length() < 6) {
+
+        if (userPassword.length() < 10 ) {
             passwordEditText.setError("Passwort zu kurz");
             passwordEditText.requestFocus();
             return;

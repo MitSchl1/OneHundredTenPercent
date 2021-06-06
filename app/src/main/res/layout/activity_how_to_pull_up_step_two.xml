@@ -40,6 +40,9 @@
         android:layout_marginTop="20dp"
         android:text="Die Spannung wird gehalten. Nun wird der Körper nach oben gezogen, bis das Kinn oberhalb der Stange ist. Danach den Körper konzentriert und ohne Schwung wieder ablassen." />
 
+    <!--pullupanimated.gif wurde unter https://www.fitundattraktiv.de/klimmzuege-muskelgruppen-top-6-uebungen/ heruntergeladen -->
+    <!--pl.droidsonroids.gif.GifImageView wurde mit Hilfe https://github.com/koral- -/android-gif-drawable eingebunden -->
+
     <pl.droidsonroids.gif.GifImageView
         android:id="@+id/pushupimg_howtopullupsteptwo"
         android:layout_width="250dp"

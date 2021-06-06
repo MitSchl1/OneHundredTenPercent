@@ -41,6 +41,8 @@
         android:layout_marginTop="20dp"
         android:text="Die Beine sind durchgestreckt und zusammen. Die Hände befinden sich parallel unter den Schultern. Die Arme sind ebenfalls durchgestreckt. Der Bauch ist angespannt und der Rücken gerade. Der Po ist ebenfalls angespannt." />
 
+    <!--pushup.jpg wurde unter https://www.fitundattraktiv.de/liegestuetze-muskelaufbau-5-uebungen/ heruntergeladen -->
+
     <ImageView
         android:id="@+id/pushupimg_howtopushupstepone"
         android:layout_width="250dp"

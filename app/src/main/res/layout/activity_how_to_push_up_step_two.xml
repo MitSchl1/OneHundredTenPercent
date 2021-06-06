@@ -39,6 +39,9 @@
         android:layout_marginTop="20dp"
         android:text="Die Spannung der Ausgangsposition wird gehalten und der Körper wird soweit abgesenkt bis der Brustkorb den Boden berührt. Die Ellenbogen zeigen währendessen durchgehend nach hinten und nicht zur Seite. Nachdem  der Brustkorb den Boden berührt hat, wird sich wieder in die Ausgangsposition der Liegestütze gedrückt." />
 
+    <!--pushupanimated.gif wurde unter https://www.fitundattraktiv.de/liegestuetze-muskelaufbau-5-uebungen/ heruntergeladen -->
+    <!--pl.droidsonroids.gif.GifImageView wurde mit Hilfe https://github.com/koral- -/android-gif-drawable eingebunden -->
+
     <pl.droidsonroids.gif.GifImageView
         android:id="@+id/pushupimg_howtopushupsteptwo"
         android:layout_width="2500dp"

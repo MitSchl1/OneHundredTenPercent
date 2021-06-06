@@ -40,6 +40,9 @@
         android:layout_marginTop="20dp"
         android:text="Die Beine werden Schulterbreit aufgestellt und die Füße liegen komplett auf dem Boden auf. Die Arme zeigen nach vorne." />
 
+
+    <!--squat.png wurde unter https://www.fitundattraktiv.de/kniebeugen-muskelgruppen-die-4-wichtigsten/ heruntergeladen -->
+
     <ImageView
         android:id="@+id/pushupimg_howtosquatstepone"
         android:layout_width="250dp"

@@ -205,6 +205,9 @@ public class ShowTrainingsplanActivity extends AppCompatActivity implements View
                     return;
                 }
 
+                editButton.setVisibility(View.VISIBLE);
+                deleteButton.setVisibility(View.VISIBLE);
+
                 for (Trainingsplan t : userProfile.getTrainingsplanList()) {
 
                     if (t.getName().equals(traingsplanNameSpinner.getSelectedItem().toString())) {
@@ -232,9 +235,11 @@ public class ShowTrainingsplanActivity extends AppCompatActivity implements View
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(getApplicationContext(),"Da ist wohl etwas Schief gelaufen. Versuch es nochmal!",Toast.LENGTH_SHORT).show();
 
             }
         });
+
     }
 
     private void editCurrentTrainingsplan() {

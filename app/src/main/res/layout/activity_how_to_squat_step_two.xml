@@ -39,6 +39,9 @@
         android:layout_marginTop="20dp"
         android:text="Der Körper steht während der Übung unter Spannung und der Rücken bleibt gerade. Die Beine werden langsam und kontrolliert gebuegt, während der Oberkörper ein wenig nach vorne geneigt und der Po nach Hinten geschoben wird. Die Knie zeigen durchgehend in Richtung der Fußspitzen. Sobald die Oberschenkel parallel zum Boden sind, wird der Körper mit Druck über die Fersen wieder in Ausgangsstellung gebracht." />
 
+    <!--squatanimated.gif wurde unter https://www.fitundattraktiv.de/kniebeugen-muskelgruppen-die-4-wichtigsten/ heruntergeladen -->
+    <!--pl.droidsonroids.gif.GifImageView wurde mit Hilfe https://github.com/koral- -/android-gif-drawable eingebunden -->
+
     <pl.droidsonroids.gif.GifImageView
         android:id="@+id/pushupimg_howtosquatsteptwo"
         android:layout_width="2500dp"
